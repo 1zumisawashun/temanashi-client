@@ -13,7 +13,7 @@ export default function Navbar() {
       <ul>
         <li className="logo">
           <img src={Temple} alt="" />
-          <span>Management System</span>
+          <span>Temanashi</span>
         </li>
         {!user && (
           <>
