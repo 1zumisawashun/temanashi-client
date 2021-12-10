@@ -6,26 +6,57 @@ import ProjectFilter from "./ProjectFilter";
 import { useState } from "react";
 import { useAuthContext } from "../../hooks/useAuthContext";
 
-// export default function Dashboard() {
-export default function Dashboard() {
-  const { user } = useAuthContext();
-  const { documents, error }: { documents: any; error: any } = useCollection(
-    "projects"
-  );
-  const [currentFilter, setCurrentFilter] = useState<String>("all");
+type UseCollection = {
+  documents: Array<Document>;
+  error: String;
+};
 
-  const changeFilter = (newFilter: any) => {
+type TimeStamp = {
+  nanoseconds: number;
+  seconds: number;
+};
+
+type CreatedBy = {
+  displayName: String;
+  id: String;
+  photoURL: String;
+};
+type Comments = {
+  content: String;
+  createdAt: TimeStamp;
+  displayName: String;
+  id: Number;
+};
+
+type Document = {
+  assignedUsersList: Array<CreatedBy>;
+  category: String;
+  comments: Array<Comments>;
+  createdAt: TimeStamp;
+  createdBy: CreatedBy;
+  details: String;
+  dueDate: TimeStamp;
+  id: String;
+  name: String;
+};
+
+const Dashboard: React.FC = () => {
+  const { user } = useAuthContext();
+  const { documents, error }: UseCollection = useCollection("projects");
+  const [currentFilter, setCurrentFilter] = useState<String>("all");
+  console.log(documents);
+  const changeFilter = (newFilter: String) => {
     setCurrentFilter(newFilter);
   };
 
   const projects = documents
-    ? documents.filter((document: any) => {
+    ? documents.filter((document: Document) => {
         switch (currentFilter) {
           case "all":
             return true;
           case "mine":
             let assignedTome = false;
-            document.assignedUsersList.forEach((u: any) => {
+            document.assignedUsersList.forEach((u: CreatedBy) => {
               if (user.uid === u.id) {
                 assignedTome = true;
               }
@@ -44,7 +75,7 @@ export default function Dashboard() {
     : null;
 
   return (
-    <div>
+    <>
       <h2 className="page-title">Dashboard</h2>
       {error && <p className="error">{error}</p>}
       {documents && (
@@ -54,6 +85,8 @@ export default function Dashboard() {
         />
       )}
       {projects && <ProjectList projects={projects} />}
-    </div>
+    </>
   );
-}
+};
+
+export default Dashboard;

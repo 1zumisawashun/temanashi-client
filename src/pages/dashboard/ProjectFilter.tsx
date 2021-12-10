@@ -1,4 +1,4 @@
-const filterList = [
+const filterList: Array<string> = [
   "all",
   "mine",
   "development",
@@ -6,17 +6,22 @@ const filterList = [
   "design",
   "marketing",
 ];
-export default function ProjectFilter({ currentFilter, changeFilter }) {
-  const handleClick = (newFilter) => {
+
+type Props = {
+  currentFilter: String;
+  changeFilter: Function;
+};
+
+const ProjectFilter: React.FC<Props> = ({ currentFilter, changeFilter }) => {
+  const handleClick = (newFilter: String) => {
     changeFilter(newFilter);
-    console.log(newFilter);
   };
   return (
     <div className="project-filter">
       <nav>
         <p>FIlter by:</p>
         {filterList.map((f) => (
-          // 無名関数にする理由は？
+          // 無名関数にする理由は？→引数をとる際は無名関数にする
           <button
             key={f}
             onClick={() => handleClick(f)}
@@ -28,4 +33,6 @@ export default function ProjectFilter({ currentFilter, changeFilter }) {
       </nav>
     </div>
   );
-}
+};
+
+export default ProjectFilter;
