@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState, FormEvent } from "react";
 import "./Create.css";
 import Select from "react-select";
 import { useCollection } from "../../hooks/useCollection";
@@ -6,6 +6,7 @@ import { timestamp } from "../../firebase/config";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { useFirestore } from "../../hooks/useFirestore";
 import { useHistory } from "react-router-dom";
+import { CreatedBy } from "../../types/dashboard";
 
 const categories = [
   { value: "development", label: "Development" },
@@ -14,24 +15,30 @@ const categories = [
   { value: "marketing", label: "Marketing" },
 ];
 
-export default function Create() {
+type Option = {
+  value: any;
+  label: string;
+};
+
+const Create: React.FC = () => {
   const history = useHistory();
   const { addDocument, response } = useFirestore("projects");
   // convert [{...},{...}] and add props "value","label" to use Select component
   const { documents } = useCollection("users");
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState<Array<Option>>([]);
   const { user } = useAuthContext();
 
-  const [name, setName] = useState("");
-  const [details, setDetails] = useState("");
-  const [dueDate, setDueDate] = useState("");
-  const [category, setCategory] = useState("");
-  const [assignedUsers, setAssignedUser] = useState([]);
-  const [formError, setFromError] = useState(null);
+  // FIXME: any型を潰す
+  const [name, setName] = useState<string>("");
+  const [details, setDetails] = useState<string>("");
+  const [dueDate, setDueDate] = useState<any>("");
+  const [category, setCategory] = useState<Option | null>(null);
+  const [assignedUsers, setAssignedUser] = useState<Array<CreatedBy>>([]);
+  const [formError, setFromError] = useState<string | null>(null);
 
   useEffect(() => {
     if (documents) {
-      const options = documents.map((user) => {
+      const options = documents.map((user: any) => {
         return {
           value: user,
           label: user.displayName,
@@ -41,7 +48,7 @@ export default function Create() {
     }
   }, [documents]);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setFromError(null);
     if (!category) {
@@ -52,13 +59,13 @@ export default function Create() {
       setFromError("Please assign the project to at least 1 user");
     }
 
-    const createdBy = {
+    const createdBy: CreatedBy = {
       displayName: user.displayName,
       photoURL: user.photoURL,
       id: user.uid,
     };
 
-    const assignedUsersList = assignedUsers.map((u) => {
+    const assignedUsersList = assignedUsers.map((u: any) => {
       return {
         displayName: u.value.displayName,
         photoURL: u.value.photoURL,
@@ -98,7 +105,6 @@ export default function Create() {
           <span>Project details:</span>
           <textarea
             required
-            type="text"
             onChange={(e) => setDetails(e.target.value)}
             value={details}
           />
@@ -115,7 +121,6 @@ export default function Create() {
         <label>
           <span>Project category:</span>
           <Select
-            required
             onChange={(option) => setCategory(option)}
             options={categories}
           />
@@ -123,7 +128,7 @@ export default function Create() {
         <label>
           <span>Assign to:</span>
           <Select
-            onChange={(option) => setAssignedUser(option)}
+            onChange={(option: any) => setAssignedUser(option)}
             options={users}
             isMulti
           />
@@ -133,4 +138,6 @@ export default function Create() {
       </form>
     </div>
   );
-}
+};
+
+export default Create;
