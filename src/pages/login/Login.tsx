@@ -1,13 +1,14 @@
+import React, { FormEvent } from "react";
 import { useState } from "react";
 import { useLogin } from "../../hooks/useLogin";
 import "./Login.css";
 
-export default function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+const Login: React.FC = () => {
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
   const { login, error, isPending } = useLogin();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     login(email, password);
   };
@@ -42,4 +43,6 @@ export default function Login() {
       {error && <div className="error">{error}</div>}
     </form>
   );
-}
+};
+
+export default Login;
