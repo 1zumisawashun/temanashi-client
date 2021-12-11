@@ -1,24 +1,27 @@
-import { useState } from "react";
+import React, { FormEvent, useState } from "react";
 import { useSignup } from "../../hooks/useSignup";
 import "./Signup.css";
 
-export default function Signup() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [displayName, setDisplayName] = useState("");
-  const [thumbnail, setThumbnail] = useState(null);
-  const [thumbnailError, setThumbnailError] = useState(null);
+const Signup: React.FC = () => {
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [displayName, setDisplayName] = useState<string>("");
+  const [thumbnail, setThumbnail] = useState<File | null>(null);
+  const [thumbnailError, setThumbnailError] = useState<string | null>(null);
   const { signup, isPending, error } = useSignup();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     signup(email, password, displayName, thumbnail);
   };
 
-  const handleFileChange = (e) => {
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setThumbnail(null);
-    let selected = e.target.files[0];
-    console.log(selected);
+    let selected;
+    // NOTE:型定義のnullエラー対策
+    if (e.target.files !== null) {
+      selected = e.target.files[0];
+    }
     if (!selected) {
       setThumbnailError("please select a file");
       return;
@@ -79,4 +82,6 @@ export default function Signup() {
       {error && <div className="error">{error}</div>}
     </form>
   );
-}
+};
+
+export default Signup;
