@@ -5,40 +5,7 @@ import "./Dashboard.css";
 import ProjectFilter from "./ProjectFilter";
 import { useState } from "react";
 import { useAuthContext } from "../../hooks/useAuthContext";
-
-type UseCollection = {
-  documents: Array<Document>;
-  error: String;
-};
-
-type TimeStamp = {
-  nanoseconds: number;
-  seconds: number;
-};
-
-type CreatedBy = {
-  displayName: String;
-  id: String;
-  photoURL: String;
-};
-type Comments = {
-  content: String;
-  createdAt: TimeStamp;
-  displayName: String;
-  id: Number;
-};
-
-type Document = {
-  assignedUsersList: Array<CreatedBy>;
-  category: String;
-  comments: Array<Comments>;
-  createdAt: TimeStamp;
-  createdBy: CreatedBy;
-  details: String;
-  dueDate: TimeStamp;
-  id: String;
-  name: String;
-};
+import { UseCollection, Document, CreatedBy } from "../../types/dashboard";
 
 const Dashboard: React.FC = () => {
   const { user } = useAuthContext();
