@@ -1,26 +1,37 @@
-import { useState } from "react";
+import { useState, FormEvent } from "react";
 import Avatar from "../../components/Avatar";
 import { timestamp } from "../../firebase/config";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { useFirestore } from "../../hooks/useFirestore";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
+import { Comment, Project } from "../../types/dashboard";
 
-export default function ProjectComments({ project }) {
+type Props = {
+  project: Project;
+};
+type CommentToAdd = {
+  displayName: string;
+  photoURL: string;
+  content: string;
+  createdAt?: any;
+  id: number;
+};
+const ProjectComments: React.FC<Props> = ({ project }) => {
   const { updateDocument, response } = useFirestore("projects");
   const [newComment, setNewComment] = useState("");
   const { user } = useAuthContext();
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    const commentToAdd = {
+    const commentToAdd: CommentToAdd = {
       displayName: user.displayName,
       photoURL: user.photoURL,
       content: newComment,
+      // firebase.firestore.Timestamp.fromDate メソッドでTimestamp型に変換できる
       createdAt: timestamp.fromDate(new Date()),
       id: Math.random(),
       // FIXME:被る可能性があるのでuuidに変更する
     };
     console.log(commentToAdd);
-    console.log(project.comments);
     await updateDocument(project.id, {
       // スプレッド構文を使ってcommentArrayに追加で上書きする
       comments: [...project.comments, commentToAdd],
@@ -34,7 +45,7 @@ export default function ProjectComments({ project }) {
       <h4>Project Comments</h4>
       <ul>
         {project.comments.length > 0 &&
-          project.comments.map((comment) => (
+          project.comments.map((comment: Comment) => (
             <li key={comment.id}>
               <div className="comment-auther">
                 <Avatar src={comment.photoURL} />
@@ -42,6 +53,7 @@ export default function ProjectComments({ project }) {
               </div>
               <div className="comment-date">
                 <p>
+                  {/* @ts-ignore */}
                   {formatDistanceToNow(comment.createdAt.toDate(), {
                     addSuffix: true,
                   })}
@@ -66,4 +78,6 @@ export default function ProjectComments({ project }) {
       </form>
     </div>
   );
-}
+};
+
+export default ProjectComments;
