@@ -5,8 +5,9 @@ import { useAuthContext } from "../hooks/useAuthContext";
 import "./Sidebar.css";
 import DashboardIcon from "../assets/dashboard_icon.svg";
 import AddIcon from "../assets/add_icon.svg";
+import React from "react";
 
-export default function Sidebar() {
+const Sidebar: React.FC = () => {
   const { user } = useAuthContext();
   return (
     <div className="sidebar">
@@ -34,4 +35,6 @@ export default function Sidebar() {
       </div>
     </div>
   );
-}
+};
+
+export default Sidebar;
