@@ -2,12 +2,18 @@ import Avatar from "../../components/Avatar";
 import { useFirestore } from "../../hooks/useFirestore";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { useHistory } from "react-router-dom";
+import { Project } from "../../types/dashboard";
+import React, { FormEvent } from "react";
 
-export default function ProjectSummary({ project }) {
+type Props = {
+  project: Project;
+};
+
+const ProjectSummary: React.FC<Props> = ({ project }) => {
   const { deleteDocument } = useFirestore("projects");
   const { user } = useAuthContext();
   const history = useHistory();
-  const handleClick = (e) => {
+  const handleClick = (e: FormEvent) => {
     deleteDocument(project.id);
     history.push("/");
   };
@@ -36,4 +42,5 @@ export default function ProjectSummary({ project }) {
       )}
     </div>
   );
-}
+};
+export default ProjectSummary;
