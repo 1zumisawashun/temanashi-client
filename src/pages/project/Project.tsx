@@ -5,7 +5,7 @@ import "./Project.css";
 import ProjectComments from "./ProjectComments";
 
 export default function Project() {
-  const { id } = useParams();
+  const { id }: { id: string } = useParams();
   const { error, document } = useDocument("projects", id);
   if (error) {
     return <div className="error">{error}</div>;
