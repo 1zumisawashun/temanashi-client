@@ -5,9 +5,9 @@ import { useAuthContext } from "../hooks/useAuthContext";
 import "./Sidebar.css";
 import DashboardIcon from "../assets/dashboard_icon.svg";
 import AddIcon from "../assets/add_icon.svg";
-import React from "react";
+import { FC } from "react";
 
-const Sidebar: React.FC = () => {
+const Sidebar: FC = () => {
   const { user } = useAuthContext();
   return (
     <div className="sidebar">

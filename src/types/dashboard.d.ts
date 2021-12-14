@@ -1,5 +1,6 @@
 import { firebase } from "../firebase/config";
 
+// 必ずしもprojectsかusersか不明なためanyにするconverterを導入した方が良い
 export type UseCollection = {
   documents: Array<any> | null;
   error: string | null;

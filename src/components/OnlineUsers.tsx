@@ -2,8 +2,9 @@ import "./OnlineUsers.css";
 import { useCollection } from "../hooks/useCollection";
 import Avatar from "../components/Avatar";
 import { CreatedUser } from "../types/dashboard";
+import { FC } from "react";
 
-const OnlineUsers: React.FC = () => {
+const OnlineUsers: FC = () => {
   const { error, documents } = useCollection("users");
   console.log(documents);
   return (

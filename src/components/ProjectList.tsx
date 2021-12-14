@@ -1,14 +1,14 @@
 import { Link } from "react-router-dom";
 import Avatar from "./Avatar";
 import "./ProjectList.css";
-import React from "react";
+import { FC } from "react";
 import { Project } from "../types/dashboard";
 
 type Props = {
   projects: Array<Project>;
 };
 
-const ProjectList: React.FC<Props> = ({ projects }) => {
+const ProjectList: FC<Props> = ({ projects }) => {
   return (
     <div className="project-list">
       {projects.length === 0 && <p>No projects yet!</p>}

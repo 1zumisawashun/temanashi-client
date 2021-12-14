@@ -3,9 +3,9 @@ import "./Navbar.css";
 import Temple from "../assets/temple.svg";
 import { useLogout } from "../hooks/useLogout";
 import { useAuthContext } from "../hooks/useAuthContext";
-import React from "react";
+import { FC } from "react";
 
-const Navbar: React.FC = () => {
+const Navbar: FC = () => {
   const { logout, isPending } = useLogout();
   const { user } = useAuthContext();
 
