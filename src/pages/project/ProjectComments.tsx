@@ -4,18 +4,12 @@ import { timestamp } from "../../firebase/config";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { useFirestore } from "../../hooks/useFirestore";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
-import { Comment, Project } from "../../types/dashboard";
+import { Comment, CommentToAdd, Project } from "../../types/dashboard";
 
 type Props = {
   project: Project;
 };
-type CommentToAdd = {
-  displayName: string;
-  photoURL: string;
-  content: string;
-  createdAt?: any;
-  id: number;
-};
+
 const ProjectComments: React.FC<Props> = ({ project }) => {
   const { updateDocument, response } = useFirestore("projects");
   const [newComment, setNewComment] = useState("");
@@ -26,7 +20,6 @@ const ProjectComments: React.FC<Props> = ({ project }) => {
       displayName: user.displayName,
       photoURL: user.photoURL,
       content: newComment,
-      // firebase.firestore.Timestamp.fromDate メソッドでTimestamp型に変換できる
       createdAt: timestamp.fromDate(new Date()),
       id: Math.random(),
       // FIXME:被る可能性があるのでuuidに変更する
@@ -53,7 +46,6 @@ const ProjectComments: React.FC<Props> = ({ project }) => {
               </div>
               <div className="comment-date">
                 <p>
-                  {/* @ts-ignore */}
                   {formatDistanceToNow(comment.createdAt.toDate(), {
                     addSuffix: true,
                   })}

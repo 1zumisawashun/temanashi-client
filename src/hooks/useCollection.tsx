@@ -1,10 +1,16 @@
 import { useEffect, useState, useRef } from "react";
-import { projectFirestore } from "../firebase/config";
+import { firebase, projectFirestore } from "../firebase/config";
+import { UseCollection } from "../types/dashboard";
 
-export const useCollection = (collection, _query, _orderBy) => {
-  // NOTE:初期値にnullを入れるとバグる
-  const [documents, setDocuments] = useState([]);
-  const [error, setError] = useState("");
+type ref = firebase.firestore.CollectionReference<firebase.firestore.DocumentData>;
+
+export const useCollection = (
+  collection: string,
+  _query?: Array<string | number>,
+  _orderBy?: Array<string | number>
+): UseCollection => {
+  const [documents, setDocuments] = useState<Array<any>>([]);
+  const [error, setError] = useState<string | null>(null);
 
   // if we don't use a ref --> infinite loop in useEffect
   // _query is an array and is "different" on every function call
@@ -12,23 +18,23 @@ export const useCollection = (collection, _query, _orderBy) => {
   const orderBy = useRef(_orderBy).current;
 
   useEffect(() => {
-    let ref = projectFirestore.collection(collection);
-
+    let ref: ref = projectFirestore.collection(collection);
     if (query) {
+      // @ts-ignore
       ref = ref.where(...query);
     }
     if (orderBy) {
+      // @ts-ignore
       ref = ref.orderBy(...orderBy);
     }
 
     const unsubscribe = ref.onSnapshot(
       (snapshot) => {
-        let results = [];
+        let results: any = [];
         snapshot.docs.forEach((doc) => {
           results.push({ ...doc.data(), id: doc.id });
         });
 
-        // update state
         setDocuments(results);
         setError(null);
       },

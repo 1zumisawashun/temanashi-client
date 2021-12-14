@@ -5,7 +5,7 @@ import "./Dashboard.css";
 import ProjectFilter from "./ProjectFilter";
 import { useState } from "react";
 import { useAuthContext } from "../../hooks/useAuthContext";
-import { UseCollection, Document, CreatedBy } from "../../types/dashboard";
+import { UseCollection, Project, CreatedUser } from "../../types/dashboard";
 
 const Dashboard: React.FC = () => {
   const { user } = useAuthContext();
@@ -17,13 +17,13 @@ const Dashboard: React.FC = () => {
   };
 
   const projects = documents
-    ? documents.filter((document: Document) => {
+    ? documents.filter((document: Project) => {
         switch (currentFilter) {
           case "all":
             return true;
           case "mine":
             let assignedTome = false;
-            document.assignedUsersList.forEach((u: CreatedBy) => {
+            document.assignedUsersList.forEach((u: CreatedUser) => {
               if (user.uid === u.id) {
                 assignedTome = true;
               }

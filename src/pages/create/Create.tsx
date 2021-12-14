@@ -6,7 +6,7 @@ import { timestamp } from "../../firebase/config";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { useFirestore } from "../../hooks/useFirestore";
 import { useHistory } from "react-router-dom";
-import { CreatedBy } from "../../types/dashboard";
+import { CreatedUser } from "../../types/dashboard";
 
 const categories = [
   { value: "development", label: "Development" },
@@ -16,7 +16,7 @@ const categories = [
 ];
 
 type Option = {
-  value: any;
+  value: string;
   label: string;
 };
 
@@ -33,7 +33,7 @@ const Create: React.FC = () => {
   const [details, setDetails] = useState<string>("");
   const [dueDate, setDueDate] = useState<any>("");
   const [category, setCategory] = useState<Option | null>(null);
-  const [assignedUsers, setAssignedUser] = useState<Array<CreatedBy>>([]);
+  const [assignedUsers, setAssignedUser] = useState<Array<CreatedUser>>([]);
   const [formError, setFromError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -59,10 +59,11 @@ const Create: React.FC = () => {
       setFromError("Please assign the project to at least 1 user");
     }
 
-    const createdBy: CreatedBy = {
+    const createdBy: CreatedUser = {
       displayName: user.displayName,
       photoURL: user.photoURL,
       id: user.uid,
+      online: false,
     };
 
     const assignedUsersList = assignedUsers.map((u: any) => {
@@ -70,6 +71,7 @@ const Create: React.FC = () => {
         displayName: u.value.displayName,
         photoURL: u.value.photoURL,
         id: u.value.id,
+        online: false,
       };
     });
 

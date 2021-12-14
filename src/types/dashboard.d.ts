@@ -1,59 +1,41 @@
+import { firebase } from "../firebase/config";
+
 export type UseCollection = {
-  documents: Array<Document>;
-  error: String;
+  documents: Array<any> | null;
+  error: string | null;
 };
 
-// export type TimeStamp = {
-//   nanoseconds: number;
-//   seconds: number;
-// };
-
-export type CreatedBy = {
-  displayName: String;
+export type CreatedUser = {
+  displayName: string | null;
   id: string;
   online?: boolean;
-  photoURL: string;
-};
-
-export type Comments = {
-  content: String;
-  createdAt: TimeStamp;
-  displayName: String;
-  id: number;
   photoURL?: string;
 };
 
 export type Comment = {
-  content: String;
-  createdAt: Date;
-  displayName: String;
-  id: number;
+  displayName: string;
   photoURL?: string;
+  content: string;
+  createdAt: firebase.firestore.Timestamp;
+  id: number;
 };
 
-// FIXME:Documentに合わせてPickする
+export type CommentToAdd = {
+  displayName: string;
+  photoURL: string;
+  content: string;
+  createdAt: firebase.firestore.Timestamp;
+  id: number;
+};
+
 export type Project = {
-  assignedUsersList: Array<CreatedBy>;
-  category: String;
-  //Commentが異なる
+  assignedUsersList: Array<CreatedUser>;
+  category: string;
   comments: Array<Comment>;
-  createdAt: any;
-  createdBy: CreatedBy;
-  details: String;
-  dueDate: any;
+  createdAt: firebase.firestore.Timestamp;
+  createdBy: CreatedUser;
+  details: string;
+  dueDate: firebase.firestore.Timestamp;
   id: string;
-  name: String;
-};
-
-export type Document = {
-  assignedUsersList: Array<CreatedBy>;
-  category: String;
-  //Commentsが異なる
-  comments: Array<Comments>;
-  createdAt: TimeStamp;
-  createdBy: CreatedBy;
-  details: String;
-  dueDate: TimeStamp;
-  id: string;
-  name: String;
+  name: string;
 };
