@@ -16,7 +16,7 @@ export const useSignup = () => {
     email: string,
     password: string,
     displayName: string,
-    thumbnail: any
+    thumbnail: File
   ) => {
     setError(null);
     setIsPending(true);
