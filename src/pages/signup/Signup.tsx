@@ -12,6 +12,8 @@ const Signup: React.FC = () => {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
+    // nullチェックで早期リターン
+    if (thumbnail === null) return;
     signup(email, password, displayName, thumbnail);
   };
 
