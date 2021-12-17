@@ -61,7 +61,6 @@ export const useFirestore = (collection: string) => {
 
   // only dispatch is not cancelled
   const dispatchIfNotCancelled = (action: any) => {
-    console.log(action, "action");
     if (!isCancelled) {
       dispatch(action);
     }
