@@ -18,7 +18,7 @@ export const useLogout = () => {
       // update online status
       const { uid } = user;
       type addUser = Omit<User, "id">;
-      // FIXME:関係プロパティも追加・更新できてしまう
+      // FIXME:関係ないプロパティも追加・更新できてしまう
       await documentPoint<addUser>("users", uid).update({
         online: false,
       });

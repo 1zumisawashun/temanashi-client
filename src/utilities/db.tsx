@@ -2,7 +2,8 @@ import { firebase, projectFirestore } from "../firebase/config";
 import { User, ProjectType } from "../types/dashboard";
 
 const converter = <T,>() => ({
-  toFirestore: (data: Partial<T>) => data,
+  // toFirestore: (data: Partial<T>) => data,
+  toFirestore: (data: T) => data,
   fromFirestore: (snap: firebase.firestore.QueryDocumentSnapshot) =>
     snap.data() as T,
 });
@@ -18,7 +19,7 @@ const documentPoint = <T,>(collectionPath: string, docId: string) =>
 
 const db = {
   users: collectionPoint<User>("users"),
-  projects: collectionPoint<ProjectType>("prohects"),
+  projects: collectionPoint<ProjectType>("projects"),
 };
 
 export { collectionPoint, documentPoint, db };
