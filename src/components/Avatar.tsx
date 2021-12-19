@@ -1,4 +1,4 @@
-import "./Avatar.css";
+import "./Avatar.scss";
 import { FC } from "react";
 
 type Props = {
