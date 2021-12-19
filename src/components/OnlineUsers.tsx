@@ -5,8 +5,7 @@ import { CreatedUser } from "../types/dashboard";
 import { FC } from "react";
 
 const OnlineUsers: FC = () => {
-  const { error, documents } = useCollection("users");
-  console.log(documents);
+  const { error, documents } = useCollection<CreatedUser>("users");
   return (
     <div className="user-list">
       <h2>All Users</h2>
