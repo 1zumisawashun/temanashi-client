@@ -7,7 +7,7 @@ export const useCollection = <T,>(
   _query?: [string, WhereFilterOp, any],
   _orderBy?: [string, OrderByDirection]
 ) => {
-  const [documents, setDocuments] = useState([]);
+  const [documents, setDocuments] = useState<Array<T>>([]);
   const [error, setError] = useState<string | null>(null);
 
   // if we don't use a ref --> infinite loop in useEffect
@@ -17,7 +17,7 @@ export const useCollection = <T,>(
 
   useEffect(() => {
     let ref = collectionPoint<T>(collection);
-    if (ref !== null) {
+    if (ref !== undefined) {
       if (query) {
         ref = ref.where(...query) as firebase.firestore.CollectionReference<T>;
       }
@@ -29,7 +29,7 @@ export const useCollection = <T,>(
       }
       const unsubscribe = ref.onSnapshot(
         (snapshot) => {
-          let results: any = [];
+          let results: Array<T> = [];
           snapshot.docs.forEach((doc) => {
             results.push({ ...doc.data(), id: doc.id });
           });
@@ -41,7 +41,6 @@ export const useCollection = <T,>(
           setError("could not fetch the data");
         }
       );
-
       // unsubscribe on unmount and clean a function
       return () => unsubscribe();
     }

@@ -1,7 +1,6 @@
 import { firebase, projectFirestore } from "../firebase/config";
 import { User, ProjectType } from "../types/dashboard";
-// Import or define your types
-// import { YourType } from '~/@types'
+
 const converter = <T,>() => ({
   toFirestore: (data: Partial<T>) => data,
   fromFirestore: (snap: firebase.firestore.QueryDocumentSnapshot) =>
@@ -18,7 +17,6 @@ const documentPoint = <T,>(collectionPath: string, docId: string) =>
     .doc(docId);
 
 const db = {
-  // list your collections here
   users: collectionPoint<User>("users"),
   projects: collectionPoint<ProjectType>("prohects"),
 };
