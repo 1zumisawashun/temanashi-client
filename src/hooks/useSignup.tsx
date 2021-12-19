@@ -1,10 +1,8 @@
 import { useState, useEffect } from "react";
-import {
-  projectAuth,
-  projectFirestore,
-  projectStorage,
-} from "../firebase/config";
+import { projectAuth, projectStorage } from "../firebase/config";
 import { useAuthContext } from "./useAuthContext";
+import { documentPoint } from "../utilities/db";
+import { User } from "../types/dashboard";
 
 export const useSignup = () => {
   const [isCancelled, setIsCancelled] = useState(false);
@@ -40,8 +38,9 @@ export const useSignup = () => {
       // add display name to user
       await res.user?.updateProfile({ displayName, photoURL: imgUrl });
 
-      // create a user document
-      await projectFirestore.collection("users").doc(res.user?.uid).set({
+      type addUser = Omit<User, "id">;
+      if (res.user === null) return;
+      await documentPoint<addUser>("users", res.user?.uid).set({
         online: true,
         displayName,
         photoURL: imgUrl,

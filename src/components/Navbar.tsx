@@ -3,11 +3,16 @@ import "./Navbar.scss";
 import Temple from "../assets/temple.svg";
 import { useLogout } from "../hooks/useLogout";
 import { useAuthContext } from "../hooks/useAuthContext";
-import { FC } from "react";
+import { FC, FormEvent } from "react";
 
 const Navbar: FC = () => {
   const { logout, isPending } = useLogout();
   const { user } = useAuthContext();
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    logout();
+  };
 
   return (
     <div className="navbar">
@@ -30,7 +35,7 @@ const Navbar: FC = () => {
         {user && (
           <li>
             {!isPending && (
-              <button className="btn" onClick={logout}>
+              <button className="btn" onClick={handleSubmit}>
                 Logout
               </button>
             )}

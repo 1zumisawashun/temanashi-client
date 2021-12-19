@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
-import { projectAuth, projectFirestore } from "../firebase/config";
+import { projectAuth } from "../firebase/config";
 import { useAuthContext } from "./useAuthContext";
+import { documentPoint } from "../utilities/db";
+import { User } from "../types/dashboard";
 
 export const useLogout = () => {
   const [isCancelled, setIsCancelled] = useState(false);
@@ -15,10 +17,11 @@ export const useLogout = () => {
     try {
       // update online status
       const { uid } = user;
-      await projectFirestore
-        .collection("users")
-        .doc(uid)
-        .update({ online: false });
+      type addUser = Omit<User, "id">;
+      // FIXME:関係プロパティも追加・更新できてしまう
+      await documentPoint<addUser>("users", uid).update({
+        online: false,
+      });
 
       // sign the user out
       await projectAuth.signOut();

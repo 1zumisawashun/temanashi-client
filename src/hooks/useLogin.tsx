@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
-import { projectAuth, projectFirestore } from "../firebase/config";
+import { projectAuth } from "../firebase/config";
 import { useAuthContext } from "./useAuthContext";
+import { documentPoint } from "../utilities/db";
+import { User } from "../types/dashboard";
 
 export const useLogin = () => {
   const [isCancelled, setIsCancelled] = useState(false);
@@ -16,10 +18,11 @@ export const useLogin = () => {
       const res = await projectAuth.signInWithEmailAndPassword(email, password);
       // nullチェックで早期リターン
       if (res.user === null) return;
-      await projectFirestore
-        .collection("users")
-        .doc(res.user.uid)
-        .update({ online: true });
+      type addUser = Omit<User, "id">;
+      // FIXME:関係プロパティも追加・更新できてしまう
+      await documentPoint<addUser>("users", res.user.uid).update({
+        online: true,
+      });
 
       dispatch({ type: "LOGIN", payload: res.user });
 
