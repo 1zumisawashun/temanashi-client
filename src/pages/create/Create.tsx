@@ -24,7 +24,7 @@ const Create: React.FC = () => {
   const history = useHistory();
   const { addDocument, response } = useFirestore("projects");
   // convert [{...},{...}] and add props "value","label" to use Select component
-  const { documents } = useCollection("users");
+  const { documents } = useCollection<CreatedUser>("users");
   const [users, setUsers] = useState<Array<Option>>([]);
   const { user } = useAuthContext();
 

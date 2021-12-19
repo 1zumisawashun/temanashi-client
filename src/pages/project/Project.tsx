@@ -3,10 +3,12 @@ import { useDocument } from "../../hooks/useDocument";
 import ProjectSummary from "./ProjectSummary";
 import "./Project.css";
 import ProjectComments from "./ProjectComments";
+import { ProjectType } from "../../types/dashboard";
+import { FC } from "react";
 
-export default function Project() {
+const Project: FC = () => {
   const { id }: { id: string } = useParams();
-  const { error, document } = useDocument("projects", id);
+  const { error, document } = useDocument<ProjectType>("projects", id);
   if (error) {
     return <div className="error">{error}</div>;
   }
@@ -19,4 +21,5 @@ export default function Project() {
       <ProjectComments project={document} />
     </div>
   );
-}
+};
+export default Project;

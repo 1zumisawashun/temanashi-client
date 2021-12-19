@@ -1,23 +1,22 @@
-import React from "react";
+import { FC } from "react";
 import { useCollection } from "../../hooks/useCollection";
 import ProjectList from "../../components/ProjectList";
 import "./Dashboard.css";
 import ProjectFilter from "./ProjectFilter";
 import { useState } from "react";
 import { useAuthContext } from "../../hooks/useAuthContext";
-import { UseCollection, Project, CreatedUser } from "../../types/dashboard";
+import { ProjectType, CreatedUser } from "../../types/dashboard";
 
-const Dashboard: React.FC = () => {
+const Dashboard: FC = () => {
   const { user } = useAuthContext();
-  const { documents, error }: UseCollection = useCollection("projects");
+  const { documents, error } = useCollection<ProjectType>("projects");
   const [currentFilter, setCurrentFilter] = useState<String>("all");
-  console.log(documents);
   const changeFilter = (newFilter: String) => {
     setCurrentFilter(newFilter);
   };
 
   const projects = documents
-    ? documents.filter((document: Project) => {
+    ? documents.filter((document: ProjectType) => {
         switch (currentFilter) {
           case "all":
             return true;
