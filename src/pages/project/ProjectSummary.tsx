@@ -10,11 +10,11 @@ type Props = {
 };
 
 const ProjectSummary: React.FC<Props> = ({ project }) => {
-  const { deleteDocument } = useFirestore("projects");
+  const { deleteDocument } = useFirestore();
   const { user } = useAuthContext();
   const history = useHistory();
   const handleClick = (e: FormEvent) => {
-    deleteDocument(project.id);
+    deleteDocument<ProjectType>("projects", project.id);
     history.push("/");
   };
   // オプショナルチェーンを付けないとバグる。早期リターンを付与する

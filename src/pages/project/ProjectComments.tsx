@@ -11,7 +11,7 @@ type Props = {
 };
 
 const ProjectComments: React.FC<Props> = ({ project }) => {
-  const { updateDocument, response } = useFirestore("projects");
+  const { updateDocument, response } = useFirestore();
   const [newComment, setNewComment] = useState("");
   const { user } = useAuthContext();
   const handleSubmit = async (e: FormEvent) => {
@@ -25,7 +25,7 @@ const ProjectComments: React.FC<Props> = ({ project }) => {
       // FIXME:被る可能性があるのでuuidに変更する
     };
     console.log(commentToAdd);
-    await updateDocument(project.id, {
+    await updateDocument<ProjectType>("projects", project.id, {
       // スプレッド構文を使ってcommentArrayに追加で上書きする
       comments: [...project.comments, commentToAdd],
     });
