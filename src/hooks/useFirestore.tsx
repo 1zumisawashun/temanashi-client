@@ -1,9 +1,9 @@
 import { useReducer, useEffect, useState } from "react";
 import { projectFirestore, timestamp } from "../firebase/config";
-import { Project } from "../types/dashboard";
+import { ProjectType } from "../types/dashboard";
 
 type PickedProject = Pick<
-  Project,
+  ProjectType,
   | "assignedUsersList"
   | "category"
   | "comments"

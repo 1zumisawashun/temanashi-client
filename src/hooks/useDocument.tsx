@@ -1,34 +1,37 @@
 import { useEffect, useState } from "react";
-import { firebase, projectFirestore } from "../firebase/config";
+// import { projectFirestore } from "../firebase/config";
+import { documentPoint } from "../utilities/db";
 
-export const useDocument = (collection: any, id: any) => {
-  const [document, setDocument] = useState<any>(null);
+export const useDocument = <T,>(collection: string, docId: string) => {
+  const [document, setDocument] = useState<any>([]);
   const [error, setError] = useState<string | null>(null);
+  console.log(collection, docId, "yeahyeahyeahyeah");
 
   //real time data for document
   useEffect(() => {
-    const ref = projectFirestore.collection(collection).doc(id);
-    const unsubscribe = ref.onSnapshot(
-      (
-        snapshot: firebase.firestore.DocumentSnapshot<firebase.firestore.DocumentData>
-      ) => {
-        if (snapshot.data()) {
-          console.log(snapshot.data());
-          setDocument({ ...snapshot.data(), id: snapshot.id });
-          setError(null);
-        } else {
-          setError("no such socument exist");
-        }
-      },
-      (err) => {
-        console.log(err);
-        setError("failed to get document");
-      }
-    );
+    let ref = documentPoint<T>(collection, docId);
+    console.log(ref, "useDocument");
 
-    // clean a function
-    return () => unsubscribe();
-  }, [collection, id]);
+    if (ref !== undefined) {
+      const unsubscribe = ref.onSnapshot(
+        (snapshot) => {
+          if (snapshot) {
+            console.log(snapshot.data(), "snapshot.data()");
+            setDocument({ ...snapshot.data(), id: snapshot.id });
+            setError(null);
+          } else {
+            setError("no such socument exist");
+          }
+        },
+        (err) => {
+          console.log(err);
+          setError("failed to get document");
+        }
+      );
+      // clean a function
+      return () => unsubscribe();
+    }
+  }, [collection, docId]);
 
   return { document, error };
 };
