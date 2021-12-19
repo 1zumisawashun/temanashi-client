@@ -1,8 +1,8 @@
-import React, { FormEvent, useState } from "react";
+import { FC, FormEvent, useState } from "react";
 import { useSignup } from "../../hooks/useSignup";
-import "./Signup.css";
+import "./Signup.scss";
 
-const Signup: React.FC = () => {
+const Signup: FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [displayName, setDisplayName] = useState<string>("");

@@ -1,3 +1,4 @@
+import { FC } from "react";
 const filterList: Array<string> = [
   "all",
   "mine",
@@ -12,7 +13,7 @@ type Props = {
   changeFilter: Function;
 };
 
-const ProjectFilter: React.FC<Props> = ({ currentFilter, changeFilter }) => {
+const ProjectFilter: FC<Props> = ({ currentFilter, changeFilter }) => {
   const handleClick = (newFilter: String) => {
     changeFilter(newFilter);
   };

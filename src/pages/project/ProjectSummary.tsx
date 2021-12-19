@@ -3,13 +3,13 @@ import { useFirestore } from "../../hooks/useFirestore";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { useHistory } from "react-router-dom";
 import { ProjectType } from "../../types/dashboard";
-import React, { FormEvent } from "react";
+import { FC,FormEvent } from "react";
 
 type Props = {
   project: ProjectType;
 };
 
-const ProjectSummary: React.FC<Props> = ({ project }) => {
+const ProjectSummary: FC<Props> = ({ project }) => {
   const { deleteDocument } = useFirestore();
   const { user } = useAuthContext();
   const history = useHistory();
@@ -19,7 +19,7 @@ const ProjectSummary: React.FC<Props> = ({ project }) => {
   };
   // オプショナルチェーンを付けないとバグる。早期リターンを付与する
   return (
-    <div>
+    <div className="project-summary-container">
       <div className="project-summary">
         <h2 className="page-title">{project.name}</h2>
         <p>By {project.createdBy?.displayName}</p>

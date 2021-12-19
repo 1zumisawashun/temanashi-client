@@ -1,4 +1,4 @@
-import { useState, FormEvent } from "react";
+import { FC, useState, FormEvent } from "react";
 import Avatar from "../../components/Avatar";
 import { timestamp } from "../../firebase/config";
 import { useAuthContext } from "../../hooks/useAuthContext";
@@ -10,7 +10,7 @@ type Props = {
   project: ProjectType;
 };
 
-const ProjectComments: React.FC<Props> = ({ project }) => {
+const ProjectComments: FC<Props> = ({ project }) => {
   const { updateDocument, response } = useFirestore();
   const [newComment, setNewComment] = useState("");
   const { user } = useAuthContext();

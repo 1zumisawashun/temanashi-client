@@ -1,9 +1,9 @@
-import React, { FormEvent } from "react";
+import { FC, FormEvent } from "react";
 import { useState } from "react";
 import { useLogin } from "../../hooks/useLogin";
-import "./Login.css";
+import "./Login.scss";
 
-const Login: React.FC = () => {
+const Login: FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const { login, error, isPending } = useLogin();
