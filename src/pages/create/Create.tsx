@@ -1,4 +1,4 @@
-import React, { useEffect, useState, FormEvent } from "react";
+import { FC, useEffect, useState, FormEvent } from "react";
 import "./Create.css";
 import Select from "react-select";
 import { useCollection } from "../../hooks/useCollection";
@@ -6,7 +6,7 @@ import { timestamp } from "../../firebase/config";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { useFirestore } from "../../hooks/useFirestore";
 import { useHistory } from "react-router-dom";
-import { User } from "../../types/dashboard";
+import { ProjectType, User } from "../../types/dashboard";
 
 const categories = [
   { value: "development", label: "Development" },
@@ -15,33 +15,39 @@ const categories = [
   { value: "marketing", label: "Marketing" },
 ];
 
-type Option = {
-  value: string;
+type UserOp = {
+  value: User;
   label: string;
 };
 
-const Create: React.FC = () => {
+type CategoryOp = {
+  value: string;
+};
+
+type addProject = Omit<ProjectType, "id" | "createdAt">;
+
+const Create: FC = () => {
   const history = useHistory();
-  const { addDocument, response } = useFirestore("projects");
+  const { addDocument, response } = useFirestore();
   // convert [{...},{...}] and add props "value","label" to use Select component
   const { documents } = useCollection<User>("users");
-  const [users, setUsers] = useState<Array<Option>>([]);
+  const [users, setUsers] = useState<Array<UserOp>>([]);
   const { user } = useAuthContext();
 
   // FIXME: any型を潰す
   const [name, setName] = useState<string>("");
   const [details, setDetails] = useState<string>("");
   const [dueDate, setDueDate] = useState<any>("");
-  const [category, setCategory] = useState<Option | null>(null);
-  const [assignedUsers, setAssignedUser] = useState<Array<User>>([]);
+  const [category, setCategory] = useState<CategoryOp | null>(null);
+  const [assignedUsers, setAssignedUser] = useState<Array<UserOp>>([]);
   const [formError, setFromError] = useState<string | null>(null);
 
   useEffect(() => {
     if (documents) {
-      const options = documents.map((user: any) => {
+      const options = documents.map((user: User) => {
         return {
           value: user,
-          label: user.displayName,
+          label: user.displayName as string,
         };
       });
       setUsers(options);
@@ -66,14 +72,16 @@ const Create: React.FC = () => {
       online: false,
     };
 
-    const assignedUsersList = assignedUsers.map((u: any) => {
-      return {
-        displayName: u.value.displayName,
-        photoURL: u.value.photoURL,
-        id: u.value.id,
-        online: false,
-      };
-    });
+    const assignedUsersList = assignedUsers.map(
+      (u: UserOp): User => {
+        return {
+          displayName: u.value.displayName,
+          photoURL: u.value.photoURL,
+          id: u.value.id,
+          online: false,
+        };
+      }
+    );
 
     const project = {
       name,
@@ -85,7 +93,7 @@ const Create: React.FC = () => {
       assignedUsersList,
     };
 
-    await addDocument(project);
+    await addDocument<addProject>("projects", project);
     if (!response.error) {
       history.push("/");
     }
