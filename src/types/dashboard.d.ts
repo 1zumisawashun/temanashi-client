@@ -29,7 +29,7 @@ export type CommentToAdd = {
   id: number;
 };
 
-export type Project = {
+export type ProjectType = {
   assignedUsersList: Array<CreatedUser>;
   category: string;
   comments: Array<Comment>;

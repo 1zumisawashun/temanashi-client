@@ -2,17 +2,17 @@ import { Link } from "react-router-dom";
 import Avatar from "./Avatar";
 import "./ProjectList.css";
 import { FC } from "react";
-import { Project } from "../types/dashboard";
+import { ProjectType } from "../types/dashboard";
 
 type Props = {
-  projects: Array<Project>;
+  projects: Array<ProjectType>;
 };
 
 const ProjectList: FC<Props> = ({ projects }) => {
   return (
     <div className="project-list">
       {projects.length === 0 && <p>No projects yet!</p>}
-      {projects.map((project: Project) => (
+      {projects.map((project: ProjectType) => (
         <Link to={`/projects/${project.id}`} key={project.id}>
           <h4>{project.name}</h4>
           <p>Due by {project.dueDate.toDate().toDateString()}</p>
