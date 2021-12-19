@@ -1,5 +1,6 @@
 import { firebase } from "../firebase/config";
 
+// NOTE:CreatedByなどAssignedUserで使うためidを付与
 export type User = {
   displayName: string | null;
   id: string;
