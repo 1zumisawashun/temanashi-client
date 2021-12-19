@@ -1,5 +1,5 @@
 import { firebase, projectFirestore } from "../firebase/config";
-import { CreatedUser, ProjectType } from "../types/dashboard";
+import { User, ProjectType } from "../types/dashboard";
 // Import or define your types
 // import { YourType } from '~/@types'
 const converter = <T,>() => ({
@@ -19,7 +19,7 @@ const documentPoint = <T,>(collectionPath: string, docId: string) =>
 
 const db = {
   // list your collections here
-  users: collectionPoint<CreatedUser>("users"),
+  users: collectionPoint<User>("users"),
   projects: collectionPoint<ProjectType>("prohects"),
 };
 

@@ -6,7 +6,7 @@ import { timestamp } from "../../firebase/config";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { useFirestore } from "../../hooks/useFirestore";
 import { useHistory } from "react-router-dom";
-import { CreatedUser } from "../../types/dashboard";
+import { User } from "../../types/dashboard";
 
 const categories = [
   { value: "development", label: "Development" },
@@ -24,7 +24,7 @@ const Create: React.FC = () => {
   const history = useHistory();
   const { addDocument, response } = useFirestore("projects");
   // convert [{...},{...}] and add props "value","label" to use Select component
-  const { documents } = useCollection<CreatedUser>("users");
+  const { documents } = useCollection<User>("users");
   const [users, setUsers] = useState<Array<Option>>([]);
   const { user } = useAuthContext();
 
@@ -33,7 +33,7 @@ const Create: React.FC = () => {
   const [details, setDetails] = useState<string>("");
   const [dueDate, setDueDate] = useState<any>("");
   const [category, setCategory] = useState<Option | null>(null);
-  const [assignedUsers, setAssignedUser] = useState<Array<CreatedUser>>([]);
+  const [assignedUsers, setAssignedUser] = useState<Array<User>>([]);
   const [formError, setFromError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -59,7 +59,7 @@ const Create: React.FC = () => {
       setFromError("Please assign the project to at least 1 user");
     }
 
-    const createdBy: CreatedUser = {
+    const createdBy: User = {
       displayName: user.displayName,
       photoURL: user.photoURL,
       id: user.uid,

@@ -6,7 +6,7 @@ export type UseCollection = {
   error: string | null;
 };
 
-export type CreatedUser = {
+export type User = {
   displayName: string | null;
   id: string;
   online?: boolean;
@@ -30,11 +30,11 @@ export type CommentToAdd = {
 };
 
 export type ProjectType = {
-  assignedUsersList: Array<CreatedUser>;
+  assignedUsersList: Array<User>;
   category: string;
   comments: Array<Comment>;
   createdAt: firebase.firestore.Timestamp;
-  createdBy: CreatedUser;
+  createdBy: User;
   details: string;
   dueDate: firebase.firestore.Timestamp;
   id: string;

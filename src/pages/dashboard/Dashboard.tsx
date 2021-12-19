@@ -5,7 +5,7 @@ import "./Dashboard.css";
 import ProjectFilter from "./ProjectFilter";
 import { useState } from "react";
 import { useAuthContext } from "../../hooks/useAuthContext";
-import { ProjectType, CreatedUser } from "../../types/dashboard";
+import { ProjectType, User } from "../../types/dashboard";
 
 const Dashboard: FC = () => {
   const { user } = useAuthContext();
@@ -22,7 +22,7 @@ const Dashboard: FC = () => {
             return true;
           case "mine":
             let assignedTome = false;
-            document.assignedUsersList.forEach((u: CreatedUser) => {
+            document.assignedUsersList.forEach((u: User) => {
               if (user.uid === u.id) {
                 assignedTome = true;
               }
