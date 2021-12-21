@@ -32,21 +32,31 @@ const CommentModal: FC<Props> = ({ project, setToggleModal }) => {
     if (!response.error) {
       setNewComment("");
     }
+    closeModal();
+  };
+
+  const closeModal = () => {
     setToggleModal(false);
   };
 
   return (
-    <form className="add-comment" onSubmit={handleSubmit}>
-      <label>
-        <span>Add new comment:</span>
-        <textarea
-          required
-          onChange={(e) => setNewComment(e.target.value)}
-          value={newComment}
-        ></textarea>
-      </label>
-      <button className="btn">Add Comment</button>
-    </form>
+    <>
+      <div className="overlay"></div>
+      <form className="modal" onSubmit={handleSubmit}>
+        <label>
+          <span>Add new comment:</span>
+          <button className="close-modal" onClick={closeModal}>
+            &times;
+          </button>
+          <textarea
+            required
+            onChange={(e) => setNewComment(e.target.value)}
+            value={newComment}
+          ></textarea>
+        </label>
+        <button className="btn">Add Comment</button>
+      </form>
+    </>
   );
 };
 
