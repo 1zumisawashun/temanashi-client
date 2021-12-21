@@ -3,7 +3,8 @@ import { useFirestore } from "../../hooks/useFirestore";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { useHistory } from "react-router-dom";
 import { ProjectType } from "../../types/dashboard";
-import { FC,FormEvent } from "react";
+import { FC, FormEvent } from "react";
+import LikeButton from "../../components/LikeButton";
 
 type Props = {
   project: ProjectType;
@@ -35,6 +36,7 @@ const ProjectSummary: FC<Props> = ({ project }) => {
             </div>
           ))}
         </div>
+        <LikeButton project={project} />
       </div>
       {user.uid === project.createdBy?.id && (
         <button className="btn" onClick={handleClick}>
