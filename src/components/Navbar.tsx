@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import "./Navbar.scss";
-import Temple from "../assets/temple.svg";
+import Temple from "../assets/icon/temple.svg";
 import { useLogout } from "../hooks/useLogout";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { FC, FormEvent } from "react";

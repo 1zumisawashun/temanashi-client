@@ -3,9 +3,9 @@ import Avatar from "./Avatar";
 import { useAuthContext } from "../hooks/useAuthContext";
 
 import "./Sidebar.scss";
-import DashboardIcon from "../assets/dashboard_icon.svg";
-import AddIcon from "../assets/add_icon.svg";
-import FeedbackIcon from "../assets/feedback_icon.svg";
+import DashboardIcon from "../assets/icon/dashboard_icon.svg";
+import AddIcon from "../assets/icon/add_icon.svg";
+import FeedbackIcon from "../assets/icon/feedback_icon.svg";
 import { FC } from "react";
 
 const Sidebar: FC = () => {

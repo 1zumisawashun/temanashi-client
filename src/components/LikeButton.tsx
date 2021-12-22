@@ -9,8 +9,8 @@ import { FC, useState, useEffect } from "react";
 import { timestamp, firebase } from "../firebase/config";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { documentPoint, subCollectionPoint } from "../utilities/db";
-import AddFavoriteIcon from "../assets/add_favorite.svg";
-import RemoveFavoriteIcon from "../assets/remove_favorite.svg";
+import AddFavoriteIcon from "../assets/icon/add_favorite.svg";
+import RemoveFavoriteIcon from "../assets/icon/remove_favorite.svg";
 
 type Prop = {
   project: ProjectType;
