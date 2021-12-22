@@ -5,6 +5,7 @@ import { useAuthContext } from "../hooks/useAuthContext";
 import "./Sidebar.scss";
 import DashboardIcon from "../assets/dashboard_icon.svg";
 import AddIcon from "../assets/add_icon.svg";
+import FeedbackIcon from "../assets/feedback_icon.svg";
 import { FC } from "react";
 
 const Sidebar: FC = () => {
@@ -28,6 +29,12 @@ const Sidebar: FC = () => {
               <NavLink to="/create">
                 <img src={AddIcon} alt="add project icon" />
                 <span>New Project</span>
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/diagnose">
+                <img src={FeedbackIcon} alt="add project icon" />
+                <span>Diagnose here...</span>
               </NavLink>
             </li>
           </ul>

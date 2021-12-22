@@ -10,6 +10,7 @@ import Project from "./pages/project/Project";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import OnlineUsers from "./components/OnlineUsers";
+import Diagnose from "./pages/diagnose/Diagnose";
 
 function App() {
   const { user, authIsReady } = useAuthContext();
@@ -24,6 +25,10 @@ function App() {
               <Route exact path="/">
                 {!user && <Redirect to="/login" />}
                 {user && <Dashboard />}
+              </Route>
+              <Route path="/diagnose">
+                {!user && <Redirect to="/login" />}
+                {user && <Diagnose />}
               </Route>
               <Route path="/create">
                 {!user && <Redirect to="/login" />}
