@@ -14,8 +14,10 @@ const Sidebar: FC = () => {
     <div className="sidebar">
       <div className="sidebar-content">
         <div className="user">
-          <Avatar src={user.photoURL} />
-          <p>hey {user.displayName}</p>
+          <NavLink exact to={`/users/${user.uid}`}>
+            <Avatar src={user.photoURL} />
+            <p>hey {user.displayName}</p>
+          </NavLink>
         </div>
         <nav className="links">
           <ul>

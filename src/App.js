@@ -11,6 +11,7 @@ import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import OnlineUsers from "./components/OnlineUsers";
 import Diagnose from "./pages/diagnose/Diagnose";
+import User from "./pages/user/User";
 
 function App() {
   const { user, authIsReady } = useAuthContext();
@@ -45,6 +46,10 @@ function App() {
               <Route path="/signup">
                 {user && <Redirect to="/" />}
                 {!user && <Signup />}
+              </Route>
+              <Route path="/users/:id">
+                {!user && <Redirect to="/login" />}
+                {user && <User />}
               </Route>
             </Switch>
           </div>
