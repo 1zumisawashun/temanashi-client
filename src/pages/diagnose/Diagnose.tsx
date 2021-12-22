@@ -2,6 +2,7 @@ import { FC } from "react";
 import "./Diagnose.scss";
 // import { WelcomeScreen } from './WelcomeScreen'
 import TinderSwipe from "../../components/TinderSwipe";
+import ProgressBar from "../../components/ProgressBar";
 
 const Diagnose: FC = () => {
   // const [showWelcomeScreen, setShowWelcomeScreen] = useState(true);
@@ -16,6 +17,7 @@ const Diagnose: FC = () => {
 
   return (
     <main className="root">
+      <ProgressBar width={400} percent={0.1} />
       {/* <TinderSwipe puppyData={puppyData} fetchPuppyData={refetch} /> */}
       <TinderSwipe />
     </main>
