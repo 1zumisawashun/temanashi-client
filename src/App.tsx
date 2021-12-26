@@ -11,7 +11,9 @@ import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import OnlineUsers from "./components/OnlineUsers";
 import Diagnose from "./pages/diagnose/Diagnose";
-import User from "./pages/user/User";
+import UserFavorite from "./pages/user/UserFavorite";
+import UserAccount from "./pages/user/UserAccount";
+import UserHistory from "./pages/user/UserHistory";
 
 const App = () => {
   const { user, authIsReady } = useAuthContext();
@@ -47,9 +49,17 @@ const App = () => {
                 {user && <Redirect to="/" />}
                 {!user && <Signup />}
               </Route>
-              <Route path="/users/:id">
+              <Route path="/users/:id/history">
                 {!user && <Redirect to="/login" />}
-                {user && <User />}
+                {user && <UserHistory />}
+              </Route>
+              <Route path="/users/:id/account">
+                {!user && <Redirect to="/login" />}
+                {user && <UserAccount />}
+              </Route>
+              <Route path="/users/:id/favorite">
+                {!user && <Redirect to="/login" />}
+                {user && <UserFavorite />}
               </Route>
             </Switch>
           </div>

@@ -16,7 +16,7 @@ const Sidebar: FC = () => {
     <div className="sidebar">
       <div className="sidebar-content">
         <div className="user">
-          <NavLink exact to={`/users/${user.uid}`}>
+          <NavLink exact to={`/users/${user.uid}/favorite`}>
             {/* nullチェック */}
             {user.photoURL && <Avatar src={user.photoURL} />}
             <p>hey {user.displayName}</p>

@@ -1,0 +1,84 @@
+$p: 12px;
+$n: 5;
+
+// container
+.tab-link {
+  display: flex;
+  position: relative;
+  background: white;
+  border-radius: 2px;
+  // border
+  hr {
+    transition: all 375ms ease-out;
+    // lets the browser know what will happen
+    // will-change: transform, background;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    margin: 0;
+    border: 0;
+    border-radius: 2px;
+    height: $p/3;
+    width: calc(100% / #{$n});
+    background: lighten($slate, 50%);
+  }
+  // links
+  a {
+    display: block;
+    width: calc(100% / #{$n});
+    padding: $p * 2;
+    text-align: center;
+    text-transform: capitalize;
+    // hover and active color changes
+    // &:hover {
+    //   ~ hr {
+    //     background: mix(lighten($slate, 50%), $blue, 75%);
+    //     transition: transform 250ms cubic-bezier(0, 0.5, 0.5, 1.1),
+    //       background 250ms ease-out;
+    //   }
+    // }
+    &:active {
+      ~ hr {
+        background: $blue;
+        transition: all 250ms ease-out;
+      }
+    }
+    // loop for transforms, needs to be a different percentage for each link
+    @for $i from 1 through $n {
+      &:nth-child(#{$i}) {
+        &.active {
+          ~ hr {
+            transform: translateX(#{($i - 1) * 100%});
+          }
+        }
+        &:hover,
+        &:focus,
+        &:active {
+          ~ hr,
+          ~ .active ~ hr {
+            transform: translateX(#{($i - 1) * 100%});
+          }
+        }
+      }
+    }
+  }
+}
+
+// additional styling
+body {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+}
+
+main {
+  width: 100%;
+  max-width: 800px;
+  padding: $p/2;
+  background: lighten($slate, 75%);
+  @media only screen and (min-width: 800px) {
+    border-radius: 2px;
+  }
+}
