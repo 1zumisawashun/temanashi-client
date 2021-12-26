@@ -11,6 +11,7 @@ import { useAuthContext } from "../hooks/useAuthContext";
 import { documentPoint, subCollectionPoint } from "../utilities/db";
 import AddFavoriteIcon from "../assets/icon/add_favorite.svg";
 import RemoveFavoriteIcon from "../assets/icon/remove_favorite.svg";
+import { convertPath } from "../utilities/convertPath";
 
 type Prop = {
   project: ProjectType;
@@ -20,22 +21,19 @@ const LikeButton: FC<Prop> = ({ project }: Prop) => {
   const [like, setLike] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const { user } = useAuthContext();
+  if (!user) throw new Error("we cant find your account");
+
   const projectSubCollectionRef = subCollectionPoint<ProjectType, likedUsers>(
-    "projects",
-    project.id,
-    "liked_users",
-    user.uid
+    convertPath(`projects/${project.id}/liked_users/${user.uid}`)
   );
 
   const userSubCollectionRef = subCollectionPoint<User, likedProjects>(
-    "users",
-    user.uid,
-    "liked_projects",
-    project.id
+    convertPath(`users/${user.uid}/liked_projects/${project.id}`)
   );
 
   const addLikedUser = () => {
     // NOTE:set中にconverterで定義している型と違う値を入れるとエラーになる
+    if (!user) return;
     projectSubCollectionRef.set({
       liked_user: {
         uid: user.uid,
@@ -63,6 +61,9 @@ const LikeButton: FC<Prop> = ({ project }: Prop) => {
   // NOTE:いいねの総数を出すために追加
   // NOTE:likeCountの型定義をnumberにするとエラーになる
   // FIXME:いいねするとカタつくのを直したい
+  // 売り切れになったらエビデンスとして家具を残す
+  // サブコレクションは削除の時にめんどくさい
+  // いいねのコレクションでも関係は分ける
   const countUp = () => {
     documentPoint<ProjectType>("projects", project.id).set(
       { likedCount: firebase.firestore.FieldValue.increment(1) },
@@ -79,6 +80,7 @@ const LikeButton: FC<Prop> = ({ project }: Prop) => {
   const handleClick = () => {
     setLike(!like);
     if (like === true) {
+      // バッチ書き込み処理なのか、同じ情報ならトップに持ってきてもいいかもしれない
       removeLikedUser();
       removeLikedProject();
       countDown();
