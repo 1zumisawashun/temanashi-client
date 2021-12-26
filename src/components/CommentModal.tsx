@@ -14,6 +14,7 @@ const CommentModal: FC<Props> = ({ project, setToggleModal }) => {
   const { updateDocument, response } = useFirestore();
   const [newComment, setNewComment] = useState("");
   const { user } = useAuthContext();
+  if (!user) throw new Error("we cant find your account");
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();

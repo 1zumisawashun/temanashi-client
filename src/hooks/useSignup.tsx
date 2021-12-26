@@ -26,21 +26,20 @@ export const useSignup = () => {
         password
       );
 
-      if (!res) {
+      if (!res.user) {
         throw new Error("Could not complete signup");
       }
 
       // upload user thumbnail
-      const uploadPath = `thumbnails/${res.user?.uid}/${thumbnail.name}`;
+      const uploadPath = `thumbnails/${res.user.uid}/${thumbnail.name}`;
       const img = await projectStorage.ref(uploadPath).put(thumbnail);
       const imgUrl = await img.ref.getDownloadURL();
 
       // add display name to user
-      await res.user?.updateProfile({ displayName, photoURL: imgUrl });
+      await res.user.updateProfile({ displayName, photoURL: imgUrl });
 
       type addUser = Omit<User, "id">;
-      if (res.user === null) return;
-      await documentPoint<addUser>("users", res.user?.uid).set({
+      await documentPoint<addUser>("users", res.user.uid).set({
         online: true,
         displayName,
         photoURL: imgUrl,

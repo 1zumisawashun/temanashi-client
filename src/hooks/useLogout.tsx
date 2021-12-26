@@ -16,10 +16,10 @@ export const useLogout = () => {
 
     try {
       // update online status
-      const { uid } = user;
+      if (!user) throw new Error("we cant find your account");
       type addUser = Omit<User, "id">;
       // FIXME:関係ないプロパティも追加・更新できてしまう
-      await documentPoint<addUser>("users", uid).update({
+      await documentPoint<addUser>("users", user.uid).update({
         online: false,
       });
 
@@ -27,7 +27,7 @@ export const useLogout = () => {
       await projectAuth.signOut();
 
       // dispatch logout action
-      dispatch({ type: "LOGOUT" });
+      dispatch({ type: "LOGOUT", payload: user });
 
       // update state
       if (!isCancelled) {

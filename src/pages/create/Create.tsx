@@ -44,7 +44,7 @@ const Create: FC = () => {
 
   useEffect(() => {
     if (documents) {
-      const options = documents.map((user: User) => {
+      const options = documents.map((user) => {
         return {
           value: user,
           label: user.displayName as string,
@@ -65,6 +65,7 @@ const Create: FC = () => {
       setFromError("Please assign the project to at least 1 user");
     }
 
+    if (!user) throw new Error("we cant find your account");
     const createdBy: User = {
       displayName: user.displayName,
       photoURL: user.photoURL,

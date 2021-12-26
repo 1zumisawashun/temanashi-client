@@ -10,12 +10,15 @@ import { FC } from "react";
 
 const Sidebar: FC = () => {
   const { user } = useAuthContext();
+  if (!user) throw new Error("we cant find your account");
+
   return (
     <div className="sidebar">
       <div className="sidebar-content">
         <div className="user">
           <NavLink exact to={`/users/${user.uid}`}>
-            <Avatar src={user.photoURL} />
+            {/* nullチェック */}
+            {user.photoURL && <Avatar src={user.photoURL} />}
             <p>hey {user.displayName}</p>
           </NavLink>
         </div>

@@ -13,6 +13,8 @@ type Props = {
 const ProjectSummary: FC<Props> = ({ project }) => {
   const { deleteDocument } = useFirestore();
   const { user } = useAuthContext();
+  if (!user) throw new Error("we cant find your account");
+
   const history = useHistory();
   const handleClick = (e: FormEvent) => {
     deleteDocument<ProjectType>("projects", project.id);

@@ -15,6 +15,9 @@ const Dashboard: FC = () => {
     setCurrentFilter(newFilter);
   };
 
+  // nullチェック・通常のreturnだとエラーになる
+  if (!user) throw new Error("we cant find your account");
+
   const projects = documents
     ? documents.filter((document: ProjectType) => {
         switch (currentFilter) {
