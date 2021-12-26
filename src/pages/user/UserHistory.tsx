@@ -4,10 +4,14 @@ import UserNavbar from "../../components/UserNavbar";
 
 const UserHistory: FC = () => {
   return (
-    <div>
+    <>
       <UserNavbar />
-      <p>user history</p>
-    </div>
+      <div className="user-container">
+        <div className="inner">
+          <p>history</p>
+        </div>
+      </div>
+    </>
   );
 };
 export default UserHistory;

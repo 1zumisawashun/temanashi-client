@@ -4,10 +4,14 @@ import UserNavbar from "../../components/UserNavbar";
 
 const UserAccount: FC = () => {
   return (
-    <div>
+    <>
       <UserNavbar />
-      <p>yeahyeahyeah</p>
-    </div>
+      <div className="user-container">
+        <div className="inner">
+          <p>account</p>
+        </div>
+      </div>
+    </>
   );
 };
 export default UserAccount;

@@ -40,7 +40,7 @@ const ProjectComments: FC<Props> = ({ project }) => {
               </li>
             ))}
         </ul>
-        <button className="btn" onClick={changeModal}>
+        <button className="btn -mt10" onClick={changeModal}>
           comment
         </button>
         {toggleModal && (

@@ -6,7 +6,6 @@
 
   > a {
     width: 100%;
-    background: white;
     color: var(--text-color);
     border-bottom: 3px solid var(--text-color);
     text-align: center;
@@ -15,15 +14,15 @@
     font-weight: bold;
   }
 
-  > a:hover {
-    transform: scale(1.05);
-  }
+  // > a:hover {
+  //   transform: scale(1.05);
+  // }
 
   > .active {
     color: var(--primary-color);
     border-bottom: 3px solid var(--primary-color);
-    animation-name: popup;
-    animation-duration: 1000ms;
+    // animation-name: popup;
+    // animation-duration: 1000ms;
   }
 }
 
