@@ -1,20 +1,33 @@
-import "./UserNavbar";
-import { FC } from "react";
+import "./UserNavbar.scss";
+import { FC, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useAuthContext } from "../hooks/useAuthContext";
+
+const tabList: Array<string> = ["favorite", "history", "account"];
 
 const UserNavbar: FC = () => {
   const { user } = useAuthContext();
   if (!user) throw new Error("we cant find your account");
+  const [currentTab, setCurrentTab] = useState<number>(0);
+
+  const changeTab = (index: number) => {
+    const newIdx = index;
+    setCurrentTab(newIdx);
+  };
+
   return (
-    <main>
-      <nav className="tab-link">
-        <NavLink to={`/users/${user.uid}/favorite`}>favorite</NavLink>
-        <NavLink to={`/users/${user.uid}/history`}>history</NavLink>
-        <NavLink to={`/users/${user.uid}/account`}>account</NavLink>
-        <hr />
-      </nav>
-    </main>
+    <ul className="user-tab-bar">
+      {tabList.map((tab, index) => (
+        <NavLink
+          to={`/users/${user.uid}/${tab}`}
+          key={tab}
+          onClick={() => changeTab(index + 1)}
+          className={currentTab === index + 1 ? "active" : ""}
+        >
+          {tab}
+        </NavLink>
+      ))}
+    </ul>
   );
 };
 export default UserNavbar;
