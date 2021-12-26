@@ -2,23 +2,23 @@ import { firebase } from "../firebase/config";
 
 // NOTE:CreatedByなどAssignedUserで使うためidを付与
 export type User = {
-  displayName: string | null;
-  id: string;
+  displayName: firebase.UserInfo.displayName;
+  id?: string;
   online: boolean;
-  photoURL?: string;
+  photoURL: firebase.UserInfo.photoURL;
 };
 
 export type Comment = {
-  displayName: string;
-  photoURL?: string;
+  displayName: firebase.UserInfo.displayName;
+  photoURL: firebase.UserInfo.photoURL;
   content: string;
   createdAt: firebase.firestore.Timestamp;
   id: number;
 };
 
 export type CommentToAdd = {
-  displayName: string;
-  photoURL: string;
+  displayName: firebase.UserInfo.displayName;
+  photoURL: firebase.UserInfo.photoURL;
   content: string;
   createdAt: firebase.firestore.Timestamp;
   id: number;
@@ -39,8 +39,8 @@ export type ProjectType = {
 
 export type likedUsers = {
   liked_user: {
-    uid: string;
-    displayName: string;
+    uid: firebase.UserInfo.uid;
+    displayName: firebase.UserInfo.displayName;
   };
   createdAt: firebase.firestore.Timestamp;
 };
