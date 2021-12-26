@@ -18,10 +18,6 @@ interface ContextInterface {
   authIsReady?: boolean;
 }
 
-interface Props {
-  children: ChildNode;
-}
-
 const initState: State = {
   user: null,
   authIsReady: false,
@@ -45,7 +41,7 @@ export const authReducer: React.Reducer<State, Action> = (state, action) => {
   }
 };
 
-export const AuthContextProvider: FC<Props> = ({ children }) => {
+export const AuthContextProvider: FC = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, initState);
 
   useEffect(() => {

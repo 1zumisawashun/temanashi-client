@@ -13,7 +13,7 @@ import OnlineUsers from "./components/OnlineUsers";
 import Diagnose from "./pages/diagnose/Diagnose";
 import User from "./pages/user/User";
 
-function App() {
+const App = () => {
   const { user, authIsReady } = useAuthContext();
   return (
     <div className="App">
@@ -58,6 +58,6 @@ function App() {
       )}
     </div>
   );
-}
+};
 
 export default App;
