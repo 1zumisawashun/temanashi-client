@@ -17,19 +17,14 @@ const documentPoint = <T,>(collectionPath: string, docId: string) =>
     .withConverter(converter<T>())
     .doc(docId);
 
-const subCollectionPoint = <T, U>(
-  collectionPath: string,
-  docId: string,
-  subCollectionPath: string,
-  subDocId: string
-) =>
+const subCollectionPoint = <T, U>(firebasePath: Array<string>) =>
   projectFirestore
-    .collection(collectionPath)
+    .collection(firebasePath[0])
     .withConverter(converter<T>())
-    .doc(docId)
-    .collection(subCollectionPath)
+    .doc(firebasePath[1])
+    .collection(firebasePath[2])
     .withConverter(converter<U>())
-    .doc(subDocId);
+    .doc(firebasePath[3]);
 
 const db = {
   users: collectionPoint<User>("users"),
