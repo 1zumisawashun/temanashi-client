@@ -34,6 +34,10 @@ export const useDocument = <T,>(collection: string, docId: string) => {
       return () => unsubscribe();
     }
   }, [collection, docId]);
+  // loading入れる。
+  // reactqueryを確認する
+  // undefiendが帰るのはしかたないのでloading(reactqueryにある？)する
+  // 流クエスト失敗しても２回するとか便利っぽい・
 
   return { document, error };
 };
