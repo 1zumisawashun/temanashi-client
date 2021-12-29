@@ -14,6 +14,13 @@ const ProjectList: FC<Props> = ({ projects }) => {
       {projects.length === 0 && <p>No projects yet!</p>}
       {projects.map((project: ProjectType) => (
         <Link to={`/projects/${project.id}`} key={project.id}>
+          <div className="image-box">
+            <img
+              src="https://placehold.jp/330x200.png"
+              alt=""
+              className="image"
+            />
+          </div>
           <h4>{project.name}</h4>
           <p>Due by {project.dueDate.toDate().toDateString()}</p>
           <div className="assigned-to">
