@@ -84,3 +84,25 @@ textarea {
   padding: 8px;
   margin: 10px 0;
 }
+
+.indicator-container {
+  border: 1px solid var(--primary-color);
+  position: relative;
+  animation: indicator ease 1.5s infinite;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin: 30px auto;
+  &::before {
+    content: "";
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 6px;
+    height: 6px;
+    background-color: var(--primary-color);
+    border-radius: 50%;
+  }
+}

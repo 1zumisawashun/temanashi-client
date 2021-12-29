@@ -1,4 +1,4 @@
-export const convertPath = (path: string): Array<string> => {
+export const convertedPath = (path: string): Array<string> => {
   const result = path.split("/");
   return result;
 };

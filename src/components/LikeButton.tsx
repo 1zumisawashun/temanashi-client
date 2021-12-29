@@ -8,10 +8,10 @@ import {
 import { FC, useState, useEffect } from "react";
 import { timestamp, firebase } from "../firebase/config";
 import { useAuthContext } from "../hooks/useAuthContext";
-import { documentPoint, subCollectionPoint } from "../utilities/db";
+import { documentPoint, subDocumentPoint } from "../utilities/db";
 import AddFavoriteIcon from "../assets/icon/add_favorite.svg";
 import RemoveFavoriteIcon from "../assets/icon/remove_favorite.svg";
-import { convertPath } from "../utilities/convertPath";
+import { convertedPath } from "../utilities/convertPath";
 
 type Prop = {
   project: ProjectType;
@@ -23,12 +23,12 @@ const LikeButton: FC<Prop> = ({ project }: Prop) => {
   const { user } = useAuthContext();
   if (!user) throw new Error("we cant find your account");
 
-  const projectSubCollectionRef = subCollectionPoint<ProjectType, likedUsers>(
-    convertPath(`projects/${project.id}/liked_users/${user.uid}`)
+  const projectSubCollectionRef = subDocumentPoint<ProjectType, likedUsers>(
+    convertedPath(`projects/${project.id}/liked_users/${user.uid}`)
   );
 
-  const userSubCollectionRef = subCollectionPoint<User, likedProjects>(
-    convertPath(`users/${user.uid}/liked_projects/${project.id}`)
+  const userSubCollectionRef = subDocumentPoint<User, likedProjects>(
+    convertedPath(`users/${user.uid}/liked_projects/${project.id}`)
   );
 
   const addLikedUser = () => {

@@ -17,7 +17,19 @@ const documentPoint = <T,>(collectionPath: string, docId: string) =>
     .withConverter(converter<T>())
     .doc(docId);
 
-const subCollectionPoint = <T, U>(firebasePath: Array<string>) =>
+const subCollectionPoint = <T, U>(
+  collection: string,
+  document: string,
+  subCollection: string
+) =>
+  projectFirestore
+    .collection(collection)
+    .withConverter(converter<T>())
+    .doc(document)
+    .collection(subCollection)
+    .withConverter(converter<U>());
+
+const subDocumentPoint = <T, U>(firebasePath: Array<string>) =>
   projectFirestore
     .collection(firebasePath[0])
     .withConverter(converter<T>())
@@ -31,4 +43,10 @@ const db = {
   projects: collectionPoint<ProjectType>("projects"),
 };
 
-export { collectionPoint, documentPoint, subCollectionPoint, db };
+export {
+  collectionPoint,
+  documentPoint,
+  subCollectionPoint,
+  subDocumentPoint,
+  db,
+};
