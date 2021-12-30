@@ -34,7 +34,7 @@ export type ProjectType = {
   dueDate: firebase.firestore.Timestamp;
   id: string;
   name: string;
-  likedCount?: firebase.firestore.FieldValue; //初期値としては追加されていないためoptional-chine
+  likedCount: firebase.firestore.FieldValue; //初期値としては追加されていないためoptional-chine
 };
 
 export type likedUsers = {
