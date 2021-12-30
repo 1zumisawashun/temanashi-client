@@ -8,13 +8,27 @@ import {
 import { FC, useState, useEffect } from "react";
 import { timestamp, firebase } from "../../firebase/config";
 import { useAuthContext } from "../../hooks/useAuthContext";
-import { documentPoint, subDocumentPoint } from "../../utilities/db";
 import AddFavoriteIcon from "../../assets/icon/add_favorite.svg";
 import RemoveFavoriteIcon from "../../assets/icon/remove_favorite.svg";
 import { convertedPath } from "../../utilities/convertPath";
+import { useSubDocument } from "../../hooks/useSubDocument";
+import { useFirestore } from "../../hooks/useFirestore";
 
 type Prop = {
   project: ProjectType;
+};
+type Id = {
+  id: string;
+};
+type LikedUser = {
+  documents: (likedUsers & Id) | undefined;
+  error: string | null;
+  referense: firebase.firestore.DocumentReference<likedUsers> | null;
+};
+type LikedProjects = {
+  documents: (likedProjects & Id) | undefined;
+  error: string | null;
+  referense: firebase.firestore.DocumentReference<likedProjects> | null;
 };
 
 const LikeButton: FC<Prop> = ({ project }: Prop) => {
@@ -23,18 +37,18 @@ const LikeButton: FC<Prop> = ({ project }: Prop) => {
   const { user } = useAuthContext();
   if (!user) throw new Error("we cant find your account");
 
-  const projectSubCollectionRef = subDocumentPoint<ProjectType, likedUsers>(
+  const likedUser: LikedUser = useSubDocument<ProjectType, likedUsers>(
     convertedPath(`projects/${project.id}/liked_users/${user.uid}`)
   );
 
-  const userSubCollectionRef = subDocumentPoint<User, likedProjects>(
+  const likedProject: LikedProjects = useSubDocument<User, likedProjects>(
     convertedPath(`users/${user.uid}/liked_projects/${project.id}`)
   );
 
   const addLikedUser = () => {
     // NOTE:set中にconverterで定義している型と違う値を入れるとエラーになる
-    if (!user) return;
-    projectSubCollectionRef.set({
+    if (!likedUser.referense) return;
+    likedUser.referense.set({
       liked_user: {
         uid: user.uid,
         displayName: user.displayName,
@@ -44,18 +58,21 @@ const LikeButton: FC<Prop> = ({ project }: Prop) => {
   };
 
   const addLikedProject = () => {
-    userSubCollectionRef.set({
+    if (!likedProject.referense) return;
+    likedProject.referense.set({
       liked_project: project,
       createdAt: timestamp.fromDate(new Date()),
     });
   };
 
   const removeLikedUser = () => {
-    projectSubCollectionRef.delete();
+    if (!likedProject.referense) return;
+    likedProject.referense.delete();
   };
 
   const removeLikedProject = () => {
-    userSubCollectionRef.delete();
+    if (!likedUser.referense) return;
+    likedUser.referense.delete();
   };
 
   // NOTE:いいねの総数を出すために追加
@@ -64,17 +81,19 @@ const LikeButton: FC<Prop> = ({ project }: Prop) => {
   // 売り切れになったらエビデンスとして家具を残す
   // サブコレクションは削除の時にめんどくさい
   // いいねのコレクションでも関係は分ける
+
+  const { updateDocument } = useFirestore();
+
   const countUp = () => {
-    documentPoint<ProjectType>("projects", project.id).set(
-      { likedCount: firebase.firestore.FieldValue.increment(1) },
-      { merge: true }
-    );
+    updateDocument("projects", project.id, {
+      likedCount: firebase.firestore.FieldValue.increment(1),
+    });
   };
+
   const countDown = () => {
-    documentPoint<ProjectType>("projects", project.id).set(
-      { likedCount: firebase.firestore.FieldValue.increment(-1) },
-      { merge: true }
-    );
+    updateDocument("projects", project.id, {
+      likedCount: firebase.firestore.FieldValue.increment(-1),
+    });
   };
 
   const handleClick = () => {
@@ -93,7 +112,8 @@ const LikeButton: FC<Prop> = ({ project }: Prop) => {
   };
 
   useEffect(() => {
-    const unsubscribe = projectSubCollectionRef.onSnapshot(
+    if (!likedProject.referense) return;
+    const unsubscribe = likedProject.referense.onSnapshot(
       (snapshot) => {
         console.log(snapshot, "snapshot");
         if (snapshot.exists) {
@@ -109,7 +129,7 @@ const LikeButton: FC<Prop> = ({ project }: Prop) => {
     );
     // unsubscribe on unmount and clean a function
     return () => unsubscribe();
-  }, [projectSubCollectionRef]);
+  }, [likedProject.referense]);
 
   return (
     <div className="like-button">
