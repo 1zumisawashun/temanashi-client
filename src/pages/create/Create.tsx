@@ -2,7 +2,7 @@ import { FC, useEffect, useState, FormEvent } from "react";
 import "./Create.scss";
 import Select from "react-select";
 import { useCollection } from "../../hooks/useCollection";
-import { timestamp } from "../../firebase/config";
+import { firebase, timestamp } from "../../firebase/config";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { useFirestore } from "../../hooks/useFirestore";
 import { useHistory } from "react-router-dom";
@@ -91,6 +91,7 @@ const Create: FC = () => {
       dueDate: timestamp.fromDate(new Date(dueDate)),
       comments: [],
       createdBy,
+      likedCount: firebase.firestore.FieldValue.increment(0),
       assignedUsersList,
     };
 
