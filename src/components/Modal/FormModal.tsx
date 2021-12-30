@@ -1,9 +1,11 @@
-import "./CommentModal.scss";
+import "./FormModal.scss";
 import { FC, useState, FormEvent } from "react";
-import { timestamp } from "../firebase/config";
-import { useAuthContext } from "../hooks/useAuthContext";
-import { useFirestore } from "../hooks/useFirestore";
-import { CommentToAdd, ProjectType } from "../types/dashboard";
+import { timestamp } from "../../firebase/config";
+import { useAuthContext } from "../../hooks/useAuthContext";
+import { useFirestore } from "../../hooks/useFirestore";
+import { CommentToAdd, ProjectType } from "../../types/dashboard";
+import FlatButton from "../Button/FlatButton";
+import CloseButton from "../Button/CloseButton";
 
 type Props = {
   project: ProjectType;
@@ -46,16 +48,14 @@ const CommentModal: FC<Props> = ({ project, setToggleModal }) => {
       <form className="modal" onSubmit={handleSubmit}>
         <label>
           <span>Add new comment:</span>
-          <button className="close-modal" onClick={closeModal}>
-            &times;
-          </button>
+          <CloseButton onClick={closeModal} />
           <textarea
             required
             onChange={(e) => setNewComment(e.target.value)}
             value={newComment}
           ></textarea>
         </label>
-        <button className="btn">Add Comment</button>
+        <FlatButton content={"Add Comment"} />
       </form>
     </>
   );
