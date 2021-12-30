@@ -2,7 +2,7 @@ import { FC, useState } from "react";
 import Avatar from "../../components/Avatar";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import { Comment, ProjectType } from "../../types/dashboard";
-import CommentModal from "../../components/CommentModal";
+import CommentModal from "../../components/Modal/FormModal";
 import FlatButton from "../../components/Button/FlatButton";
 
 type Props = {
