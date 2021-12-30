@@ -4,14 +4,14 @@ import {
   User,
   likedProjects,
   likedUsers,
-} from "../types/dashboard";
+} from "../../types/dashboard";
 import { FC, useState, useEffect } from "react";
-import { timestamp, firebase } from "../firebase/config";
-import { useAuthContext } from "../hooks/useAuthContext";
-import { documentPoint, subDocumentPoint } from "../utilities/db";
-import AddFavoriteIcon from "../assets/icon/add_favorite.svg";
-import RemoveFavoriteIcon from "../assets/icon/remove_favorite.svg";
-import { convertedPath } from "../utilities/convertPath";
+import { timestamp, firebase } from "../../firebase/config";
+import { useAuthContext } from "../../hooks/useAuthContext";
+import { documentPoint, subDocumentPoint } from "../../utilities/db";
+import AddFavoriteIcon from "../../assets/icon/add_favorite.svg";
+import RemoveFavoriteIcon from "../../assets/icon/remove_favorite.svg";
+import { convertedPath } from "../../utilities/convertPath";
 
 type Prop = {
   project: ProjectType;
