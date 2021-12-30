@@ -1,9 +1,10 @@
-import { Link } from "react-router-dom";
 import "./Navbar.scss";
 import Temple from "../assets/icon/temple.svg";
 import { useLogout } from "../hooks/useLogout";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { FC, FormEvent } from "react";
+import FlatButton from "./Button/FlatButton";
+import LinkButton from "./Button/LinkButton";
 
 const Navbar: FC = () => {
   const { logout, isPending } = useLogout();
@@ -24,10 +25,10 @@ const Navbar: FC = () => {
         {!user && (
           <>
             <li>
-              <Link to="/login">Login</Link>
+              <LinkButton path={"/login"} content={"Login"} />
             </li>
             <li>
-              <Link to="/signup">Signup</Link>
+              <LinkButton path={"/signup"} content={"Signup"} />
             </li>
           </>
         )}
@@ -35,14 +36,10 @@ const Navbar: FC = () => {
         {user && (
           <li>
             {!isPending && (
-              <button className="btn" onClick={handleSubmit}>
-                Logout
-              </button>
+              <FlatButton content={"Logout"} onClick={handleSubmit} />
             )}
             {isPending && (
-              <button className="btn" disabled>
-                Logging out...
-              </button>
+              <FlatButton content={"Logging out..."} isDisabled={true} />
             )}
           </li>
         )}

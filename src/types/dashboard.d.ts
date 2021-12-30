@@ -46,6 +46,7 @@ export type likedUsers = {
 };
 
 export type likedProjects = {
+  id?: string;
   liked_project: ProjectType;
   createdAt: firebase.firestore.Timestamp;
 };

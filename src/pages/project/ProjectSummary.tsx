@@ -4,7 +4,7 @@ import { useAuthContext } from "../../hooks/useAuthContext";
 import { useHistory } from "react-router-dom";
 import { ProjectType } from "../../types/dashboard";
 import { FC, FormEvent } from "react";
-import LikeButton from "../../components/LikeButton";
+import LikeButton from "../../components/Button/LikeButton";
 
 type Props = {
   project: ProjectType;

@@ -3,6 +3,7 @@ import Avatar from "../../components/Avatar";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import { Comment, ProjectType } from "../../types/dashboard";
 import CommentModal from "../../components/CommentModal";
+import FlatButton from "../../components/Button/FlatButton";
 
 type Props = {
   project: ProjectType;
@@ -40,9 +41,7 @@ const ProjectComments: FC<Props> = ({ project }) => {
               </li>
             ))}
         </ul>
-        <button className="btn -mt10" onClick={changeModal}>
-          comment
-        </button>
+        <FlatButton content={"comment"} onClick={changeModal} />
         {toggleModal && (
           <CommentModal project={project} setToggleModal={setToggleModal} />
         )}
