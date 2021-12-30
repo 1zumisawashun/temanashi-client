@@ -16,56 +16,57 @@ import UserAccount from "./pages/user/UserAccount";
 import UserHistory from "./pages/user/UserHistory";
 
 const App = () => {
-  const { user, authIsReady } = useAuthContext();
+  // const { user, authIsReady } = useAuthContext();
+  const { user } = useAuthContext();
   return (
     <div className="App">
-      {authIsReady && (
-        <BrowserRouter>
-          {user && <Sidebar />}
-          <div className="container">
-            <Navbar />
-            <Switch>
-              <Route exact path="/">
-                {!user && <Redirect to="/login" />}
-                {user && <Dashboard />}
-              </Route>
-              <Route path="/diagnose">
-                {!user && <Redirect to="/login" />}
-                {user && <Diagnose />}
-              </Route>
-              <Route path="/create">
-                {!user && <Redirect to="/login" />}
-                {user && <Create />}
-              </Route>
-              <Route path="/projects/:id">
-                {!user && <Redirect to="/login" />}
-                {user && <Project />}
-              </Route>
-              <Route path="/login">
-                {user && <Redirect to="/" />}
-                {!user && <Login />}
-              </Route>
-              <Route path="/signup">
-                {user && <Redirect to="/" />}
-                {!user && <Signup />}
-              </Route>
-              <Route path="/users/:id/history">
-                {!user && <Redirect to="/login" />}
-                {user && <UserHistory />}
-              </Route>
-              <Route path="/users/:id/account">
-                {!user && <Redirect to="/login" />}
-                {user && <UserAccount />}
-              </Route>
-              <Route path="/users/:id/favorite">
-                {!user && <Redirect to="/login" />}
-                {user && <UserFavorite />}
-              </Route>
-            </Switch>
-          </div>
-          {user && <OnlineUsers />}
-        </BrowserRouter>
-      )}
+      {/* {authIsReady && ( */}
+      <BrowserRouter>
+        {user && <Sidebar />}
+        <div className="container">
+          <Navbar />
+          <Switch>
+            <Route exact path="/">
+              {!user && <Redirect to="/login" />}
+              {user && <Dashboard />}
+            </Route>
+            <Route path="/diagnose">
+              {!user && <Redirect to="/login" />}
+              {user && <Diagnose />}
+            </Route>
+            <Route path="/create">
+              {!user && <Redirect to="/login" />}
+              {user && <Create />}
+            </Route>
+            <Route path="/projects/:id">
+              {!user && <Redirect to="/login" />}
+              {user && <Project />}
+            </Route>
+            <Route path="/login">
+              {user && <Redirect to="/" />}
+              {!user && <Login />}
+            </Route>
+            <Route path="/signup">
+              {user && <Redirect to="/" />}
+              {!user && <Signup />}
+            </Route>
+            <Route path="/users/:id/history">
+              {!user && <Redirect to="/login" />}
+              {user && <UserHistory />}
+            </Route>
+            <Route path="/users/:id/account">
+              {!user && <Redirect to="/login" />}
+              {user && <UserAccount />}
+            </Route>
+            <Route path="/users/:id/favorite">
+              {!user && <Redirect to="/login" />}
+              {user && <UserFavorite />}
+            </Route>
+          </Switch>
+        </div>
+        {user && <OnlineUsers />}
+      </BrowserRouter>
+      {/* )} */}
     </div>
   );
 };
