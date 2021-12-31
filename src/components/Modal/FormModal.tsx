@@ -12,7 +12,7 @@ type Props = {
   setToggleModal: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const CommentModal: FC<Props> = ({ project, setToggleModal }) => {
+const FormModal: FC<Props> = ({ project, setToggleModal }) => {
   const { updateDocument, response } = useFirestore();
   const [newComment, setNewComment] = useState("");
   const { user } = useAuthContext();
@@ -61,4 +61,4 @@ const CommentModal: FC<Props> = ({ project, setToggleModal }) => {
   );
 };
 
-export default CommentModal;
+export default FormModal;

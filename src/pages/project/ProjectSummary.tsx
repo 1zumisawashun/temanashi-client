@@ -3,14 +3,16 @@ import { useFirestore } from "../../hooks/useFirestore";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { useHistory } from "react-router-dom";
 import { ProjectType } from "../../types/dashboard";
-import { FC, FormEvent } from "react";
+import { FC, FormEvent, useState } from "react";
 import LikeButton from "../../components/Button/LikeButton";
+import PreviewModal from "../../components/Modal/PreviewModal";
 
 type Props = {
   project: ProjectType;
 };
 
 const ProjectSummary: FC<Props> = ({ project }) => {
+  const [toggleModal, setToggleModal] = useState<boolean>(false);
   const { deleteDocument } = useFirestore();
   const { user } = useAuthContext();
   if (!user) throw new Error("we cant find your account");
@@ -20,10 +22,28 @@ const ProjectSummary: FC<Props> = ({ project }) => {
     deleteDocument<ProjectType>("projects", project.id);
     history.push("/");
   };
+
+  const openModal = () => {
+    setToggleModal(true);
+  };
   // オプショナルチェーンを付けないとバグる。早期リターンを付与する
   return (
     <div className="project-summary-container">
       <div className="project-summary">
+        <div className="image-box">
+          <img
+            src="https://placehold.jp/330x200.png"
+            alt=""
+            className="image"
+            onClick={openModal}
+          />
+          {toggleModal && (
+            <PreviewModal
+              src={"https://placehold.jp/330x200.png"}
+              setToggleModal={setToggleModal}
+            />
+          )}
+        </div>
         <h2 className="page-title">{project.name}</h2>
         <p>By {project.createdBy?.displayName}</p>
         <p className="due-date">

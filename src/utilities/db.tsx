@@ -8,14 +8,14 @@ const converter = <T,>() => ({
     snap.data() as T,
 });
 
-const collectionPoint = <T,>(collectionPath: string) =>
-  projectFirestore.collection(collectionPath).withConverter(converter<T>());
+const collectionPoint = <T,>(collection: string) =>
+  projectFirestore.collection(collection).withConverter(converter<T>());
 
-const documentPoint = <T,>(collectionPath: string, docId: string) =>
+const documentPoint = <T,>(collection: string, document: string) =>
   projectFirestore
-    .collection(collectionPath)
+    .collection(collection)
     .withConverter(converter<T>())
-    .doc(docId);
+    .doc(document);
 
 const subCollectionPoint = <T, U>(
   collection: string,
