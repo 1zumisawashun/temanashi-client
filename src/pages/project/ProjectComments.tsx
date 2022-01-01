@@ -20,7 +20,7 @@ const ProjectComments: FC<Props> = ({ project }) => {
     <>
       <div className="project-comments">
         <h4>Project Comments</h4>
-        <ul>
+        <ul className="comment-list">
           {project.comments?.length > 0 &&
             project.comments?.map((comment: Comment) => (
               <li key={comment.id}>
