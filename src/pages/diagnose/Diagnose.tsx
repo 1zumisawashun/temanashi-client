@@ -1,7 +1,6 @@
 import { FC } from "react";
 import "./Diagnose.scss";
 import TinderSwipe from "../../components/TinderSwipe";
-import ProgressBar from "../../components/ProgressBar";
 import { useRandomDocument } from "../../hooks/useRandomDocument";
 
 const Diagnose: FC = () => {
@@ -9,9 +8,7 @@ const Diagnose: FC = () => {
 
   return (
     <main className="root">
-      <ProgressBar width={400} percent={0.5} />
-      {/* <TinderSwipe puppyData={puppyData} fetchPuppyData={refetch} /> */}
-      <TinderSwipe db={documents} />
+      {documents.length > 0 && <TinderSwipe db={documents} />}
     </main>
   );
 };

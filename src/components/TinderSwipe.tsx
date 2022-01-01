@@ -7,6 +7,7 @@ import ThumbUp from "../assets/icon/thumb_up.svg";
 import ThumbDown from "../assets/icon/thumb_down.svg";
 import Undo from "../assets/icon/undo.svg";
 import { ProjectType } from "../types/dashboard";
+import ProgressBar from "./ProgressBar";
 
 type Props = {
   db: Array<ProjectType>;
@@ -14,10 +15,10 @@ type Props = {
 
 const TinderSwipe: FC<Props> = ({ db }) => {
   console.log(db, "random documents");
-
   // const history = useHistory();
   const [lastDirection, setLastDirection] = useState<string>();
   const [currentIndex, setCurrentIndex] = useState<number>(db.length - 1);
+  console.log(currentIndex, "currentIndex");
   // used for outOfFrame closure
   const currentIndexRef = useRef(currentIndex);
 
@@ -32,34 +33,20 @@ const TinderSwipe: FC<Props> = ({ db }) => {
   const updateCurrentIndex = (val: any) => {
     setCurrentIndex(val);
     currentIndexRef.current = val;
+    if (currentIndex === 0) {
+      console.log("0!");
+    }
   };
 
   const canGoBack = currentIndex < db.length - 1;
 
   const canSwipe = currentIndex >= 0;
 
-  const swipedRight = () => {
-    console.log("you swiped right");
-  };
-  const swipedLeft = () => {
-    console.log("you swiped left");
-  };
-
   // set last direction and decrease current index
   const swiped = (direction: string, nameToDelete: string, index: number) => {
     setLastDirection(direction);
     updateCurrentIndex(index - 1);
-    if (direction === "right") {
-      swipedRight();
-    }
-    if (direction === "left") {
-      swipedLeft();
-    }
-    // 最後までスワイプされたら一旦トップページにリダイレクトさせる
-    // countメソッドありそう
-    // if (nameToDelete === "Richard Hendricks") {
-    //   history.push("/");
-    // }
+    console.log("swiped");
   };
 
   const outOfFrame = (name: string, idx: number) => {
@@ -72,7 +59,6 @@ const TinderSwipe: FC<Props> = ({ db }) => {
   };
 
   const swipe = async (dir: string) => {
-    console.log(dir, "click swipe");
     if (canSwipe && currentIndex < db.length) {
       await childRefs[currentIndex].current.swipe(dir); // Swipe the card!
     }
@@ -87,6 +73,7 @@ const TinderSwipe: FC<Props> = ({ db }) => {
 
   return (
     <div className="tinder-swipe">
+      <ProgressBar width={400} percent={0.5} />
       <div className="cardContainer">
         {db.map((character, index) => (
           <TinderCard
