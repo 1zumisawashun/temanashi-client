@@ -2,7 +2,7 @@ import "./TinderSwipe.scss";
 import React, { FC, useState, useRef, useMemo } from "react";
 // import TinderCard from '../react-tinder-card/index'
 import TinderCard from "react-tinder-card";
-// import { useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import ThumbUp from "../assets/icon/thumb_up.svg";
 import ThumbDown from "../assets/icon/thumb_down.svg";
 import Undo from "../assets/icon/undo.svg";
@@ -14,11 +14,10 @@ type Props = {
 };
 
 const TinderSwipe: FC<Props> = ({ db }) => {
-  console.log(db, "random documents");
-  // const history = useHistory();
+  const history = useHistory();
   const [lastDirection, setLastDirection] = useState<string>();
   const [currentIndex, setCurrentIndex] = useState<number>(db.length - 1);
-  console.log(currentIndex, "currentIndex");
+  const [percent, setPercent] = useState<number>(0);
   // used for outOfFrame closure
   const currentIndexRef = useRef(currentIndex);
 
@@ -30,11 +29,26 @@ const TinderSwipe: FC<Props> = ({ db }) => {
     [db.length]
   );
 
-  const updateCurrentIndex = (val: any) => {
+  const progressBarCalclation = (val: number) => {
+    console.log(val, "val");
+    const result = val + 1;
+    const result2 = result / db.length;
+    const result3 = 1 - result2;
+    setPercent(result3);
+    console.log(result3, "========");
+  };
+
+  const updateCurrentIndex = (val: number) => {
     setCurrentIndex(val);
     currentIndexRef.current = val;
+    progressBarCalclation(val);
     if (currentIndex === 0) {
-      console.log("0!");
+      console.log("done!");
+      //意図的に遅らせないとレンダリングについてこれずに固まる
+      // loadingを入れる
+      setTimeout(() => {
+        history.push("/diagnose/result");
+      }, 2000);
     }
   };
 
@@ -73,7 +87,7 @@ const TinderSwipe: FC<Props> = ({ db }) => {
 
   return (
     <div className="tinder-swipe">
-      <ProgressBar width={400} percent={0.5} />
+      <ProgressBar width={400} percent={percent} />
       <div className="cardContainer">
         {db.map((character, index) => (
           <TinderCard
