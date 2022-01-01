@@ -6,36 +6,15 @@ import TinderCard from "react-tinder-card";
 import ThumbUp from "../assets/icon/thumb_up.svg";
 import ThumbDown from "../assets/icon/thumb_down.svg";
 import Undo from "../assets/icon/undo.svg";
+import { ProjectType } from "../types/dashboard";
 
-const db = [
-  {
-    name: "Richard Hendricks",
-    url: "http://placekitten.com/200/300",
-    // url: "../assets/image/richard.jpg",
-  },
-  {
-    name: "Erlich Bachman",
-    url: "http://placekitten.com/200/300",
-    // url: "../assets/image/erlich.jpg",
-  },
-  {
-    name: "Monica Hall",
-    url: "http://placekitten.com/200/300",
-    // url: "../assets/image/monica.jpg",
-  },
-  {
-    name: "Jared Dunn",
-    url: "http://placekitten.com/200/300",
-    // url: "../assets/image/jared.jpg",
-  },
-  {
-    name: "Dinesh Chugtai",
-    url: "http://placekitten.com/200/300",
-    // url: "../assets/image/dinesh.jpg",
-  },
-];
+type Props = {
+  db: Array<ProjectType>;
+};
 
-const TinderSwipe: FC = () => {
+const TinderSwipe: FC<Props> = ({ db }) => {
+  console.log(db, "random documents");
+
   // const history = useHistory();
   const [lastDirection, setLastDirection] = useState<string>();
   const [currentIndex, setCurrentIndex] = useState<number>(db.length - 1);
@@ -47,7 +26,7 @@ const TinderSwipe: FC = () => {
       Array(db.length)
         .fill(0)
         .map((i) => React.createRef()),
-    []
+    [db.length]
   );
 
   const updateCurrentIndex = (val: any) => {
@@ -93,6 +72,7 @@ const TinderSwipe: FC = () => {
   };
 
   const swipe = async (dir: string) => {
+    console.log(dir, "click swipe");
     if (canSwipe && currentIndex < db.length) {
       await childRefs[currentIndex].current.swipe(dir); // Swipe the card!
     }
@@ -117,9 +97,15 @@ const TinderSwipe: FC = () => {
             onCardLeftScreen={() => outOfFrame(character.name, index)}
           >
             <div
-              style={{ backgroundImage: "url(" + character.url + ")" }}
+              style={{
+                backgroundImage: `url("http://placekitten.com/200/300")`,
+              }}
               className="card"
             >
+              {/* <div
+              style={{ backgroundImage: "url(" + character.url + ")" }}
+              className="card"
+            > */}
               <h3>{character.name}</h3>
             </div>
           </TinderCard>

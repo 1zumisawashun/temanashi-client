@@ -16,6 +16,7 @@ const PreviewModal: FC<Props> = ({ src, setToggleModal }) => {
     setToggleModal(false);
   };
 
+  //FIXME:スライダーを入れる・拡大機能を入れる
   return (
     <>
       <div className="overlay"></div>
