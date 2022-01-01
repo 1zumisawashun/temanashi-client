@@ -2,7 +2,7 @@ import "./User.scss";
 import { FC } from "react";
 import UserNavbar from "../../components/UserNavbar";
 import { useSubCollection } from "../../hooks/useSubCollection";
-import { convertedPath } from "../../utilities/convertPath";
+import { convertedPath } from "../../utilities/convertValue";
 import { User, likedProjects, ProjectType } from "../../types/dashboard";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import ProjectList from "../../components/ProjectList";

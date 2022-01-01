@@ -10,7 +10,7 @@ import { timestamp, firebase } from "../../firebase/config";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import AddFavoriteIcon from "../../assets/icon/add_favorite.svg";
 import RemoveFavoriteIcon from "../../assets/icon/remove_favorite.svg";
-import { convertedPath } from "../../utilities/convertPath";
+import { convertedPath } from "../../utilities/convertValue";
 import { useSubDocument } from "../../hooks/useSubDocument";
 import { useFirestore } from "../../hooks/useFirestore";
 
