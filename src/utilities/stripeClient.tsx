@@ -111,9 +111,10 @@ class ProductUseCase {
     const functionRef = projectFunctions.httpsCallable(
       "ext-firestore-stripe-subscriptions-createPortalLink"
     );
-    const prodUrl = "https://temanashi-39b3f.web.app/";
-    const { data } = await functionRef({ returnUrl: prodUrl });
-    // const { data } = await functionRef({ returnUrl: window.location.origin });
+    console.log(functionRef, "functionRef");
+    // const prodUrl = "https://temanashi-39b3f.web.app/";
+    // const { data } = await functionRef({ returnUrl: prodUrl });
+    const { data } = await functionRef({ returnUrl: window.location.origin });
     return data.url;
   }
 }

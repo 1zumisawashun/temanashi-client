@@ -49,7 +49,7 @@ const UserHistory: FC = () => {
     setUrl(url);
   };
   useEffect(() => {
-    // getCustomerURL();
+    getCustomerURL();
     fetchProducts();
   }, []);
 
@@ -59,11 +59,11 @@ const UserHistory: FC = () => {
       <div className="user-container">
         <div className="inner">
           <p>history</p>
-          {/* {url && (
+          {url && (
             <a href={url} className="btn">
               カスタマーポータルへ
             </a>
-          )} */}
+          )}
           {productItems &&
             productItems.map((item) => (
               <div key={item.product.name}>
