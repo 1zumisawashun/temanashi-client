@@ -2,6 +2,7 @@ import firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/auth";
 import "firebase/storage";
+import "firebase/functions";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -19,8 +20,16 @@ firebase.initializeApp(firebaseConfig);
 const projectFirestore = firebase.firestore();
 const projectAuth = firebase.auth();
 const projectStorage = firebase.storage();
+const projectFunctions = firebase.app().functions("asia-northeast1");
 
 //timestamp
 const timestamp = firebase.firestore.Timestamp;
 
-export { firebase, projectFirestore, projectAuth, projectStorage, timestamp };
+export {
+  firebase,
+  projectFirestore,
+  projectAuth,
+  projectStorage,
+  projectFunctions,
+  timestamp,
+};
