@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { documentPoint } from "../utilities/db";
+import { documentPoint } from "../utilities/converter";
 
 export const useDocument = <T,>(collection: string, docId: string) => {
   type Id = {

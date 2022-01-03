@@ -1,6 +1,6 @@
 import { useReducer, useEffect, useState } from "react";
 import { firebase, timestamp } from "../firebase/config";
-import { documentPoint, collectionPoint } from "../utilities/db";
+import { documentPoint, collectionPoint } from "../utilities/converter";
 
 let initialState = {
   document: null,

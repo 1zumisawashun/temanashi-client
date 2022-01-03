@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { firebase } from "../firebase/config";
-import { collectionPoint } from "../utilities/db";
+import { collectionPoint } from "../utilities/converter";
 
 export const useCollection = <T,>(
   collection: string,

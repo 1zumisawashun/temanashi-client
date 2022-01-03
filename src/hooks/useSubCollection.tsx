@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { subCollectionPoint } from "../utilities/db";
+import { subCollectionPoint } from "../utilities/converter";
 
 export const useSubCollection = <T, U>(path: Array<string>) => {
   const [documents, setDocuments] = useState<Array<U>>([]);

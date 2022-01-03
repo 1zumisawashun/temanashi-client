@@ -9,7 +9,7 @@ const UserHistory: FC = () => {
   // nullチェック・通常のreturnだとエラーになる
   if (!user) throw new Error("we cant find your account");
 
-  const [url, setUrl] = useState("");
+  const [url, setUrl] = useState(null);
   const [isPending, setIsPending] = useState<boolean>(false);
   const [isPendingBuy, setIsPendingBuy] = useState<boolean>(false);
   const [productItems, setProductItems] = useState<ProductItem[]>([]);

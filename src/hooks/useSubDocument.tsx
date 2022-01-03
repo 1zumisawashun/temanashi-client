@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { subDocumentPoint } from "../utilities/db";
+import { subDocumentPoint } from "../utilities/converter";
 import { firebase } from "../firebase/config";
 
 type Id = {

@@ -57,16 +57,15 @@ class ProductUseCase {
       .where("status", "in", ["trialing", "active"]);
   }
 
-  async joinSubscription(doc: SubscriptionDoc): Promise<SubscriptionItem> {
-    const productDoc = (await doc.product.get()).data() as ProductDoc;
-    const priceDoc = (await doc.price.get()).data() as PriceDoc;
-
-    return {
-      subscription: doc,
-      product: productDoc,
-      price: priceDoc,
-    };
-  }
+  // async joinSubscription(doc: SubscriptionDoc): Promise<SubscriptionItem> {
+  //   const productDoc = (await doc.product.get()).data() as ProductDoc;
+  //   const priceDoc = (await doc.price.get()).data() as PriceDoc;
+  //   return {
+  //     subscription: doc,
+  //     product: productDoc,
+  //     price: priceDoc,
+  //   };
+  // }
 
   // ****************************
   // * 更新
@@ -112,7 +111,9 @@ class ProductUseCase {
     const functionRef = projectFunctions.httpsCallable(
       "ext-firestore-stripe-subscriptions-createPortalLink"
     );
-    const { data } = await functionRef({ returnUrl: window.location.origin });
+    const prodUrl = "https://temanashi-39b3f.web.app/";
+    const { data } = await functionRef({ returnUrl: prodUrl });
+    // const { data } = await functionRef({ returnUrl: window.location.origin });
     return data.url;
   }
 }
