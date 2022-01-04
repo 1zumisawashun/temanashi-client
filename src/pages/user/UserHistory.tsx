@@ -3,6 +3,7 @@ import { FC, useEffect, useState } from "react";
 import UserNavbar from "../../components/UserNavbar";
 import { productUseCase, ProductItem } from "../../utilities/stripeClient";
 import { useAuthContext } from "../../hooks/useAuthContext";
+import { projectFunctions } from "../../firebase/config";
 
 const UserHistory: FC = () => {
   const { user } = useAuthContext();
@@ -12,6 +13,14 @@ const UserHistory: FC = () => {
   const [isPending, setIsPending] = useState<boolean>(false);
   const [isPendingBuy, setIsPendingBuy] = useState<boolean>(false);
   const [productItems, setProductItems] = useState<ProductItem[]>([]);
+
+  const sayYeah = () => {
+    const sayYeah = projectFunctions.httpsCallable("sayYeah");
+    sayYeah({ name: `shun` }).then((result) => {
+      console.log(result.data);
+      alert(result.data);
+    });
+  };
 
   const fetchProducts = async () => {
     try {
@@ -54,6 +63,9 @@ const UserHistory: FC = () => {
         {isPendingBuy && <div className="error">BUY ERROR</div>}
         <div className="inner">
           <p>history</p>
+          <button onClick={sayYeah} className="btn">
+            cloud functions
+          </button>
           {productItems &&
             productItems.map((item) => (
               <div key={item.product.name}>

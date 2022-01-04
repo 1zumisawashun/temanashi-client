@@ -20,7 +20,7 @@ firebase.initializeApp(firebaseConfig);
 const projectFirestore = firebase.firestore();
 const projectAuth = firebase.auth();
 const projectStorage = firebase.storage();
-const projectFunctions = firebase.app().functions("asia-northeast1");
+const projectFunctions = firebase.app().functions();
 
 //timestamp
 const timestamp = firebase.firestore.Timestamp;
