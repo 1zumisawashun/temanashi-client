@@ -5,7 +5,7 @@ import {
   ProductDoc,
   SubscriptionDoc,
 } from "../types/stripe";
-import { projectFirestore, projectFunctions } from "../firebase/config";
+import { firebase, projectFirestore } from "../firebase/config";
 
 export type ProductItem = {
   product: ProductDoc;
@@ -19,9 +19,7 @@ export type SubscriptionItem = {
 };
 
 class ProductUseCase {
-  // ****************************
   // * 参照
-  // ****************************
   async fetchAll(): Promise<ProductItem[]> {
     // Productを取得
     const productQuery = projectFirestore
@@ -48,28 +46,14 @@ class ProductUseCase {
       })
     );
   }
-
-  fetchSubscription(uid: string) {
-    return projectFirestore
-      .collection("customers")
-      .doc(uid)
-      .collection("subscriptions")
-      .where("status", "in", ["trialing", "active"]);
+  async add() {
+    const stripe = await loadStripe(process.env.REACT_APP_STRIPE_API_KEY || "");
+    if (!stripe) return;
   }
 
-  // async joinSubscription(doc: SubscriptionDoc): Promise<SubscriptionItem> {
-  //   const productDoc = (await doc.product.get()).data() as ProductDoc;
-  //   const priceDoc = (await doc.price.get()).data() as PriceDoc;
-  //   return {
-  //     subscription: doc,
-  //     product: productDoc,
-  //     price: priceDoc,
-  //   };
-  // }
-
-  // ****************************
   // * 更新
-  // ****************************
+
+  //NOTE:購入後にメールを送る、複数購入可能にする、カートページを作る,とりあえずcloud functionsを入れる、addできるようにする
   async buy(uid: string, priceId: string, url: string) {
     return new Promise(async (resolve, reject) => {
       const docRef = await projectFirestore
@@ -78,7 +62,7 @@ class ProductUseCase {
         .collection("checkout_sessions")
         .add({
           mode: "payment",
-          //for one-time-payment
+          //write for one-time-payment
           price: priceId,
           success_url: url,
           cancel_url: url,
@@ -87,15 +71,11 @@ class ProductUseCase {
       docRef.onSnapshot(async (snap) => {
         // console.log(snap.data(), "snap");
         const { error, sessionId } = (await snap.data()) as CheckoutSessionDoc;
-        // console.log(error, "error.message");
         if (error) return reject(error);
-        console.log(sessionId, "sessionId");
         if (!!sessionId) {
-          console.log(process.env.REACT_APP_STRIPE_API_KEY);
           const stripe = await loadStripe(
             process.env.REACT_APP_STRIPE_API_KEY || ""
           );
-          console.log(stripe, "check buy stripe");
           if (!stripe) return reject();
           stripe.redirectToCheckout({ sessionId });
           return resolve(undefined);
@@ -104,13 +84,12 @@ class ProductUseCase {
     });
   }
 
-  // ****************************
   // * function
-  // ****************************
   async getCustomerURL() {
-    const functionRef = projectFunctions.httpsCallable(
-      "ext-firestore-stripe-subscriptions-createPortalLink"
-    );
+    const functionRef = await firebase
+      .app()
+      .functions("asia-northeast1")
+      .httpsCallable("ext-firestore-stripe-subscriptions-createPortalLink");
     console.log(functionRef, "functionRef");
     // const prodUrl = "https://temanashi-39b3f.web.app/";
     // const { data } = await functionRef({ returnUrl: prodUrl });

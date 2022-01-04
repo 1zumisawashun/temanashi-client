@@ -9,7 +9,6 @@ const UserHistory: FC = () => {
   // nullチェック・通常のreturnだとエラーになる
   if (!user) throw new Error("we cant find your account");
 
-  const [url, setUrl] = useState(null);
   const [isPending, setIsPending] = useState<boolean>(false);
   const [isPendingBuy, setIsPendingBuy] = useState<boolean>(false);
   const [productItems, setProductItems] = useState<ProductItem[]>([]);
@@ -43,13 +42,7 @@ const UserHistory: FC = () => {
     }
   };
 
-  const getCustomerURL = async () => {
-    const url = await productUseCase.getCustomerURL();
-    console.log(url, "url");
-    setUrl(url);
-  };
   useEffect(() => {
-    getCustomerURL();
     fetchProducts();
   }, []);
 
@@ -57,13 +50,10 @@ const UserHistory: FC = () => {
     <>
       <UserNavbar />
       <div className="user-container">
+        {isPending && <div className="error">ERROR</div>}
+        {isPendingBuy && <div className="error">BUY ERROR</div>}
         <div className="inner">
           <p>history</p>
-          {url && (
-            <a href={url} className="btn">
-              カスタマーポータルへ
-            </a>
-          )}
           {productItems &&
             productItems.map((item) => (
               <div key={item.product.name}>
