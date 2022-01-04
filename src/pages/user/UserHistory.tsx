@@ -59,8 +59,16 @@ const UserHistory: FC = () => {
     <>
       <UserNavbar />
       <div className="user-container">
-        {isPending && <div className="error">ERROR</div>}
-        {isPendingBuy && <div className="error">BUY ERROR</div>}
+        {isPending && (
+          <button className="btn" disabled>
+            loading...
+          </button>
+        )}
+        {isPendingBuy && (
+          <button className="btn" disabled>
+            loading...
+          </button>
+        )}
         <div className="inner">
           <p>history</p>
           <button onClick={sayYeah} className="btn">
