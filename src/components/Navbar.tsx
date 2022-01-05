@@ -5,14 +5,17 @@ import { useAuthContext } from "../hooks/useAuthContext";
 import { FC, FormEvent } from "react";
 import FlatButton from "./Button/FlatButton";
 import LinkButton from "./Button/LinkButton";
+import { useHistory } from "react-router-dom";
 
 const Navbar: FC = () => {
   const { logout, isPending } = useLogout();
   const { user } = useAuthContext();
+  const history = useHistory();
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     logout();
+    history.push("/login");
   };
 
   return (
