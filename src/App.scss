@@ -3,5 +3,8 @@
   > .container {
     flex-grow: 1;
     padding: 0 60px 60px;
+    &.-auth {
+      padding: 0;
+    }
   }
 }

@@ -20,10 +20,52 @@ import Privacy from "./pages/privacy";
 
 const App = () => {
   const { user, authIsReady } = useAuthContext();
-  // const { user } = useAuthContext();
   return (
     <div className="App">
-      {authIsReady && (
+      {/* 一度もログインしたことのないユーザー */}
+      {!authIsReady && (
+        <BrowserRouter>
+          <div className="container -auth">
+            <Switch>
+              <Route exact path="/">
+                {!user && !authIsReady && <Redirect to="/login" />}
+              </Route>
+              <Route path="/login">
+                {user && <Redirect to="/login" />}
+                {!user && <Login />}
+              </Route>
+              <Route path="/signup">
+                {user && <Redirect to="/login" />}
+                {!user && <Signup />}
+              </Route>
+            </Switch>
+          </div>
+        </BrowserRouter>
+      )}
+
+      {/* アクティブユーザーがログアウトした時 */}
+      {authIsReady && !user && (
+        <BrowserRouter>
+          <div className="container -auth">
+            <Switch>
+              <Route exact path="/">
+                {!user && <Redirect to="/login" />}
+              </Route>
+              <Route path="/login">
+                {user && <Redirect to="/login" />}
+                {!user && <Login />}
+              </Route>
+              <Route path="/signup">
+                {user && <Redirect to="/login" />}
+                {!user && <Signup />}
+              </Route>
+            </Switch>
+          </div>
+        </BrowserRouter>
+      )}
+
+      {/* アクティブユーザー */}
+      {authIsReady && user && (
         <BrowserRouter>
           {user && <Sidebar />}
           <div className="container">
