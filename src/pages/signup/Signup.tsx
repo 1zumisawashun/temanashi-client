@@ -1,6 +1,7 @@
 import { FC, FormEvent, useState } from "react";
 import { useSignup } from "../../hooks/useSignup";
-import "./Signup.scss";
+import { Link } from "react-router-dom";
+import "../login/Login.scss";
 
 const Signup: FC = () => {
   const [email, setEmail] = useState<string>("");
@@ -41,48 +42,51 @@ const Signup: FC = () => {
   };
 
   return (
-    <form className="auth-form" onSubmit={handleSubmit}>
-      <h2>Sign up</h2>
-      <label>
-        <span>email:</span>
-        <input
-          required
-          type="email"
-          onChange={(e) => setEmail(e.target.value)}
-          value={email}
-        />
-      </label>
-      <label>
-        <span>password:</span>
-        <input
-          required
-          type="password"
-          onChange={(e) => setPassword(e.target.value)}
-          value={password}
-        />
-      </label>
-      <label>
-        <span>display name:</span>
-        <input
-          required
-          type="text"
-          onChange={(e) => setDisplayName(e.target.value)}
-          value={displayName}
-        />
-      </label>
-      <label>
-        <span>profile thumbnail:</span>
-        <input required type="file" onChange={handleFileChange} />
-        {thumbnailError && <div className="error">{thumbnailError}</div>}
-      </label>
-      {!isPending && <button className="btn">Sign up</button>}
-      {isPending && (
-        <button className="btn" disabled>
-          loading
-        </button>
-      )}
-      {error && <div className="error">{error}</div>}
-    </form>
+    <div className="auth-container">
+      <div className="wrapper">
+        <div className="form -h500 -w450">
+          <h1>Sign up</h1>
+          <form onSubmit={handleSubmit}>
+            <input
+              required
+              type="email"
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
+              placeholder="xyz@gmail.com"
+            />
+            <input
+              required
+              type="password"
+              onChange={(e) => setPassword(e.target.value)}
+              value={password}
+              placeholder="Must have atleast 6 characters"
+            />
+            <input
+              required
+              type="text"
+              onChange={(e) => setDisplayName(e.target.value)}
+              value={displayName}
+              placeholder="your name"
+            />
+            <input required type="file" onChange={handleFileChange} />
+            {thumbnailError && <div className="error">{thumbnailError}</div>}
+
+            {!isPending && <button type="submit">Sign up</button>}
+            {isPending && (
+              <button type="submit" disabled>
+                loading
+              </button>
+            )}
+            {error && <div className="error">{error}</div>}
+
+            <div className="forgot-signup">
+              <Link to="/login">Forgot password?</Link>
+              <Link to="/login">Login</Link>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
   );
 };
 
