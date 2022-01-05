@@ -3,9 +3,15 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ```
-frontend: React, TypeScript
-Backend: Firebase (Firestore, Authentication, Storage, Hosting)
-Others: Stripe
+言語：TypeScript
+ライブラリ：React
+ホスティング：Firebase Hosting
+DB：Firestore
+認証：Firebase Authentication
+APIサーバー：Cloud Functions
+ストレージ：Cloud Storage
+決済：Stripe ( Firebase Stripe Extention )
+E2E：Cypress
 ```
 
 ## Available Scripts
