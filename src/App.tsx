@@ -14,6 +14,7 @@ import Diagnose from "./pages/diagnose/Diagnose";
 import UserFavorite from "./pages/user/UserFavorite";
 import UserAccount from "./pages/user/UserAccount";
 import UserHistory from "./pages/user/UserHistory";
+import Cart from "./pages/cart/Cart";
 import DiagnoseResult from "./pages/diagnose/DiagnoseResult";
 import Terms from "./pages/terms";
 import Privacy from "./pages/privacy";
@@ -110,6 +111,10 @@ const App = () => {
               <Route path="/users/:id/favorite">
                 {!user && <Redirect to="/login" />}
                 {user && <UserFavorite />}
+              </Route>
+              <Route path="/users/:id/cart">
+                {!user && <Redirect to="/login" />}
+                {user && <Cart />}
               </Route>
               <Route path="/terms">
                 <Terms />

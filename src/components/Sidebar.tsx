@@ -6,6 +6,7 @@ import "./Sidebar.scss";
 import DashboardIcon from "../assets/icon/dashboard_icon.svg";
 import AddIcon from "../assets/icon/add_icon.svg";
 import FeedbackIcon from "../assets/icon/feedback_icon.svg";
+import CartIcon from "../assets/icon/shopping_cart.svg";
 import { FC } from "react";
 
 const Sidebar: FC = () => {
@@ -39,7 +40,13 @@ const Sidebar: FC = () => {
             <li>
               <NavLink to="/diagnose">
                 <img src={FeedbackIcon} alt="add project icon" />
-                <span>Diagnose here...</span>
+                <span>Diagnose</span>
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to={`/users/${user.uid}/cart`}>
+                <img src={CartIcon} alt="add project icon" />
+                <span>Shopping Cart</span>
               </NavLink>
             </li>
           </ul>
