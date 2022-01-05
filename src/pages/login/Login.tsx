@@ -1,6 +1,7 @@
 import { FC, FormEvent } from "react";
 import { useState } from "react";
 import { useLogin } from "../../hooks/useLogin";
+import { Link } from "react-router-dom";
 import "./Login.scss";
 
 const Login: FC = () => {
@@ -14,34 +15,41 @@ const Login: FC = () => {
   };
 
   return (
-    <form className="auth-form" onSubmit={handleSubmit}>
-      <h2>Login</h2>
-      <label>
-        <span>email:</span>
-        <input
-          required
-          type="email"
-          onChange={(e) => setEmail(e.target.value)}
-          value={email}
-        />
-      </label>
-      <label>
-        <span>password:</span>
-        <input
-          required
-          type="password"
-          onChange={(e) => setPassword(e.target.value)}
-          value={password}
-        />
-      </label>
-      {!isPending && <button className="btn">Login</button>}
-      {isPending && (
-        <button className="btn" disabled>
-          loading
-        </button>
-      )}
-      {error && <div className="error">{error}</div>}
-    </form>
+    <div className="auth-container">
+      <div className="wrapper">
+        <div className="form">
+          <h1>login</h1>
+          <form onSubmit={handleSubmit}>
+            <input
+              required
+              type="email"
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
+              placeholder="xyz@gmail.com"
+            />
+            <input
+              required
+              type="password"
+              onChange={(e) => setPassword(e.target.value)}
+              value={password}
+              placeholder="Must have atleast 6 characters"
+            />
+
+            {!isPending && <button type="submit">Login</button>}
+            {isPending && (
+              <button type="submit" disabled>
+                Loading
+              </button>
+            )}
+            {error && <div className="error">{error}</div>}
+            <div className="forgot-signup">
+              <Link to="/signup">Forgot password?</Link>
+              <Link to="/signup">Sign Up</Link>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
   );
 };
 
