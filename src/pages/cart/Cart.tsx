@@ -1,4 +1,3 @@
-// import "./Complete.scss";
 import { FC, useEffect, useState } from "react";
 import { productUseCase, ProductItem } from "../../utilities/stripeClient";
 import { useAuthContext } from "../../hooks/useAuthContext";

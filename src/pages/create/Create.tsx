@@ -1,5 +1,4 @@
 import { FC, useEffect, useState, FormEvent } from "react";
-// import "./Create.scss";
 import Select from "react-select";
 import { useCollection } from "../../hooks/useCollection";
 import { firebase, timestamp } from "../../firebase/config";

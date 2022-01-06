@@ -1,4 +1,3 @@
-// import "./UserNavbar.scss";
 import { FC, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useAuthContext } from "../hooks/useAuthContext";

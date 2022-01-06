@@ -1,4 +1,3 @@
-// import "./LikeButton.scss";
 import {
   ProjectType,
   User,

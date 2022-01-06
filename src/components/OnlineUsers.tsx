@@ -1,4 +1,3 @@
-// import "./OnlineUsers.scss";
 import { useCollection } from "../hooks/useCollection";
 import Avatar from "../components/Avatar";
 import { User } from "../types/dashboard";

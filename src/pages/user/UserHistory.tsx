@@ -1,4 +1,3 @@
-// import "./User.scss";
 import { FC } from "react";
 import UserNavbar from "../../components/UserNavbar";
 import { useAuthContext } from "../../hooks/useAuthContext";

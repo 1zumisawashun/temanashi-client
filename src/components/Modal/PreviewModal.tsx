@@ -1,4 +1,3 @@
-// import "./PreviewModal.scss";
 import { FC } from "react";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import CloseButton from "../Button/CloseButton";

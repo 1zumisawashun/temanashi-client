@@ -2,7 +2,6 @@ import { FC, FormEvent } from "react";
 import { useState } from "react";
 import { useLogin } from "../../hooks/useLogin";
 import { Link } from "react-router-dom";
-// import "./Login.scss";
 
 const Login: FC = () => {
   const [email, setEmail] = useState<string>("");

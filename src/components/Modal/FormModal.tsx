@@ -1,4 +1,3 @@
-// import "./FormModal.scss";
 import { FC, useState, FormEvent } from "react";
 import { timestamp } from "../../firebase/config";
 import { useAuthContext } from "../../hooks/useAuthContext";

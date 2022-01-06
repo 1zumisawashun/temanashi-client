@@ -1,5 +1,4 @@
 import { FC } from "react";
-// import "./Diagnose.scss";
 import TinderSwipe from "../../components/TinderSwipe";
 import { useRandomDocument } from "../../hooks/useRandomDocument";
 

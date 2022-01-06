@@ -1,5 +1,3 @@
-// import "./ProgressBar.scss";
-
 import { FC, useState, useEffect } from "react";
 
 type Props = {

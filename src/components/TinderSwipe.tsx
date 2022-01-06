@@ -1,6 +1,4 @@
-// import "./TinderSwipe.scss";
 import React, { FC, useState, useRef, useMemo } from "react";
-// import TinderCard from '../react-tinder-card/index'
 import TinderCard from "react-tinder-card";
 import { useHistory } from "react-router-dom";
 import ThumbUp from "../assets/icon/thumb_up.svg";
@@ -9,6 +7,7 @@ import Undo from "../assets/icon/undo.svg";
 import { ProjectType } from "../types/dashboard";
 import ProgressBar from "./ProgressBar";
 import { delay } from "../utilities/convertValue";
+// import TinderCard from '../react-tinder-card/index'
 
 type Props = {
   db: Array<ProjectType>;

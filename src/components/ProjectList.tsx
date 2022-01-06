@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import Avatar from "./Avatar";
-// import "./ProjectList.scss";
 import { FC } from "react";
 import { ProjectType } from "../types/dashboard";
 
