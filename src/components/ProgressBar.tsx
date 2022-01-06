@@ -1,4 +1,4 @@
-import "./ProgressBar.scss";
+// import "./ProgressBar.scss";
 
 import { FC, useState, useEffect } from "react";
 

@@ -1,4 +1,4 @@
-import "./LikeButton.scss";
+// import "./LikeButton.scss";
 import {
   ProjectType,
   User,

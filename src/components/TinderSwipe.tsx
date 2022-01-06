@@ -1,4 +1,4 @@
-import "./TinderSwipe.scss";
+// import "./TinderSwipe.scss";
 import React, { FC, useState, useRef, useMemo } from "react";
 // import TinderCard from '../react-tinder-card/index'
 import TinderCard from "react-tinder-card";

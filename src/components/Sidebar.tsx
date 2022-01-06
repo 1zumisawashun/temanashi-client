@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 import Avatar from "./Avatar";
 import { useAuthContext } from "../hooks/useAuthContext";
 
-import "./Sidebar.scss";
+// import "./Sidebar.scss";
 import DashboardIcon from "../assets/icon/dashboard_icon.svg";
 import AddIcon from "../assets/icon/add_icon.svg";
 import FeedbackIcon from "../assets/icon/feedback_icon.svg";
