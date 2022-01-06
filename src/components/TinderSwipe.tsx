@@ -8,6 +8,7 @@ import ThumbDown from "../assets/icon/thumb_down.svg";
 import Undo from "../assets/icon/undo.svg";
 import { ProjectType } from "../types/dashboard";
 import ProgressBar from "./ProgressBar";
+import { delay } from "../utilities/convertValue";
 
 type Props = {
   db: Array<ProjectType>;
@@ -38,7 +39,7 @@ const TinderSwipe: FC<Props> = ({ db }) => {
     console.log(result3, "========");
   };
 
-  const updateCurrentIndex = (val: number) => {
+  const updateCurrentIndex = async (val: number) => {
     setCurrentIndex(val);
     currentIndexRef.current = val;
     progressBarCalclation(val);
@@ -46,9 +47,8 @@ const TinderSwipe: FC<Props> = ({ db }) => {
       console.log("done!");
       //意図的に遅らせないとレンダリングについてこれずに固まる
       // loadingを入れる
-      setTimeout(() => {
-        history.push("/diagnose/result");
-      }, 2000);
+      await delay(3000);
+      history.push("/diagnose/result");
     }
   };
 

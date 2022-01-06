@@ -16,3 +16,5 @@ export const convertedPath = (path: string): Array<string> => {
 export const taxIncludedPrice = (price: number, tax_rate: number): number => {
   return Math.round(price * (1 + tax_rate / 100));
 };
+
+export const delay = (t: number) => new Promise((r) => setTimeout(r, t));
