@@ -4,6 +4,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ```
 言語： TypeScript
+CSSアーキテクチャ： ITCSS RSCSS
 ライブラリ： React
 ホスティング： Firebase Hosting
 DB： Firestore
@@ -11,7 +12,7 @@ DB： Firestore
 APIサーバー： Cloud Functions
 ストレージ： Cloud Storage
 決済： Firebase Stripe Extention
-E2E： Cypress
+E2Eテスト： Cypress
 ```
 
 ## Available Scripts
