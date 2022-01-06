@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { useCollection } from "../../hooks/useCollection";
 import ProjectList from "../../components/ProjectList";
-import "./Dashboard.scss";
+// import "./Dashboard.scss";
 import ProjectFilter from "./ProjectFilter";
 import { useState } from "react";
 import { useAuthContext } from "../../hooks/useAuthContext";

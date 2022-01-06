@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useDocument } from "../../hooks/useDocument";
 import ProjectSummary from "./ProjectSummary";
-import "./Project.scss";
+// import "./Project.scss";
 import ProjectComments from "./ProjectComments";
 import { ProjectType } from "../../types/dashboard";
 import { FC } from "react";

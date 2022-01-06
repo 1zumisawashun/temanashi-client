@@ -1,11 +1,18 @@
 /* Component Layer */
-@import "avatar";
-@import "form-modal";
-@import "like-button";
-@import "navbar";
-@import "online-users";
-@import "progressBar";
-@import "project-list";
-@import "sidebar";
-@import "tinder-swipe";
-@import "user-navbar";
+@import "./components/avatar.scss";
+@import "./components/form-modal.scss";
+@import "./components/like-button.scss";
+@import "./components/navbar.scss";
+@import "./components/online-users.scss";
+@import "./components/progressbar.scss";
+@import "./components/project-list.scss";
+@import "./components/sidebar.scss";
+@import "./components/tinder-swipe.scss";
+@import "./components/user-navbar.scss";
+
+/* Page Layer */
+@import "./pages/dashboard.scss";
+@import "./pages/diagnose-result.scss";
+@import "./pages/login.scss";
+@import "./pages/project.scss";
+@import "./pages/user.scss";

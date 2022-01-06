@@ -1,5 +1,5 @@
 import { FC } from "react";
-import "./DiagnoseResult.scss";
+// import "./DiagnoseResult.scss";
 import { Link } from "react-router-dom";
 import { db, recommendation, Furniture } from "../../utilities/dammyData";
 

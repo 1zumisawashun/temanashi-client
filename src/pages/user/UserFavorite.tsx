@@ -1,4 +1,4 @@
-import "./User.scss";
+// import "./User.scss";
 import { FC } from "react";
 import UserNavbar from "../../components/UserNavbar";
 import { useSubCollection } from "../../hooks/useSubCollection";

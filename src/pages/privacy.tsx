@@ -1,5 +1,5 @@
 import { FC } from "react";
-import "./privacy.scss";
+// import "./privacy.scss";
 
 const Privacy: FC = () => {
   return (
