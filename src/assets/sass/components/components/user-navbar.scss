@@ -6,8 +6,8 @@
 
   > a {
     width: 100%;
-    color: var(--text-color);
-    border-bottom: 3px solid var(--text-color);
+    color: $basalt-grey;
+    border-bottom: 3px solid $basalt-grey;
     text-align: center;
     cursor: pointer;
     text-decoration: none;
@@ -19,8 +19,8 @@
   // }
 
   > .active {
-    color: var(--primary-color);
-    border-bottom: 3px solid var(--primary-color);
+    color: $vintage-blue;
+    border-bottom: 3px solid $vintage-blue;
     // animation-name: popup;
     // animation-duration: 1000ms;
   }

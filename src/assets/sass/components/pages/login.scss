@@ -7,9 +7,9 @@
   place-items: center;
   background: linear-gradient(
     to right,
-    var(--primary-color),
-    var(--primary-color),
-    var(--primary-color)
+    $vintage-blue,
+    $vintage-blue,
+    $vintage-blue
   );
   > .wrapper {
     position: relative;

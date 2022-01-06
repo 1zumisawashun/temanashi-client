@@ -5,7 +5,7 @@
   grid-gap: 20px;
 
   > a {
-    background-color: #fff;
+    background-color: $white;
     padding: 16px;
     border-radius: 6px;
     box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.05);
@@ -19,11 +19,11 @@
 
   > a > h4 {
     font-size: 0.9em;
-    color: var(--heading-color);
+    color: $goshawk-grey;
   }
 
   > a > p {
-    color: var(--text-color);
+    color: $basalt-grey;
     font-size: 0.9em;
   }
 

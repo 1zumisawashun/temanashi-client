@@ -13,7 +13,7 @@
 
   > ul > .logo {
     font-weight: bold;
-    color: var(--heading-color);
+    color: $goshawk-grey;
     letter-spacing: 1px;
     display: flex;
     align-items: center;
@@ -28,7 +28,7 @@
   }
 
   > ul > li > a {
-    color: var(--heading-color);
+    color: $goshawk-grey;
     text-decoration: none;
     margin-right: 20px;
   }

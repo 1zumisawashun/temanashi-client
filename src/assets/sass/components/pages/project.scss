@@ -8,7 +8,7 @@
 /* project summary */
 .project-summary-container {
   > .project-summary {
-    background-color: #fff;
+    background-color:$white;
     padding: 30px;
     border-radius: 4px;
   }
@@ -20,13 +20,13 @@
 
   > .project-summary > .details {
     margin: 30px 0;
-    color: var(--text-color);
+    color: $basalt-grey;
     line-height: 1.8em;
     font-size: 0.9em;
   }
 
   > .project-summary > h4 {
-    color: var(--text-color);
+    color: $basalt-grey;
     font-size: 0.9em;
   }
 
@@ -47,7 +47,7 @@
 
 .project-comments {
   > h4 {
-    color: var(--heading-color);
+    color: $goshawk-grey;
   }
   > .comment-list {
     max-height: 590px; //オーバーしたらスクロールバーが追加される
@@ -59,7 +59,7 @@
     border: 1px solid #f2f2f2;
     margin-top: 20px;
     box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.05);
-    background: #fff;
+    background:$white;
   }
   > .comment-list > li > .comment-auther {
     display: flex;
@@ -72,12 +72,12 @@
     margin-right: 10px;
   }
   > .comment-list > li > .comment-date {
-    color: var(--text-color);
+    color: $basalt-grey;
     font-size: 0.9em;
     margin: 4px 0 10px;
   }
   > .comment-list > li > .comment-content {
-    color: var(--text-color);
+    color: $basalt-grey;
     font-size: 0.9em;
   }
 }

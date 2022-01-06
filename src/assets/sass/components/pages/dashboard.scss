@@ -4,7 +4,7 @@
   > nav {
     display: flex;
     padding: 10px;
-    background-color: #fff;
+    background-color:$white;
     border-radius: 4px;
   }
 
@@ -18,7 +18,7 @@
     border: 0;
     font-family: inherit;
     font-weight: bold;
-    color: var(--text-color);
+    color: $basalt-grey;
     cursor: pointer;
     border-right: 1px solid #e4e4e4;
     font-size: 0.9em;
@@ -29,6 +29,6 @@
   }
 
   > nav > button.active {
-    color: var(--primary-color);
+    color: $vintage-blue;
   }
 }

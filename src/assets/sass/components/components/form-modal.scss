@@ -3,7 +3,7 @@
   top: 15px;
   right: 20px;
   font-size: 30px;
-  color: var(--heading-color);
+  color: $goshawk-grey;
   cursor: pointer;
   border: none;
   background: none;
@@ -15,7 +15,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   width: 30%;
-  background-color: white;
+  background-color: $white;
   padding: 5rem 3rem;
   border-radius: 5px;
   box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.05);

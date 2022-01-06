@@ -6,33 +6,18 @@
 
 body {
   font-family: $font-family;
-  // font-size: 1.1em;
+  font-size: 1.1em;
   font-weight: normal;
   line-height: 1.6;
-  // margin: 0;
+  margin: 0;
   color: $black-dark-grey;
-  // background: var(--bg-color);
+  background: $lighthouse;
   -webkit-font-smoothing: antialiased;
   word-wrap: break-word;
   overflow-wrap: break-word;
 }
 
-// /* variables */
-:root {
-  --heading-color: #444;
-  --text-color: #999;
-  --primary-color: #84bcb4;
-  --highlight-color: #d13267;
-  --bg-color: #f4f4f4;
-}
-
 /* base styles */
-body {
-  font-family: Poppins, sans-serif;
-  margin: 0;
-  font-size: 1.1em;
-  background: var(--bg-color);
-}
 ul,
 li,
 p,
@@ -50,24 +35,24 @@ ul {
 /* layout */
 .page-title {
   font-size: 1em;
-  color: var(--heading-color);
+  color: $goshawk-grey;
   display: inline-block;
 }
 .btn {
-  background: #fff;
+  background: $white;
   padding: 8px 12px;
   border-radius: 4px;
-  color: var(--primary-color);
+  color: $vintage-blue;
   cursor: pointer;
   font-size: 1em;
-  border: 1px solid var(--primary-color);
+  border: 1px solid $vintage-blue;
   &.-mt10 {
     margin-top: 10px;
   }
 }
 .btn:hover {
-  color: #fff;
-  background-color: var(--primary-color);
+  color: $white;
+  background-color: $vintage-blue;
 }
 
 /* forms */
@@ -93,32 +78,10 @@ textarea {
   min-height: 160px;
 }
 .error {
-  color: red;
+  color: $spicy-berry;
   background: pink;
-  border: 1px solid red;
+  border: 1px solid $spicy-berry;
   border-radius: 4px;
   padding: 8px;
   margin: 10px 0;
-}
-
-.indicator-container {
-  border: 1px solid var(--primary-color);
-  position: relative;
-  animation: indicator ease 1.5s infinite;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  margin: 30px auto;
-  &::before {
-    content: "";
-    position: absolute;
-    display: block;
-    top: 0;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 6px;
-    height: 6px;
-    background-color: var(--primary-color);
-    border-radius: 50%;
-  }
 }

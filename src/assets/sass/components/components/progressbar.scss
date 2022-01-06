@@ -5,8 +5,8 @@
 }
 
 .progress {
-  background-color: var(--primary-color);
   height: 10px;
+  background-color: $vintage-blue;
   border-radius: 1rem;
   transition: 0.2s ease;
   transition-delay: 0.1s;

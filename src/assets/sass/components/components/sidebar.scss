@@ -1,11 +1,11 @@
 .sidebar {
   width: 300px;
   min-width: 300px;
-  background: var(--primary-color);
+  background: $vintage-blue;
   min-height: 100vh;
   box-sizing: border-box;
   position: relative;
-  color: #fff;
+  color: $white;
 
   > .sidebar-content {
     position: fixed;
@@ -21,7 +21,7 @@
   }
   > .sidebar-content > .user > a {
     text-decoration: none;
-    color: #fff;
+    color: $white;
   }
 
   > .sidebar-content > .links {
@@ -38,7 +38,7 @@
     padding: 10px;
     text-decoration: none;
     width: 100%;
-    color: #fff;
+    color:$white;
     box-sizing: border-box;
   }
 
@@ -49,7 +49,7 @@
 
   > .sidebar-content > .links > ul > li > a.active {
     color: #555;
-    background: var(--bg-color);
+    background: $lighthouse;
     border-radius: 20px 0 0 20px;
   }
 
