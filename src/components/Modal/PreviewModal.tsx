@@ -1,6 +1,8 @@
 import { FC } from "react";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import CloseButton from "../Button/CloseButton";
+import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 type Props = {
   src: string;
@@ -32,7 +34,17 @@ const PreviewModal: FC<Props> = ({ src, setToggleModal }) => {
       <div className="overlay" style={styles}>
         <div className="modal">
           <CloseButton onClick={closeModal} />
-          <img src={src} alt="" />
+          <Carousel>
+            <div>
+              <img src={src} alt="" />
+            </div>
+            <div>
+              <img src={src} alt="" />
+            </div>
+            <div>
+              <img src={src} alt="" />
+            </div>
+          </Carousel>
         </div>
       </div>
     </>
