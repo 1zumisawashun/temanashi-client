@@ -7,6 +7,7 @@ import Undo from "../assets/icon/undo.svg";
 import { ProjectType } from "../types/dashboard";
 import ProgressBar from "./ProgressBar";
 import { delay } from "../utilities/convertValue";
+import Loading from "../components/Loading";
 // import TinderCard from '../react-tinder-card/index'
 
 type Props = {
@@ -15,6 +16,7 @@ type Props = {
 
 const TinderSwipe: FC<Props> = ({ db }) => {
   const history = useHistory();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [lastDirection, setLastDirection] = useState<string>();
   const [currentIndex, setCurrentIndex] = useState<number>(db.length - 1);
   const [percent, setPercent] = useState<number>(0);
@@ -46,7 +48,9 @@ const TinderSwipe: FC<Props> = ({ db }) => {
       console.log("done!");
       //意図的に遅らせないとレンダリングについてこれずに固まる
       // loadingを入れる
+      setIsLoading(true);
       await delay(3000);
+      setIsLoading(false);
       history.push("/diagnose/result");
     }
   };
@@ -85,49 +89,52 @@ const TinderSwipe: FC<Props> = ({ db }) => {
   };
 
   return (
-    <div className="tinder-swipe">
-      <ProgressBar width={400} percent={percent} />
-      <div className="cardContainer">
-        {db.map((character, index) => (
-          <TinderCard
-            ref={childRefs[index]}
-            className="swipe"
-            key={character.name}
-            onSwipe={(dir) => swiped(dir, character.name, index)}
-            onCardLeftScreen={() => outOfFrame(character.name, index)}
-          >
-            <div
-              style={{
-                backgroundImage: `url("http://placekitten.com/200/300")`,
-              }}
-              className="card"
+    <>
+      {isLoading && <Loading />}
+      <div className="tinder-swipe">
+        <ProgressBar width={400} percent={percent} />
+        <div className="cardContainer">
+          {db.map((character, index) => (
+            <TinderCard
+              ref={childRefs[index]}
+              className="swipe"
+              key={character.name}
+              onSwipe={(dir) => swiped(dir, character.name, index)}
+              onCardLeftScreen={() => outOfFrame(character.name, index)}
             >
-              {/* <div
+              <div
+                style={{
+                  backgroundImage: `url("http://placekitten.com/200/300")`,
+                }}
+                className="card"
+              >
+                {/* <div
               style={{ backgroundImage: "url(" + character.url + ")" }}
               className="card"
             > */}
-              <h3>{character.name}</h3>
-            </div>
-          </TinderCard>
-        ))}
+                <h3>{character.name}</h3>
+              </div>
+            </TinderCard>
+          ))}
+        </div>
+        <div className="buttons">
+          <button onClick={() => swipe("left")}>
+            <img src={ThumbDown} alt="" />
+          </button>
+          <button onClick={() => goBack()}>
+            <img src={Undo} alt="" />
+          </button>
+          <button onClick={() => swipe("right")}>
+            <img src={ThumbUp} alt="" />
+          </button>
+        </div>
+        {lastDirection && (
+          <h3 key={lastDirection} className="infoText">
+            You swiped {lastDirection}
+          </h3>
+        )}
       </div>
-      <div className="buttons">
-        <button onClick={() => swipe("left")}>
-          <img src={ThumbDown} alt="" />
-        </button>
-        <button onClick={() => goBack()}>
-          <img src={Undo} alt="" />
-        </button>
-        <button onClick={() => swipe("right")}>
-          <img src={ThumbUp} alt="" />
-        </button>
-      </div>
-      {lastDirection && (
-        <h3 key={lastDirection} className="infoText">
-          You swiped {lastDirection}
-        </h3>
-      )}
-    </div>
+    </>
   );
 };
 
