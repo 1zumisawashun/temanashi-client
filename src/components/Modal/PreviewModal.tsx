@@ -13,15 +13,27 @@ const PreviewModal: FC<Props> = ({ src, setToggleModal }) => {
 
   const closeModal = () => {
     setToggleModal(false);
+    document.body.style.overflow = "";
   };
+
+  const scrollTop = (): number => {
+    return Math.max(
+      window.pageYOffset,
+      document.documentElement.scrollTop,
+      document.body.scrollTop
+    );
+  };
+
+  const styles = { top: scrollTop() };
 
   //FIXME:スライダーを入れる・拡大機能を入れる
   return (
     <>
-      <div className="overlay"></div>
-      <div className="modal">
-        <CloseButton onClick={closeModal} />
-        <img src={src} alt="" />
+      <div className="overlay" style={styles}>
+        <div className="modal">
+          <CloseButton onClick={closeModal} />
+          <img src={src} alt="" />
+        </div>
       </div>
     </>
   );

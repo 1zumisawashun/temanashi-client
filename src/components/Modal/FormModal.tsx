@@ -39,23 +39,35 @@ const FormModal: FC<Props> = ({ project, setToggleModal }) => {
 
   const closeModal = () => {
     setToggleModal(false);
+    document.body.style.overflow = "";
   };
+
+  const scrollTop = (): number => {
+    return Math.max(
+      window.pageYOffset,
+      document.documentElement.scrollTop,
+      document.body.scrollTop
+    );
+  };
+
+  const styles = { top: scrollTop() };
 
   return (
     <>
-      <div className="overlay"></div>
-      <form className="modal" onSubmit={handleSubmit}>
-        <label>
-          <span>Add new comment:</span>
-          <CloseButton onClick={closeModal} />
-          <textarea
-            required
-            onChange={(e) => setNewComment(e.target.value)}
-            value={newComment}
-          ></textarea>
-        </label>
-        <FlatButton content={"Add Comment"} />
-      </form>
+      <div className="overlay" style={styles}>
+        <form className="modal" onSubmit={handleSubmit}>
+          <label>
+            <span>Add new comment:</span>
+            <CloseButton onClick={closeModal} />
+            <textarea
+              required
+              onChange={(e) => setNewComment(e.target.value)}
+              value={newComment}
+            ></textarea>
+          </label>
+          <FlatButton content={"Add Comment"} />
+        </form>
+      </div>
     </>
   );
 };

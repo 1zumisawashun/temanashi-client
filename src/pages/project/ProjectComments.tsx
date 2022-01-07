@@ -2,7 +2,7 @@ import { FC, useState } from "react";
 import Avatar from "../../components/Avatar";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import { Comment, ProjectType } from "../../types/dashboard";
-import CommentModal from "../../components/Modal/FormModal";
+import FormModal from "../../components/Modal/FormModal";
 import FlatButton from "../../components/Button/FlatButton";
 
 type Props = {
@@ -12,8 +12,9 @@ type Props = {
 const ProjectComments: FC<Props> = ({ project }) => {
   const [toggleModal, setToggleModal] = useState<boolean>(false);
 
-  const changeModal = () => {
+  const openModal = () => {
     setToggleModal(true);
+    document.body.style.overflow = "hidden";
   };
 
   return (
@@ -41,9 +42,9 @@ const ProjectComments: FC<Props> = ({ project }) => {
               </li>
             ))}
         </ul>
-        <FlatButton content={"comment"} onClick={changeModal} />
+        <FlatButton content={"comment"} onClick={openModal} />
         {toggleModal && (
-          <CommentModal project={project} setToggleModal={setToggleModal} />
+          <FormModal project={project} setToggleModal={setToggleModal} />
         )}
       </div>
     </>

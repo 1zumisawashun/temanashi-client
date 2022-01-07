@@ -25,6 +25,7 @@ const ProjectSummary: FC<Props> = ({ project }) => {
 
   const openModal = () => {
     setToggleModal(true);
+    document.body.style.overflow = "hidden";
   };
   // オプショナルチェーンを付けないとバグる。早期リターンを付与する
   return (
