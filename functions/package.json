@@ -18,6 +18,7 @@
     "stripe": "^8.195.0"
   },
   "devDependencies": {
+    "@types/node": "^14.18.3",
     "firebase-functions-test": "^0.2.0",
     "typescript": "^3.8.0"
   },

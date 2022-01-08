@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from "react";
 import { productUseCase, ProductItem } from "../../utilities/stripeClient";
 import { useAuthContext } from "../../hooks/useAuthContext";
-import { projectFunctions } from "../../firebase/config";
+import { firebase, projectFunctions } from "../../firebase/config";
 
 const Cart: FC = () => {
   const { user } = useAuthContext();
@@ -16,7 +16,29 @@ const Cart: FC = () => {
     const sayYeah = projectFunctions.httpsCallable("sayYeah");
     sayYeah({ name: `shun` }).then((result) => {
       console.log(result.data);
-      alert(result.data);
+    });
+  };
+
+  const dammyImage = "https://placehold.jp/200x160.png";
+
+  const addProduct = () => {
+    const addProduct = projectFunctions.httpsCallable("addProduct");
+    addProduct({
+      width: 97,
+      depth: 180,
+      height: 50,
+      price: 39900,
+      baseColor: "white",
+      subColor: "grey",
+      stock: 4,
+      likedCount: 23,
+      category: "bed",
+      name: "ベッド",
+      imageUrl: dammyImage,
+      details: "texttexttexttexttexttexttexttexttexttext",
+      createdAt: firebase.firestore.Timestamp.fromDate(new Date()),
+    }).then((result) => {
+      console.log(result.data);
     });
   };
 
@@ -69,7 +91,10 @@ const Cart: FC = () => {
         <div className="inner">
           <p>history</p>
           <button onClick={sayYeah} className="btn">
-            cloud functions
+            say yeah
+          </button>
+          <button onClick={addProduct} className="btn">
+            add product
           </button>
           {productItems &&
             productItems.map((item) => (

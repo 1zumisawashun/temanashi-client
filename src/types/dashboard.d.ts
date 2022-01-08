@@ -50,3 +50,19 @@ export type likedProjects = {
   liked_project: ProjectType;
   createdAt: firebase.firestore.Timestamp;
 };
+
+export type Furniture = {
+  width: number; //幅
+  depth: number; //奥行き
+  height: number; //高さ
+  price: number; //税抜価格(関数処理で税込カンマ付きできる)
+  baseColor: string; //ベースカラー
+  subColor: string; //サブカラー
+  stock: number; //在庫
+  likedCount: number; //いいね総数(クライアントではfirebase.firestore.FieldValue)
+  category: string; //家具のカテゴリー
+  name: string; //名前
+  imageUrl: string; //画像のURL(配列の方が良い？)
+  details: string; //詳細情報
+  createdAt: firebase.firestore.Timestamp; //追加した日時
+};

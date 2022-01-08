@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { Link } from "react-router-dom";
-import { db, recommendation, Furniture } from "../../utilities/dammyData";
+import { db, recommendation } from "../../utilities/dammyData";
+import { Furniture } from "../../types/dashboard";
 
 const DiagnoseResult: FC = () => {
   return (

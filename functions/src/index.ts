@@ -8,20 +8,28 @@ const stripe = new Stripe(
 );
 
 // oncall methods
-export const sayYeah = functions.https.onCall(async (data, context) => {
+export const sayYeah = functions.https.onCall((data, context) => {
+  const name = data.name;
+  return `sayYeah, ${name}`;
+});
+
+export const addProduct = functions.https.onCall(async (data, context) => {
+  //add stripe-meta-data
   const product = await stripe.products.create({
-    name: "商品名",
-    description: "商品の説明文",
+    name: "test1",
+    metadata: {
+      item1: "text",
+      item2: "text",
+      item3: "text",
+    },
   });
-  console.log(product, "product");
+
   await stripe.prices.create({
     unit_amount: 100,
     currency: "jpy",
     recurring: { interval: "month" },
     product: product.id,
   });
-  const name = data.name;
-  return `sayYeah, ${name}`;
 });
 
 exports.helloWorld = functions.https.onRequest(async (request, response) => {
