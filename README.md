@@ -1,10 +1,10 @@
 # Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+採用している技術スタック
 
 ```
 言語： TypeScript
-CSSアーキテクチャ： ITCSS RSCSS
+CSSアーキテクチャ： ITCSS/RSCSS
 ライブラリ： React
 ホスティング： Firebase Hosting
 DB： Firestore
@@ -17,34 +17,20 @@ E2Eテスト： Cypress
 
 ## Available Scripts
 
-In the project directory, you can run:
+以下の手順で開発を進めてください。
 
 ### `npm install`
 
-Install packages before run the app
+クローン後にパッケージをインストールする
 
 ### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+開発環境を立てる
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### `npm run build:functions`
 
-## Necessary deploy commands
+cloud functions のコンパイルと関数のデプロイを実行する
 
-Before deploy, you can run:
+### `npm run deploy:firebase`
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `firebase deploy`
-
-Complete!
+src ディレクトリのビルドと firebase hosting へのデプロイを実行する
