@@ -47,3 +47,51 @@
     color: $vintage-blue;
   }
 }
+
+.animation {
+  position: relative;
+  display: inline-block;
+  animation-name: wave;
+  animation-iteration-count: infinite;
+  padding: 1px;
+}
+.type1 {
+  animation-delay: 0.2s;
+  animation-duration: 2s;
+}
+.type2 {
+  animation-delay: 0.4s;
+  animation-duration: 2s;
+}
+.type3 {
+  animation-delay: 0.6s;
+  animation-duration: 2s;
+}
+.type4 {
+  animation-delay: 0.8s;
+  animation-duration: 2s;
+}
+.type5 {
+  animation-delay: 1s;
+  animation-duration: 2s;
+}
+.type6 {
+  animation-delay: 1.2s;
+  animation-duration: 2s;
+}
+.type7 {
+  animation-delay: 1.4s;
+  animation-duration: 2s;
+}
+.type8 {
+  animation-delay: 1.6s;
+  animation-duration: 2s;
+}
+.type9 {
+  animation-delay: 1.8s;
+  animation-duration: 2s;
+}
+.type10 {
+  animation-delay: 2s;
+  animation-duration: 2s;
+}

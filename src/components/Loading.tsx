@@ -25,9 +25,20 @@ const Loading: FC<Props> = ({ message }: Props) => {
             width={100}
           />
           {message ? (
-            <div className="message">{message}</div>
+            <div className="message">
+              <span className="animation type1">L</span>
+              <span className="animation type2">o</span>
+              <span className="animation type3">a</span>
+              <span className="animation type4">d</span>
+              <span className="animation type5">i</span>
+              <span className="animation type6">n</span>
+              <span className="animation type7">g</span>
+              <span className="animation type8">.</span>
+              <span className="animation type9">.</span>
+              <span className="animation type10">.</span>
+            </div>
           ) : (
-            <div className="message">Loading</div>
+            <div className="message">{message}</div>
           )}
         </div>
       </div>
