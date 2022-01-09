@@ -13,23 +13,22 @@ export const sayYeah = functions.https.onCall((data, context) => {
   return `sayYeah, ${name}`;
 });
 
+// FIXME:timestampを追加する
 export const addProduct = functions.https.onCall(async (data, context) => {
   //add stripe-meta-data
   const product = await stripe.products.create({
-    name: "test1",
-    metadata: {
-      item1: "text",
-      item2: "text",
-      item3: "text",
-    },
+    name: data.name,
+    images: [data.imageUrl],
+    metadata: data,
   });
 
   await stripe.prices.create({
-    unit_amount: 100,
+    unit_amount: data.price,
     currency: "jpy",
     recurring: { interval: "month" },
     product: product.id,
   });
+  return data;
 });
 
 exports.helloWorld = functions.https.onRequest(async (request, response) => {

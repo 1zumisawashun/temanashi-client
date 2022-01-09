@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from "react";
 import { productUseCase, ProductItem } from "../../utilities/stripeClient";
 import { useAuthContext } from "../../hooks/useAuthContext";
-import { firebase, projectFunctions } from "../../firebase/config";
+import { projectFunctions } from "../../firebase/config";
 
 const Cart: FC = () => {
   const { user } = useAuthContext();
@@ -36,7 +36,7 @@ const Cart: FC = () => {
       name: "ベッド",
       imageUrl: dammyImage,
       details: "texttexttexttexttexttexttexttexttexttext",
-      createdAt: firebase.firestore.Timestamp.fromDate(new Date()),
+      // createdAt: firebase.firestore.Timestamp.fromDate(new Date()),
     }).then((result) => {
       console.log(result.data);
     });
