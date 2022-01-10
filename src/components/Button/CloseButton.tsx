@@ -1,11 +1,12 @@
 import { FC } from "react";
 type Props = {
+  styleName: string;
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 };
 
-const CloseButton: FC<Props> = ({ onClick }: Props) => {
+const CloseButton: FC<Props> = ({ styleName, onClick }: Props) => {
   return (
-    <button className="close-modal" onClick={onClick}>
+    <button className={styleName} onClick={onClick}>
       &times;
     </button>
   );
