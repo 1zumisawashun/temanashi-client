@@ -25,7 +25,7 @@ type CategoryOp = {
 
 type addProject = Omit<ProjectType, "id" | "createdAt">;
 
-const Create: FC = () => {
+const CreateProject: FC = () => {
   const history = useHistory();
   const { addDocument, response } = useFirestore();
   // convert [{...},{...}] and add props "value","label" to use Select component
@@ -151,4 +151,4 @@ const Create: FC = () => {
   );
 };
 
-export default Create;
+export default CreateProject;
