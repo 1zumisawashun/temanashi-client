@@ -30,9 +30,15 @@ const Sidebar: FC = () => {
               </NavLink>
             </li>
             <li>
-              <NavLink to="/create">
+              <NavLink to="/create/project">
                 <img src={AddIcon} alt="add project icon" />
                 <span>New Project</span>
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/create/furniture">
+                <img src={AddIcon} alt="add project icon" />
+                <span>New Furniture</span>
               </NavLink>
             </li>
             <li>
