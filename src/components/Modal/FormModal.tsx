@@ -58,7 +58,7 @@ const FormModal: FC<Props> = ({ project, setToggleModal }) => {
         <form className="modal" onSubmit={handleSubmit}>
           <label>
             <span>Add new comment:</span>
-            <CloseButton onClick={closeModal} />
+            <CloseButton styleName="close-modal" onClick={closeModal} />
             <textarea
               required
               onChange={(e) => setNewComment(e.target.value)}

@@ -33,7 +33,7 @@ const PreviewModal: FC<Props> = ({ src, setToggleModal }) => {
     <>
       <div className="overlay" style={styles}>
         <div className="modal">
-          <CloseButton onClick={closeModal} />
+          <CloseButton styleName="close-modal" onClick={closeModal} />
           <Carousel>
             <div>
               <img src={src} alt="" />
