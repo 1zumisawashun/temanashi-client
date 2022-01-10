@@ -1,0 +1,45 @@
+import { FC } from "react";
+import { useAuthContext } from "../../hooks/useAuthContext";
+import FlatButton from "../Button/FlatButton";
+
+type Props = {
+  message: string;
+  onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  setToggleModal: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+const ExecuteModal: FC<Props> = ({ message, onClick, setToggleModal }) => {
+  const { user } = useAuthContext();
+  if (!user) throw new Error("we cant find your account");
+
+  const closeModal = () => {
+    setToggleModal(false);
+    document.body.style.overflow = "";
+  };
+
+  const scrollTop = (): number => {
+    return Math.max(
+      window.pageYOffset,
+      document.documentElement.scrollTop,
+      document.body.scrollTop
+    );
+  };
+
+  const styles = { top: scrollTop() };
+
+  return (
+    <div className="execute-modal">
+      <div className="overlay" style={styles}>
+        <div className="wrapper -form">
+          <p className="message">{message}</p>
+          <div className="buttons">
+            <FlatButton content="はい" onClick={onClick} />
+            <FlatButton content="いいえ" onClick={closeModal} />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ExecuteModal;
