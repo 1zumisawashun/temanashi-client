@@ -66,3 +66,17 @@ export type Furniture = {
   details: string; //詳細情報
   createdAt: firebase.firestore.Timestamp; //追加した日時
 };
+
+export type FurnitureType = {
+  name: string; //名前
+  mainImage: string; //メイン画像
+  subImage: Array<string>; //サブ画像
+  description: string; //詳細情報
+  price: number; //税抜価格
+  width: number; //幅
+  depth: number; //奥行き
+  height: number; //高さ
+  category: string; //家具のカテゴリー
+  likedCount: firebase.firestore.FieldValue; //いいね総数
+  createdAt: firebase.firestore.Timestamp; //追加した日時
+};
