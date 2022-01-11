@@ -9,6 +9,30 @@
   }
 }
 
+@keyframes bounce {
+  0% {
+    transform: translateY(0);
+  }
+  25% {
+    transform: translateY(-20px);
+    animation-timing-function: ease-in;
+  }
+  50% {
+    transform: translateY(0);
+  }
+  75% {
+    transform: translateY(-10px);
+    animation-timing-function: ease-in;
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+// .card:hover {
+//   animation: bounce 0.5s ease-out;
+// }
+
 @keyframes pluse {
   0% {
     transform: scale3d(1, 1, 1);
