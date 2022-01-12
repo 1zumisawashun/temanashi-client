@@ -1,5 +1,9 @@
 import * as functions from "firebase-functions";
+import * as admin from "firebase-admin";
 import Stripe from "stripe";
+
+admin.initializeApp();
+
 const stripe = new Stripe(
   "sk_test_51JBawwHlnbfxWLbN9zSs5c550PmsFCSVGLvQOR4wc5jb9FeMBZlMUMXcByo61YUVa7MhvzyOaJzHG8QOrJXSXRO20021tgTFeg",
   {
@@ -21,7 +25,12 @@ export const addProduct = functions.https.onCall(
       name,
       description,
       images: photos,
-      metadata: data,
+      metadata: {
+        ...data,
+        // エラーが発生するため一旦コメントアウト
+        // createdAt: admin.firestore.Timestamp.fromDate(new Date()),
+        // likedCount: admin.firestore.FieldValue.increment(0),
+      },
     });
 
     await stripe.prices.create({

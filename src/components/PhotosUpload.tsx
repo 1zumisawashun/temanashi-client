@@ -42,7 +42,8 @@ const PhotosUpload: FC<PhotosUploadProps> = ({
     event.target.value = "";
     resetErrors();
 
-    const pickedPhotos = files.filter((file) => {
+    // NOTE:filterを通さずに行うとpromiseが帰ってしまう
+    const pickedPhotos = files.filter(async (file) => {
       // first validation
       if (!mineType.includes(file.type)) {
         setIsFileTypeError(true);
@@ -64,6 +65,7 @@ const PhotosUpload: FC<PhotosUploadProps> = ({
     if (addedPhotos.length >= 4) {
       setIsNumberError(true);
     }
+    //無限に追加することができるがsliceで強制的に3枚にする
     setPhotos(addedPhotos.slice(0, 3));
   };
 
@@ -75,6 +77,7 @@ const PhotosUpload: FC<PhotosUploadProps> = ({
   };
   const openModal = () => {
     setToggleModal(true);
+    document.body.style.overflow = "hidden";
   };
 
   return (
@@ -82,25 +85,35 @@ const PhotosUpload: FC<PhotosUploadProps> = ({
       <div className="photos-container">
         {[...Array(3)].map((_: number, index: number) =>
           index < photos.length ? (
-            <div className="btn" key={index}>
-              <CloseButton styleName="cansel" onClick={openModal} />
-              {toggleModal && (
-                <ExecuteModal
-                  message="本当に削除しますか？"
-                  setToggleModal={setToggleModal}
-                  onClick={() => handleCancel(index)}
+            <div>
+              <CloseButton styleName="close-upload" onClick={openModal} />
+              <div className="wrapper" key={index}>
+                {toggleModal && (
+                  <ExecuteModal
+                    message="本当に削除しますか？"
+                    setToggleModal={setToggleModal}
+                    onClick={() => handleCancel(index)}
+                  />
+                )}
+                {/* 速度改善でfileを直接入れ込む必要あり */}
+                <img
+                  src={URL.createObjectURL(photos[index])}
+                  alt={`あなたの写真 ${index + 1}`}
+                  width="200"
+                  className="image"
                 />
-              )}
-              <img
-                src={URL.createObjectURL(photos[index])}
-                alt={`あなたの写真 ${index + 1}`}
-                width="200"
-              />
+              </div>
             </div>
           ) : (
-            <label htmlFor={name} key={index}>
-              <img src="https://placehold.jp/200x200.png" alt="" />
-            </label>
+            <div>
+              <label className="wrapper" htmlFor={name} key={index}>
+                <img
+                  src="https://placehold.jp/200x200.png"
+                  alt=""
+                  className="image"
+                />
+              </label>
+            </div>
           )
         )}
       </div>
@@ -110,21 +123,19 @@ const PhotosUpload: FC<PhotosUploadProps> = ({
         <p>※jpeg, png, bmp, gif, svg以外のファイル形式は表示されません</p>
       )}
 
-      <div>
-        <div>
-          <p>※最大3枚まで</p>
-        </div>
-        <label>
-          <input
-            type="file"
-            name={name}
-            id={name}
-            accept="image/*"
-            onChange={handleFile}
-            multiple
-          />
-        </label>
-      </div>
+      <label className="btn -upload" htmlFor={name}>
+        upload
+      </label>
+
+      <input
+        type="file"
+        name={name}
+        id={name}
+        accept="image/*"
+        onChange={handleFile}
+        multiple
+        hidden
+      />
     </>
   );
 };

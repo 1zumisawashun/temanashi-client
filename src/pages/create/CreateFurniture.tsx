@@ -1,8 +1,11 @@
 import { FC, useState, FormEvent } from "react";
 import Select from "react-select";
-import { firebase, timestamp, projectFunctions } from "../../firebase/config";
+import { projectFunctions, projectStorage } from "../../firebase/config";
 import { useHistory } from "react-router-dom";
 import PhotosUpload from "../../components/PhotosUpload";
+import { useAuthContext } from "../../hooks/useAuthContext";
+import { delay } from "../../utilities/convertValue";
+import Loading from "../../components/Loading";
 
 const categories = [
   { value: "development", label: "Development" },
@@ -28,104 +31,129 @@ const CreateProject: FC = () => {
   const [height, setHeight] = useState<number>(0);
   const [category, setCategory] = useState<CategoryOp | null>(null);
   const [formError, setFromError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const { user } = useAuthContext();
+
+  if (!user) {
+    throw new Error("Could not complete signup");
+  }
+  const getImageUrl = async (file: File): Promise<string> => {
+    const uploadPath = `photos/${user.uid}/${file.name}`;
+    const img = await projectStorage.ref(uploadPath).put(file);
+    const imgUrl = await img.ref.getDownloadURL();
+    return imgUrl;
+  };
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    setIsLoading(true);
     setFromError(null);
     if (!category) {
       setFromError("Please select a furniture category");
       return;
     }
+    const newPhotos: Array<string> = [];
+    await photos.forEach(async (photo) => {
+      const yeah = await getImageUrl(photo);
+      console.log(yeah);
+      newPhotos.push(yeah);
+    });
 
-    // NOTE:stockを入れるならインクリメントしないといけないはず
+    // FIXME:非同期がうまく効かないため一時的にdelayを使っている
+    await delay(7000);
+
     const furniture = {
       name,
-      photos,
+      photos: newPhotos,
       description,
       price,
       width,
       depth,
       height,
       category: category.value,
-      createdAt: timestamp.fromDate(new Date()),
-      likedCount: firebase.firestore.FieldValue.increment(0),
     };
 
     const addProduct = await projectFunctions.httpsCallable("addProduct");
-    addProduct(furniture).then((result) => {
+    try {
+      const result = await addProduct(furniture);
       console.log(result.data);
+    } catch (error) {
+      console.log(error);
+      alert("エラーが発生しました");
+    } finally {
+      setIsLoading(false);
       history.push("/");
-    });
+    }
   };
   return (
-    <div className="create-form">
-      <h2 className="page-title">Create a new Furniture</h2>
-      <form onSubmit={handleSubmit}>
-        <label>
-          <span>Furniture name:</span>
-          <input
-            required
-            type="text"
-            onChange={(e) => setName(e.target.value)}
-            value={name}
-          />
-        </label>
-        <PhotosUpload name="photos" photos={photos} setPhotos={setPhotos} />
-        <label>
-          <span>Furniture description:</span>
-          <textarea
-            required
-            onChange={(e) => setDescription(e.target.value)}
-            value={description}
-          />
-        </label>
-        <label>
-          <span>Furniture price:</span>
-          <input
-            required
-            type="number"
-            onChange={(e) => setPrice(Number(e.target.value))}
-            value={price}
-          />
-        </label>
-        <label>
-          <span>Furniture width:</span>
-          <input
-            required
-            type="number"
-            onChange={(e) => setWidth(Number(e.target.value))}
-            value={width}
-          />
-        </label>
-        <label>
-          <span>Furniture depth:</span>
-          <input
-            required
-            type="number"
-            onChange={(e) => setDepth(Number(e.target.value))}
-            value={depth}
-          />
-        </label>
-        <label>
-          <span>Furniture height:</span>
-          <input
-            required
-            type="number"
-            onChange={(e) => setHeight(Number(e.target.value))}
-            value={height}
-          />
-        </label>
-        <label>
-          <span>Project category:</span>
-          <Select
-            onChange={(option) => setCategory(option)}
-            options={categories}
-          />
-        </label>
-        <button className="btn">Add Funiture</button>
-        {formError && <p className="error">{formError}</p>}
-      </form>
-    </div>
+    <>
+      {isLoading && <Loading />}
+      <div className="create-form">
+        <h2 className="page-title">Create a new Furniture</h2>
+        <form onSubmit={handleSubmit}>
+          <PhotosUpload name="photos" photos={photos} setPhotos={setPhotos} />
+          <label>
+            <span>Furniture name:</span>
+            <input
+              required
+              type="text"
+              onChange={(e) => setName(e.target.value)}
+              value={name}
+            />
+          </label>
+          <label>
+            <span>Furniture description:</span>
+            <textarea
+              required
+              onChange={(e) => setDescription(e.target.value)}
+              value={description}
+            />
+          </label>
+          <label>
+            <span>Furniture price:</span>
+            <input
+              type="text"
+              onChange={(e) => setPrice(Number(e.target.value))}
+              value={price}
+            />
+          </label>
+          <label>
+            <span>Furniture width:</span>
+            <input
+              type="text"
+              onChange={(e) => setWidth(Number(e.target.value))}
+              value={width}
+            />
+          </label>
+          <label>
+            <span>Furniture depth:</span>
+            <input
+              type="text"
+              onChange={(e) => setDepth(Number(e.target.value))}
+              value={depth}
+            />
+          </label>
+          <label>
+            <span>Furniture height:</span>
+            <input
+              type="text"
+              onChange={(e) => setHeight(Number(e.target.value))}
+              value={height}
+            />
+          </label>
+          <label>
+            <span>Project category:</span>
+            <Select
+              onChange={(option) => setCategory(option)}
+              options={categories}
+            />
+          </label>
+          <button className="btn">Add Funiture</button>
+          {formError && <p className="error">{formError}</p>}
+        </form>
+      </div>
+    </>
   );
 };
 

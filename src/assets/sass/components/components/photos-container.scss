@@ -1,3 +1,17 @@
 .photos-container {
   display: flex;
+  justify-content: space-between;
+
+  > div > .wrapper {
+    width: 240px;
+    height: 370px;
+    margin: 24px auto;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    background: $white;
+    border-radius: 4px;
+    cursor: pointer;
+    border: 1px solid $vintage-blue;
+  }
 }

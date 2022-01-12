@@ -8,13 +8,14 @@
   border: none;
   background: none;
 }
-.cansel {
-  position: absolute;
+.close-upload {
+  position: relative;
   font-size: 30px;
-  color: #fff;
   cursor: pointer;
   border: none;
   background: none;
+  top: 14%;
+  left: 82%;
 }
 
 .modal {
@@ -39,6 +40,9 @@
   background-color: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(3px); /* 一番下のbody領域をぼやかす */
   z-index: 5;
+  &.-h130 {
+    height: 130%;
+  }
   > .wrapper {
     position: absolute;
     top: 50%;
@@ -48,7 +52,7 @@
     // center loading animation
     text-align: center;
     &.-form {
-      width: 30%;
+      width: 40%;
       background-color: $white;
       padding: 5rem 3rem;
       border-radius: 5px;
@@ -63,8 +67,8 @@
   }
   > .wrapper > .buttons {
     justify-content: space-between;
+    width: 90%;
     display: flex;
-    width: 50%;
     margin: auto;
   }
 }

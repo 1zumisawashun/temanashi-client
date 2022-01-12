@@ -51,6 +51,20 @@ ul {
   &.-mt10 {
     margin-top: 10px;
   }
+  &.-mt50 {
+    margin-top: 50px;
+  }
+  &.-w200 {
+    width: 200px;
+  }
+  &.-round {
+    border-radius: 30px;
+  }
+  &.-upload {
+    display: inline-block;
+    margin: auto;
+    border-radius: 50px;
+  }
 }
 .btn:hover {
   color: $white;
