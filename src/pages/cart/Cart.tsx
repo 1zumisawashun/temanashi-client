@@ -12,9 +12,9 @@ const Cart: FC = () => {
   const [isPendingBuy, setIsPendingBuy] = useState<boolean>(false);
   const [productItems, setProductItems] = useState<ProductItem[]>([]);
 
-  const sayYeah = () => {
-    const sayYeah = projectFunctions.httpsCallable("sayYeah");
-    sayYeah({ name: `shun` }).then((result) => {
+  const sayHello = () => {
+    const sayHello = projectFunctions.httpsCallable("sayHello");
+    sayHello({ name: `shun` }).then((result) => {
       console.log(result.data);
     });
   };
@@ -90,31 +90,39 @@ const Cart: FC = () => {
         )}
         <div className="inner">
           <p>history</p>
-          <button onClick={sayYeah} className="btn">
+          <button onClick={sayHello} className="btn">
             say yeah
           </button>
           <button onClick={addProduct} className="btn">
             add product
           </button>
-          {productItems &&
-            productItems.map((item) => (
-              <div key={item.product.name}>
-                <div>{item.product.name}</div>
-                <div>
-                  {Object.keys(item.prices).map((priceIndex) => (
-                    <div key={priceIndex}>
-                      <div>{item.prices[priceIndex].unit_amount}</div>
-                      <button
-                        className="btn"
-                        onClick={() => onClickBuy(priceIndex)}
-                      >
-                        購入する
-                      </button>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
+
+          <div className="project-list">
+            {productItems &&
+              productItems.map((item) => (
+                <a>
+                  <div className="image-box">
+                    {item.product.images.length > 0 && (
+                      <img src={item.product.images[0]} alt="" width="100" />
+                    )}
+                  </div>
+                  <div>
+                  <h4>{item.product.name}</h4>
+                    {Object.keys(item.prices).map((priceIndex) => (
+                      <div key={priceIndex}>
+                        <div>{item.prices[priceIndex].unit_amount}</div>
+                        <button
+                          className="btn"
+                          onClick={() => onClickBuy(priceIndex)}
+                        >
+                          購入する
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </a>
+              ))}
+          </div>
         </div>
       </div>
     </>

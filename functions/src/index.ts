@@ -11,12 +11,6 @@ const stripe = new Stripe(
   }
 );
 
-// oncall methods
-export const sayYeah = functions.https.onCall((data, context) => {
-  const name = data.name;
-  return `sayYeah, ${name}`;
-});
-
 // FIXME:timestampを追加する
 export const addProduct = functions.https.onCall(
   async ({ photos, name, price, description, ...data }, context) => {
@@ -43,6 +37,13 @@ export const addProduct = functions.https.onCall(
   }
 );
 
-exports.helloWorld = functions.https.onRequest(async (request, response) => {
-  await response.send("hello world!");
+// onCall test
+export const sayhello = functions.https.onCall((data, context) => {
+  return `sayHello, ${data.name}`;
 });
+// onRequest test
+export const helloWorld = functions.https.onRequest(
+  async (request, response) => {
+    await response.send("hello world!");
+  }
+);
