@@ -54,6 +54,7 @@ class ProductUseCase {
   // * 更新
 
   //NOTE:購入後にメールを送る、複数購入可能にする、カートページを作る,とりあえずcloud functionsを入れる、addできるようにする
+  //NOTE:stockの項目を作り0になったらsctive:falseにして購入不可にする
   async buy(uid: string, priceId: string, url: string) {
     return new Promise(async (resolve, reject) => {
       const docRef = await projectFirestore
@@ -62,14 +63,12 @@ class ProductUseCase {
         .collection("checkout_sessions")
         .add({
           mode: "payment",
-          //write for one-time-payment
           price: priceId,
           success_url: url,
           cancel_url: url,
         });
 
       docRef.onSnapshot(async (snap) => {
-        // console.log(snap.data(), "snap");
         const { error, sessionId } = (await snap.data()) as CheckoutSessionDoc;
         if (error) return reject(error);
         if (!!sessionId) {
@@ -91,8 +90,6 @@ class ProductUseCase {
       .functions("asia-northeast1")
       .httpsCallable("ext-firestore-stripe-subscriptions-createPortalLink");
     console.log(functionRef, "functionRef");
-    // const prodUrl = "https://temanashi-39b3f.web.app/";
-    // const { data } = await functionRef({ returnUrl: prodUrl });
     const { data } = await functionRef({ returnUrl: window.location.origin });
     return data.url;
   }

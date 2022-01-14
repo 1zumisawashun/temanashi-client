@@ -29,6 +29,7 @@ const CreateProject: FC = () => {
   const [width, setWidth] = useState<number>(0);
   const [depth, setDepth] = useState<number>(0);
   const [height, setHeight] = useState<number>(0);
+  const [stock, setStock] = useState<number>(1);
   const [category, setCategory] = useState<CategoryOp | null>(null);
   const [formError, setFromError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -68,6 +69,7 @@ const CreateProject: FC = () => {
       photos: newPhotos,
       description,
       price,
+      stock,
       width,
       depth,
       height,
@@ -116,6 +118,14 @@ const CreateProject: FC = () => {
               type="text"
               onChange={(e) => setPrice(Number(e.target.value))}
               value={price}
+            />
+          </label>
+          <label>
+            <span>Furniture stock:</span>
+            <input
+              type="text"
+              onChange={(e) => setStock(Number(e.target.value))}
+              value={stock}
             />
           </label>
           <label>

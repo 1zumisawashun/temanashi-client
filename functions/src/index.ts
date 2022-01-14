@@ -18,19 +18,24 @@ export const addProduct = functions.https.onCall(
     const product = await stripe.products.create({
       name,
       description,
+      // active:false,
+      // falseにすると商品のアーカイブに入るので表示されない状態になる
+      //普通にstockが0になったらfirestoreのactiveをfalseにして非表示で問題ないかと
       images: photos,
       metadata: {
         ...data,
         // エラーが発生するため一旦コメントアウト
+        //2MB 未満の画像をアップロードしてくださいとのことでこれを満たさないと画像がアップロードされない
         // createdAt: admin.firestore.Timestamp.fromDate(new Date()),
         // likedCount: admin.firestore.FieldValue.increment(0),
       },
     });
 
+    functions.logger.log(product, "check product");
+
     await stripe.prices.create({
       unit_amount: price,
       currency: "jpy",
-      recurring: { interval: "month" },
       product: product.id,
     });
     return data;

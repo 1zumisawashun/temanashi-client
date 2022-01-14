@@ -34,8 +34,9 @@ const Cart: FC = () => {
       likedCount: 23,
       category: "bed",
       name: "ベッド",
-      imageUrl: dammyImage,
-      details: "texttexttexttexttexttexttexttexttexttext",
+      photos: [dammyImage],
+      //上記の書き方だと画像をstripeのダッシュボードに表示できる
+      description: "texttexttexttexttexttexttexttexttexttext",
       // createdAt: firebase.firestore.Timestamp.fromDate(new Date()),
     }).then((result) => {
       console.log(result.data);
@@ -107,7 +108,7 @@ const Cart: FC = () => {
                     )}
                   </div>
                   <div>
-                  <h4>{item.product.name}</h4>
+                    <h4>{item.product.name}</h4>
                     {Object.keys(item.prices).map((priceIndex) => (
                       <div key={priceIndex}>
                         <div>{item.prices[priceIndex].unit_amount}</div>
