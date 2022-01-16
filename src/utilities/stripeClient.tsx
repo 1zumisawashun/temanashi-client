@@ -6,10 +6,11 @@ import {
   SubscriptionDoc,
 } from "../types/stripe";
 import { firebase, projectFirestore } from "../firebase/config";
-
+import { Comment } from "../types/dashboard";
 export type ProductItem = {
   product: ProductDoc;
   prices: { [key: string]: PriceDoc };
+  comments: Array<Comment>;
 };
 
 export type SubscriptionItem = {
@@ -19,17 +20,16 @@ export type SubscriptionItem = {
 };
 
 class ProductUseCase {
-  // * 参照
+  /**
+   * 参照①
+   */
   async fetchAll(): Promise<ProductItem[]> {
-    // Productを取得
     const productQuery = projectFirestore
       .collection("products")
       .where("active", "==", true);
     const productSnapshot = await productQuery.get();
-
     return await Promise.all(
       productSnapshot.docs.map(async (doc) => {
-        // ProductのPriceを取得
         const priceRef = doc.ref.collection("prices");
         const priceSnapshot = await priceRef.where("active", "==", true).get();
         const priceMap = priceSnapshot.docs.reduce((acc, v) => {
@@ -37,22 +37,52 @@ class ProductUseCase {
           acc[v.id] = v.data() as PriceDoc;
           return acc;
         }, {});
-
         const productItem: ProductItem = {
-          product: doc.data() as ProductDoc,
+          product: {
+            id: doc.id,
+            ...doc.data(),
+          } as ProductDoc,
           prices: priceMap,
+          comments: [], //PickでCommentを省く
         };
         return productItem;
       })
     );
   }
-  async add() {
-    const stripe = await loadStripe(process.env.REACT_APP_STRIPE_API_KEY || "");
-    if (!stripe) return;
+  /**
+   * 参照②
+   */
+  async fetchProductItem(id: string): Promise<ProductItem> {
+    const productItemRef = projectFirestore.collection("products").doc(id);
+    const productItemSnapshot = await productItemRef.get();
+    const priceRef = await productItemSnapshot.ref.collection("prices");
+    const priceSnapshot = await priceRef.where("active", "==", true).get();
+    const priceMap = await priceSnapshot.docs.reduce((acc, v) => {
+      // @ts-ignore
+      acc[v.id] = v.data() as PriceDoc;
+      return acc;
+    }, {});
+
+    const commentRef = await productItemSnapshot.ref.collection("comments");
+    const commentSnapshot = await commentRef.get();
+
+    const commentMap = await commentSnapshot.docs.map((snapshot) => {
+      return snapshot.data();
+    });
+    console.log(commentMap, "commentMap");
+    const productItem: ProductItem = {
+      product: {
+        id: productItemSnapshot.id,
+        ...productItemSnapshot.data(),
+      } as ProductDoc,
+      prices: priceMap,
+      comments: commentMap as Array<Comment>,
+    };
+    return productItem;
   }
-
-  // * 更新
-
+  /**
+   * 更新①
+   */
   //NOTE:購入後にメールを送る、複数購入可能にする、カートページを作る,とりあえずcloud functionsを入れる、addできるようにする
   //NOTE:stockの項目を作り0になったらsctive:falseにして購入不可にする
   async buy(uid: string, priceId: string, url: string) {
@@ -82,8 +112,9 @@ class ProductUseCase {
       });
     });
   }
-
-  // * function
+  /**
+   * 参照②
+   */
   async getCustomerURL() {
     const functionRef = await firebase
       .app()
