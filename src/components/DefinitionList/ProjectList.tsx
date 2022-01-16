@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import Avatar from "./Avatar";
+import Avatar from "../Avatar";
 import { FC } from "react";
-import { ProjectType } from "../types/dashboard";
+import { ProjectType } from "../../types/dashboard";
 
 type Props = {
   projects: Array<ProjectType>;

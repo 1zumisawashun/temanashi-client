@@ -7,6 +7,7 @@ import CreateFurniture from "./pages/create/CreateFurniture";
 import Login from "./pages/login/Login";
 import Signup from "./pages/signup/Signup";
 import Project from "./pages/project/Project";
+import Furniture from "./pages/furniture/Furniture";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import OnlineUsers from "./components/OnlineUsers";
@@ -95,6 +96,10 @@ const App = () => {
               <Route path="/projects/:id">
                 {!user && <Redirect to="/login" />}
                 {user && <Project />}
+              </Route>
+              <Route path="/furnitures/:id">
+                {!user && <Redirect to="/login" />}
+                {user && <Furniture />}
               </Route>
               <Route path="/login">
                 {user && <Redirect to="/" />}

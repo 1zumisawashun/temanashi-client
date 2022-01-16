@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { useCollection } from "../../hooks/useCollection";
-import ProjectList from "../../components/ProjectList";
+import ProjectList from "../../components/DefinitionList/ProjectList";
 import ProjectFilter from "./ProjectFilter";
 import { useState } from "react";
 import { useAuthContext } from "../../hooks/useAuthContext";
