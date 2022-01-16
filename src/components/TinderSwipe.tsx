@@ -9,6 +9,7 @@ import ProgressBar from "./ProgressBar";
 import { delay } from "../utilities/convertValue";
 import Loading from "../components/Loading";
 // import TinderCard from '../react-tinder-card/index'
+// クラスに切り出したい
 
 type Props = {
   db: Array<ProjectType>;

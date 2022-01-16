@@ -1,6 +1,6 @@
 import React, { FC, useState } from "react";
-import CloseButton from "../components/Button/CloseButton";
-import ExecuteModal from "../components/Modal/ExecuteModal";
+import CloseButton from "../Button/CloseButton";
+import ExecuteModal from "../Modal/ExecuteModal";
 
 interface PhotosUploadProps {
   name: string;
