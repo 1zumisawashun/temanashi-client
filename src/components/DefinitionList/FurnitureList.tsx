@@ -8,28 +8,9 @@ type Props = {
 };
 
 const FurnitureList: FC<Props> = ({ productItems }) => {
-  const [isPendingBuy, setIsPendingBuy] = useState<boolean>(false);
   const { user } = useAuthContext();
   // nullチェック・通常のreturnだとエラーになる
   if (!user) throw new Error("we cant find your account");
-
-  const onClickBuy = async (priceId: string) => {
-    console.log("on click buy");
-    try {
-      setIsPendingBuy(true);
-      const uid = user.uid;
-      if (!uid) return;
-      const url = window.location.origin;
-      await productUseCase.buy(uid, priceId, url);
-    } catch (error) {
-      if (error instanceof Error) {
-        alert(`Error: ${!!error.message ? error.message : error}`);
-      }
-    } finally {
-      console.log("success");
-      setIsPendingBuy(false);
-    }
-  };
 
   return (
     <div className="project-list">
@@ -49,17 +30,6 @@ const FurnitureList: FC<Props> = ({ productItems }) => {
             </div>
             <div>
               <h4>{item.product.name}</h4>
-              {Object.keys(item.prices).map((priceIndex) => (
-                <div key={priceIndex}>
-                  <div>{item.prices[priceIndex].unit_amount}</div>
-                  <button
-                    className="btn"
-                    onClick={() => onClickBuy(priceIndex)}
-                  >
-                    購入
-                  </button>
-                </div>
-              ))}
             </div>
           </Link>
         ))}

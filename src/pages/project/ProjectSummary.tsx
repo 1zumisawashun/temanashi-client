@@ -59,7 +59,7 @@ const ProjectSummary: FC<Props> = ({ project }) => {
             </div>
           ))}
         </div>
-        <LikeButton project={project} />
+        {/* <LikeButton project={project} /> */}
       </div>
       {user.uid === project.createdBy?.id && (
         <button className="btn" onClick={handleClick}>

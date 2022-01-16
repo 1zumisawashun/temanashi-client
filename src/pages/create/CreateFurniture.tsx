@@ -2,7 +2,7 @@ import { FC, useState, FormEvent } from "react";
 import Select from "react-select";
 import { projectFunctions, projectStorage } from "../../firebase/config";
 import { useHistory } from "react-router-dom";
-import PhotosUpload from "../../components/PhotosUpload";
+import PhotosUpload from "../../components/Input/PhotosUpload";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { delay } from "../../utilities/convertValue";
 import Loading from "../../components/Loading";

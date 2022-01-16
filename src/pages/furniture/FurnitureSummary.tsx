@@ -4,8 +4,9 @@ import { useHistory } from "react-router-dom";
 import { FC, FormEvent, useState } from "react";
 import LikeButton from "../../components/Button/LikeButton";
 import PreviewModal from "../../components/Modal/PreviewModal";
-import { ProductItem } from "../../utilities/stripeClient";
+import { ProductItem, productUseCase } from "../../utilities/stripeClient";
 import { useParams } from "react-router-dom";
+import Loading from "../../components/Loading";
 
 type Props = {
   furniture: ProductItem;
@@ -13,12 +14,30 @@ type Props = {
 
 const ProjectSummary: FC<Props> = ({ furniture }) => {
   const [toggleModal, setToggleModal] = useState<boolean>(false);
+  const [isPendingBuy, setIsPendingBuy] = useState<boolean>(false);
   const { deleteDocument } = useFirestore();
   const { id }: { id: string } = useParams();
   const { user } = useAuthContext();
+  const history = useHistory();
   if (!user) throw new Error("we cant find your account");
 
-  const history = useHistory();
+  const onClickBuy = async (priceId: string) => {
+    try {
+      setIsPendingBuy(true);
+      const uid = user.uid;
+      if (!uid) return;
+      const url = window.location.origin;
+      await productUseCase.buy(uid, priceId, url);
+    } catch (error) {
+      if (error instanceof Error) {
+        alert(`Error: ${!!error.message ? error.message : error}`);
+      }
+    } finally {
+      console.log("success");
+      setIsPendingBuy(false);
+    }
+  };
+
   const handleClick = (e: FormEvent) => {
     if (furniture.product) deleteDocument<ProductItem>("products", id);
     history.push("/");
@@ -31,10 +50,12 @@ const ProjectSummary: FC<Props> = ({ furniture }) => {
   // オプショナルチェーンを付けないとバグる。早期リターンを付与する
   return (
     <div className="project-summary-container">
+      {isPendingBuy && <Loading />}
       <div className="project-summary">
         <div className="image-box">
           <img
-            src="https://placehold.jp/330x200.png"
+            src={furniture.product.images[0]}
+            width="200px"
             alt=""
             className="image"
             onClick={openModal}
@@ -61,7 +82,15 @@ const ProjectSummary: FC<Props> = ({ furniture }) => {
             </div>
           ))} */}
         </div>
-        {/* <LikeButton project={project} /> */}
+        {Object.keys(furniture.prices).map((priceIndex) => (
+          <div key={priceIndex}>
+            <div>{furniture.prices[priceIndex].unit_amount}</div>
+            <button className="btn" onClick={() => onClickBuy(priceIndex)}>
+              購入
+            </button>
+          </div>
+        ))}
+        <LikeButton furniture={furniture} />
       </div>
       {/* {user.uid === project.createdBy?.id && (
         <button className="btn" onClick={handleClick}>

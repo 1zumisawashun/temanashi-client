@@ -1,4 +1,5 @@
 import { firebase } from "../firebase/config";
+import { ProductItem } from "../utilities/stripeClient";
 
 // NOTE:CreatedByなどAssignedUserで使うためidを付与
 export type User = {
@@ -45,9 +46,9 @@ export type likedUsers = {
   createdAt: firebase.firestore.Timestamp;
 };
 
-export type likedProjects = {
+export type likedFurnitures = {
   id?: string;
-  liked_project: ProjectType;
+  liked_furniture: ProductItem;
   createdAt: firebase.firestore.Timestamp;
 };
 

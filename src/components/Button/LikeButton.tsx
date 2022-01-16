@@ -1,7 +1,7 @@
 import {
   ProjectType,
   User,
-  likedProjects,
+  likedFurnitures,
   likedUsers,
 } from "../../types/dashboard";
 import { FC, useState, useEffect } from "react";
@@ -12,9 +12,10 @@ import RemoveFavoriteIcon from "../../assets/icon/remove_favorite.svg";
 import { convertedPath } from "../../utilities/convertValue";
 import { useSubDocument } from "../../hooks/useSubDocument";
 import { useFirestore } from "../../hooks/useFirestore";
+import { ProductItem, productUseCase } from "../../utilities/stripeClient";
 
 type Prop = {
-  project: ProjectType;
+  furniture: ProductItem;
 };
 type Id = {
   id: string;
@@ -24,24 +25,24 @@ type LikedUser = {
   error: string | null;
   referense: firebase.firestore.DocumentReference<likedUsers> | null;
 };
-type LikedProjects = {
-  documents: (likedProjects & Id) | undefined;
+type LikedFuritures = {
+  documents: (likedFurnitures & Id) | undefined;
   error: string | null;
-  referense: firebase.firestore.DocumentReference<likedProjects> | null;
+  referense: firebase.firestore.DocumentReference<likedFurnitures> | null;
 };
 
-const LikeButton: FC<Prop> = ({ project }) => {
+const LikeButton: FC<Prop> = ({ furniture }) => {
   const [like, setLike] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const { user } = useAuthContext();
   if (!user) throw new Error("we cant find your account");
 
   const likedUser: LikedUser = useSubDocument<ProjectType, likedUsers>(
-    convertedPath(`projects/${project.id}/liked_users/${user.uid}`)
+    convertedPath(`products/${furniture.product.id}/liked_users/${user.uid}`)
   );
 
-  const likedProject: LikedProjects = useSubDocument<User, likedProjects>(
-    convertedPath(`users/${user.uid}/liked_projects/${project.id}`)
+  const likedFurniture: LikedFuritures = useSubDocument<User, likedFurnitures>(
+    convertedPath(`users/${user.uid}/liked_furnitures/${furniture.product.id}`)
   );
 
   const addLikedUser = () => {
@@ -56,20 +57,20 @@ const LikeButton: FC<Prop> = ({ project }) => {
     });
   };
 
-  const addLikedProject = () => {
-    if (!likedProject.referense) return;
-    likedProject.referense.set({
-      liked_project: project,
+  const addLikedFurniture = () => {
+    if (!likedFurniture.referense) return;
+    likedFurniture.referense.set({
+      liked_furniture: furniture,
       createdAt: timestamp.fromDate(new Date()),
     });
   };
 
   const removeLikedUser = () => {
-    if (!likedProject.referense) return;
-    likedProject.referense.delete();
+    if (!likedFurniture.referense) return;
+    likedFurniture.referense.delete();
   };
 
-  const removeLikedProject = () => {
+  const removeLikedFurniture = () => {
     if (!likedUser.referense) return;
     likedUser.referense.delete();
   };
@@ -83,36 +84,36 @@ const LikeButton: FC<Prop> = ({ project }) => {
 
   const { updateDocument } = useFirestore();
 
-  const countUp = () => {
-    updateDocument("projects", project.id, {
-      likedCount: firebase.firestore.FieldValue.increment(1),
-    });
-  };
+  // const countUp = () => {
+  //   updateDocument("projects", project.id, {
+  //     likedCount: firebase.firestore.FieldValue.increment(1),
+  //   });
+  // };
 
-  const countDown = () => {
-    updateDocument("projects", project.id, {
-      likedCount: firebase.firestore.FieldValue.increment(-1),
-    });
-  };
+  // const countDown = () => {
+  //   updateDocument("projects", project.id, {
+  //     likedCount: firebase.firestore.FieldValue.increment(-1),
+  //   });
+  // };
 
   const handleClick = () => {
     setLike(!like);
     if (like === true) {
       // バッチ書き込み処理なのか、同じ情報ならトップに持ってきてもいいかもしれない
       removeLikedUser();
-      removeLikedProject();
-      countDown();
+      removeLikedFurniture();
+      // countDown();
     }
     if (like === false) {
       addLikedUser();
-      addLikedProject();
-      countUp();
+      addLikedFurniture();
+      // countUp();
     }
   };
 
   useEffect(() => {
-    if (!likedProject.referense) return;
-    const unsubscribe = likedProject.referense.onSnapshot(
+    if (!likedFurniture.referense) return;
+    const unsubscribe = likedFurniture.referense.onSnapshot(
       (snapshot) => {
         console.log(snapshot, "snapshot");
         if (snapshot.exists) {
@@ -128,7 +129,7 @@ const LikeButton: FC<Prop> = ({ project }) => {
     );
     // unsubscribe on unmount and clean a function
     return () => unsubscribe();
-  }, [likedProject.referense]);
+  }, [likedFurniture.referense]);
 
   return (
     <div className="like-button">
