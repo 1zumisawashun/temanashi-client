@@ -4,12 +4,12 @@
 
 ```
 言語： TypeScript
-CSSアーキテクチャ： ITCSS/RSCSS
+CSSアーキテクチャ： ITCSS, RSCSS
 ライブラリ： React
 ホスティング： Firebase Hosting
 DB： Firestore
 認証： Firebase Authentication
-APIサーバー： Cloud Functions
+APIサーバー： Cloud Functions, Express
 ストレージ： Cloud Storage
 決済： Firebase Stripe Extention
 E2Eテスト： Cypress
