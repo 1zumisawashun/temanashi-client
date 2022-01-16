@@ -43,9 +43,9 @@ const ProjectComments: FC<Props> = ({ project }) => {
             ))}
         </ul>
         <FlatButton content={"comment"} onClick={openModal} />
-        {toggleModal && (
+        {/* {toggleModal && (
           <FormModal project={project} setToggleModal={setToggleModal} />
-        )}
+        )} */}
       </div>
     </>
   );

@@ -1,18 +1,18 @@
 import { FC, useState, FormEvent } from "react";
-import { timestamp } from "../../firebase/config";
+import { firebase, timestamp } from "../../firebase/config";
 import { useAuthContext } from "../../hooks/useAuthContext";
-import { useFirestore } from "../../hooks/useFirestore";
-import { CommentToAdd, ProjectType } from "../../types/dashboard";
+import { CommentToAdd } from "../../types/dashboard";
 import FlatButton from "../Button/FlatButton";
 import CloseButton from "../Button/CloseButton";
+import { ProductItem } from "../../utilities/stripeClient";
 
 type Props = {
-  project: ProjectType;
+  referense: firebase.firestore.CollectionReference<CommentToAdd>;
+  item: ProductItem;
   setToggleModal: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const FormModal: FC<Props> = ({ project, setToggleModal }) => {
-  const { updateDocument, response } = useFirestore();
+const FormModal: FC<Props> = ({ referense, item, setToggleModal }) => {
   const [newComment, setNewComment] = useState("");
   const { user } = useAuthContext();
   if (!user) throw new Error("we cant find your account");
@@ -24,17 +24,20 @@ const FormModal: FC<Props> = ({ project, setToggleModal }) => {
       photoURL: user.photoURL,
       content: newComment,
       createdAt: timestamp.fromDate(new Date()),
-      id: Math.random(),
-      // FIXME:被る可能性があるのでuuidに変更する
+      id: Math.random(), // FIXME:被る可能性があるのでuuidに変更する
     };
-    await updateDocument<ProjectType>("projects", project.id, {
-      // スプレッド構文を使ってcommentArrayに追加で上書きする
-      comments: [...project.comments, commentToAdd],
-    });
-    if (!response.error) {
+
+    try {
+      referense.add(commentToAdd);
+      item.comments = [...item.comments, commentToAdd];
       setNewComment("");
+    } catch (error) {
+      if (error instanceof Error) {
+        setNewComment("");
+      }
+    } finally {
+      closeModal();
     }
-    closeModal();
   };
 
   const closeModal = () => {

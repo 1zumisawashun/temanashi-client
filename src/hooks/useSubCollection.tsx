@@ -1,9 +1,14 @@
 import { useEffect, useState } from "react";
 import { subCollectionPoint } from "../utilities/converter";
+import { firebase } from "../firebase/config";
 
 export const useSubCollection = <T, U>(path: Array<string>) => {
   const [documents, setDocuments] = useState<Array<U>>([]);
   const [error, setError] = useState<string | null>(null);
+  const [
+    referense,
+    setReferense,
+  ] = useState<firebase.firestore.CollectionReference<U> | null>(null);
   const collection = path[1];
   const document = path[2];
   const subCollection = path[3];
@@ -17,8 +22,8 @@ export const useSubCollection = <T, U>(path: Array<string>) => {
           snapshot.docs.forEach((doc) => {
             results.push({ ...doc.data(), id: doc.id });
           });
+          setReferense(ref);
           setDocuments(results);
-          console.log(results, "results");
           setError(null);
         },
         (error) => {
@@ -31,5 +36,5 @@ export const useSubCollection = <T, U>(path: Array<string>) => {
     }
   }, [collection, document, subCollection]);
 
-  return { documents, error };
+  return { documents, error, referense };
 };
