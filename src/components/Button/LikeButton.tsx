@@ -30,7 +30,7 @@ type LikedProjects = {
   referense: firebase.firestore.DocumentReference<likedProjects> | null;
 };
 
-const LikeButton: FC<Prop> = ({ project }: Prop) => {
+const LikeButton: FC<Prop> = ({ project }) => {
   const [like, setLike] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const { user } = useAuthContext();

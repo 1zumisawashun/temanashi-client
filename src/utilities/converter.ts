@@ -1,17 +1,17 @@
 import { firebase, projectFirestore } from "../firebase/config";
 import { User, ProjectType } from "../types/dashboard";
 
-const converter = <T,>() => ({
+const converter = <T>() => ({
   // NOTE:toFirestore: (data: Partial<T>) => data,で曖昧にすることもできる
   toFirestore: (data: T) => data,
   fromFirestore: (snap: firebase.firestore.QueryDocumentSnapshot) =>
     snap.data() as T,
 });
 
-const collectionPoint = <T,>(collection: string) =>
+const collectionPoint = <T>(collection: string) =>
   projectFirestore.collection(collection).withConverter(converter<T>());
 
-const documentPoint = <T,>(collection: string, document: string) =>
+const documentPoint = <T>(collection: string, document: string) =>
   projectFirestore
     .collection(collection)
     .withConverter(converter<T>())
