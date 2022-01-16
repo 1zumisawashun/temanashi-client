@@ -1,14 +1,14 @@
 import { FC } from "react";
 
-const terms: FC = () => {
+const error: FC = () => {
   return (
     <>
       <div className="user-container">
         <div className="inner">
-          <p>Terms</p>
+          <p>Error</p>
         </div>
       </div>
     </>
   );
 };
-export default terms;
+export default error;

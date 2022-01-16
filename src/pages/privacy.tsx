@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-const Privacy: FC = () => {
+const privacy: FC = () => {
   return (
     <>
       <div className="user-container">
@@ -11,4 +11,4 @@ const Privacy: FC = () => {
     </>
   );
 };
-export default Privacy;
+export default privacy;
