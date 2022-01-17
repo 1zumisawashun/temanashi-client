@@ -35,6 +35,7 @@ const CreateProject: FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const { user } = useAuthContext();
+  //createdUserを追加する
 
   if (!user) {
     throw new Error("Could not complete signup");
