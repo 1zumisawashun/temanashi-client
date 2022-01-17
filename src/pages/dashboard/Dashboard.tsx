@@ -1,41 +1,57 @@
-import { FC } from "react";
-import { useCollection } from "../../hooks/useCollection";
-import ProjectList from "../../components/DefinitionList/ProjectList";
+import { FC, useEffect } from "react";
 import ProjectFilter from "./ProjectFilter";
 import { useState } from "react";
 import { useAuthContext } from "../../hooks/useAuthContext";
-import { ProjectType, User } from "../../types/dashboard";
+import { productUseCase, ProductItem } from "../../utilities/stripeClient";
+import FurnitureList from "../../components/DefinitionList/FurnitureList";
+import Loading from "../../components/Loading";
 
 const Dashboard: FC = () => {
   const { user } = useAuthContext();
-  const { documents, error } = useCollection<ProjectType>("projects");
   const [currentFilter, setCurrentFilter] = useState<String>("all");
+  const [isPending, setIsPending] = useState<boolean>(false);
+  const [productItems, setProductItems] = useState<ProductItem[]>([]);
   const changeFilter = (newFilter: String) => {
     setCurrentFilter(newFilter);
   };
 
+  const fetchProducts = async () => {
+    try {
+      setIsPending(true);
+      const productItems = await productUseCase.fetchAll();
+      setProductItems(productItems);
+      console.log(productItems, "productItem");
+    } finally {
+      setIsPending(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
   // nullチェック・通常のreturnだとエラーになる
   if (!user) throw new Error("we cant find your account");
 
-  const projects = documents
-    ? documents.filter((document: ProjectType) => {
+  const filteredProductItems = productItems
+    ? productItems.filter((productItem: ProductItem) => {
         switch (currentFilter) {
           case "all":
             return true;
           case "mine":
-            let assignedTome = false;
-            document.assignedUsersList.forEach((u: User) => {
-              if (user.uid === u.id) {
-                assignedTome = true;
-              }
-            });
-            return assignedTome;
+            break;
+          // let assignedTome = false;
+          // document.assignedUsersList.forEach((u: User) => {
+          //   if (user.uid === u.id) {
+          //     assignedTome = true;
+          //   }
+          // });
+          // return assignedTome;
           case "development":
           case "salses":
           case "design":
           case "marketing":
-            console.log(document.category, currentFilter);
-            return document.category === currentFilter;
+            return productItem.product.category === currentFilter;
           default:
             return true;
         }
@@ -45,14 +61,16 @@ const Dashboard: FC = () => {
   return (
     <>
       <h2 className="page-title">Dashboard</h2>
-      {error && <p className="error">{error}</p>}
-      {documents && (
+      {isPending && <Loading />}
+      {filteredProductItems && (
         <ProjectFilter
           currentFilter={currentFilter}
           changeFilter={changeFilter}
         />
       )}
-      {projects && <ProjectList projects={projects} />}
+      {filteredProductItems && (
+        <FurnitureList productItems={filteredProductItems} />
+      )}
     </>
   );
 };
