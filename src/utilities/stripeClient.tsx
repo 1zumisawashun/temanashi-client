@@ -26,7 +26,9 @@ class ProductUseCase {
   async fetchAll(): Promise<ProductItem[]> {
     const productQuery = projectFirestore
       .collection("products")
-      .where("active", "==", true);
+      // .where("active", "==", true)
+      .orderBy("metadata.createdAt", "desc");
+
     const productSnapshot = await productQuery.get();
     return await Promise.all(
       productSnapshot.docs.map(async (doc) => {

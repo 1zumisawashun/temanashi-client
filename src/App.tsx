@@ -2,11 +2,9 @@ import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import { useAuthContext } from "./hooks/useAuthContext";
 
 import Dashboard from "./pages/dashboard/Dashboard";
-import CreateProject from "./pages/create/CreateProject";
 import CreateFurniture from "./pages/create/CreateFurniture";
 import Login from "./pages/login/Login";
 import Signup from "./pages/signup/Signup";
-import Project from "./pages/project/Project";
 import Furniture from "./pages/furniture/Furniture";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
@@ -85,17 +83,9 @@ const App = () => {
                 {!user && <Redirect to="/login" />}
                 {user && <DiagnoseResult />}
               </Route>
-              <Route path="/create/project">
-                {!user && <Redirect to="/login" />}
-                {user && <CreateProject />}
-              </Route>
               <Route path="/create/furniture">
                 {!user && <Redirect to="/login" />}
                 {user && <CreateFurniture />}
-              </Route>
-              <Route path="/projects/:id">
-                {!user && <Redirect to="/login" />}
-                {user && <Project />}
               </Route>
               <Route path="/furnitures/:id">
                 {!user && <Redirect to="/login" />}
