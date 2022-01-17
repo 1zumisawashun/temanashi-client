@@ -15,18 +15,22 @@ const stripe = new Stripe(
 export const addProduct = functions.https.onCall(
   async ({ photos, name, price, description, ...data }, context) => {
     //add stripe-meta-data
+    const createdAt = new Date().getTime() / 1000;
     const product = await stripe.products.create({
+      //NOTE:packageDimentionにwidthなどをまとめられる
       name,
       description,
+      active: true,
       // active:false,
       // falseにすると商品のアーカイブに入るので表示されない状態になる
       //普通にstockが0になったらfirestoreのactiveをfalseにして非表示で問題ないかと
       images: photos,
       metadata: {
         ...data,
+        createdAt,
         // エラーが発生するため一旦コメントアウト
         //2MB 未満の画像をアップロードしてくださいとのことでこれを満たさないと画像がアップロードされない
-        // createdAt: admin.firestore.Timestamp.fromDate(new Date()),
+        // created_at: admin.firestore.FieldValue.serverTimestamp(),
         // likedCount: admin.firestore.FieldValue.increment(0),
       },
     });
@@ -41,6 +45,25 @@ export const addProduct = functions.https.onCall(
     return data;
   }
 );
+
+export const logActivities = functions.firestore
+  .document("/{collection}/{id}")
+  .onCreate((snap, context) => {
+    console.log(snap.data());
+    const collection = context.params.collection;
+    const activities = admin.firestore().collection("activities");
+    if (collection === "products") {
+      return activities.add({
+        text: "a new product was added",
+      });
+    }
+    if (collection === "users") {
+      return activities.add({
+        text: "a new user signed up",
+      });
+    }
+    return null;
+  });
 
 // onCall test
 export const sayhello = functions.https.onCall((data, context) => {

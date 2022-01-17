@@ -11,8 +11,7 @@ import AddFavoriteIcon from "../../assets/icon/add_favorite.svg";
 import RemoveFavoriteIcon from "../../assets/icon/remove_favorite.svg";
 import { convertedPath } from "../../utilities/convertValue";
 import { useSubDocument } from "../../hooks/useSubDocument";
-import { useFirestore } from "../../hooks/useFirestore";
-import { ProductItem, productUseCase } from "../../utilities/stripeClient";
+import { ProductItem } from "../../utilities/stripeClient";
 
 type Prop = {
   furniture: ProductItem;
@@ -75,39 +74,16 @@ const LikeButton: FC<Prop> = ({ furniture }) => {
     likedUser.referense.delete();
   };
 
-  // NOTE:いいねの総数を出すために追加
-  // NOTE:likeCountの型定義をnumberにするとエラーになる
-  // FIXME:いいねするとカタつくのを直したい
-  // 売り切れになったらエビデンスとして家具を残す
-  // サブコレクションは削除の時にめんどくさい
-  // いいねのコレクションでも関係は分ける
-
-  const { updateDocument } = useFirestore();
-
-  // const countUp = () => {
-  //   updateDocument("projects", project.id, {
-  //     likedCount: firebase.firestore.FieldValue.increment(1),
-  //   });
-  // };
-
-  // const countDown = () => {
-  //   updateDocument("projects", project.id, {
-  //     likedCount: firebase.firestore.FieldValue.increment(-1),
-  //   });
-  // };
-
   const handleClick = () => {
     setLike(!like);
     if (like === true) {
-      // バッチ書き込み処理なのか、同じ情報ならトップに持ってきてもいいかもしれない
+      // FIXME:バッチ書き込み処理なのか、同じ情報ならトップに持ってきてもいいかもしれない
       removeLikedUser();
       removeLikedFurniture();
-      // countDown();
     }
     if (like === false) {
       addLikedUser();
       addLikedFurniture();
-      // countUp();
     }
   };
 
