@@ -27,7 +27,11 @@ const ProjectSummary: FC<Props> = ({ furniture }) => {
       const uid = user.uid;
       if (!uid) return;
       const url = window.location.origin;
-      await productUseCase.buy(uid, priceId, url);
+      const urls = {
+        seccess_url: `${url}/complete`,
+        cancel_url: `${url}/error`,
+      };
+      await productUseCase.buy(uid, priceId, urls);
     } catch (error) {
       if (error instanceof Error) {
         alert(`Error: ${!!error.message ? error.message : error}`);

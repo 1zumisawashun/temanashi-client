@@ -19,6 +19,11 @@ export type SubscriptionItem = {
   price: PriceDoc;
 };
 
+export type urls = {
+  seccess_url: string;
+  cancel_url: string;
+};
+
 class ProductUseCase {
   /**
    * 参照①
@@ -85,9 +90,10 @@ class ProductUseCase {
   /**
    * 更新①
    */
+
   //NOTE:購入後にメールを送る、複数購入可能にする、カートページを作る,とりあえずcloud functionsを入れる、addできるようにする
   //NOTE:stockの項目を作り0になったらsctive:falseにして購入不可にする
-  async buy(uid: string, priceId: string, url: string) {
+  async buy(uid: string, priceId: string, url: urls) {
     return new Promise(async (resolve, reject) => {
       const docRef = await projectFirestore
         .collection("customers")
@@ -96,8 +102,8 @@ class ProductUseCase {
         .add({
           mode: "payment",
           price: priceId,
-          success_url: url,
-          cancel_url: url,
+          success_url: url.seccess_url,
+          cancel_url: url.cancel_url,
         });
 
       docRef.onSnapshot(async (snap) => {

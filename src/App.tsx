@@ -14,9 +14,11 @@ import UserFavorite from "./pages/user/UserFavorite";
 import UserAccount from "./pages/user/UserAccount";
 import UserHistory from "./pages/user/UserHistory";
 import Cart from "./pages/cart/Cart";
+import Complete from "./pages/cart/Complete";
 import DiagnoseResult from "./pages/diagnose/DiagnoseResult";
 import Terms from "./pages/terms";
 import Privacy from "./pages/privacy";
+import Error from "./pages/error";
 
 const App = () => {
   const { user, authIsReady } = useAuthContext();
@@ -67,63 +69,119 @@ const App = () => {
       {/* アクティブユーザー */}
       {authIsReady && user && (
         <BrowserRouter>
-          {user && <Sidebar />}
-          <div className="container">
-            <Navbar />
-            <Switch>
-              <Route exact path="/">
+          <Route path="/error">
+            <Error />
+          </Route>
+          <Route path="/terms">
+            <Terms />
+          </Route>
+          <Route path="/privacy">
+            <Privacy />
+          </Route>
+          <Route path="/complete">
+            <Complete />
+          </Route>
+          <Switch>
+            <Route exact path="/">
+              {user && <Sidebar />}
+              <div className="container">
+                <Navbar />
                 {!user && <Redirect to="/login" />}
                 {user && <Dashboard />}
-              </Route>
-              <Route exact path="/diagnose">
+              </div>
+              {user && <OnlineUsers />}
+            </Route>
+            <Route exact path="/diagnose">
+              {user && <Sidebar />}
+              <div className="container">
+                <Navbar />
                 {!user && <Redirect to="/login" />}
                 {user && <Diagnose />}
-              </Route>
-              <Route path="/diagnose/result">
+              </div>
+              {user && <OnlineUsers />}
+            </Route>
+            <Route path="/diagnose/result">
+              {user && <Sidebar />}
+              <div className="container">
+                <Navbar />
                 {!user && <Redirect to="/login" />}
                 {user && <DiagnoseResult />}
-              </Route>
-              <Route path="/create/furniture">
+              </div>
+              {user && <OnlineUsers />}
+            </Route>
+            <Route path="/create/furniture">
+              {user && <Sidebar />}
+              <div className="container">
+                <Navbar />
                 {!user && <Redirect to="/login" />}
                 {user && <CreateFurniture />}
-              </Route>
-              <Route path="/furnitures/:id">
+              </div>
+              {user && <OnlineUsers />}
+            </Route>
+            <Route path="/furnitures/:id">
+              {user && <Sidebar />}
+              <div className="container">
+                <Navbar />
                 {!user && <Redirect to="/login" />}
                 {user && <Furniture />}
-              </Route>
-              <Route path="/login">
+              </div>
+              {user && <OnlineUsers />}
+            </Route>
+            <Route path="/login">
+              {user && <Sidebar />}
+              <div className="container">
+                <Navbar />
                 {user && <Redirect to="/" />}
                 {!user && <Login />}
-              </Route>
-              <Route path="/signup">
+              </div>
+              {user && <OnlineUsers />}
+            </Route>
+            <Route path="/signup">
+              {user && <Sidebar />}
+              <div className="container">
+                <Navbar />
                 {user && <Redirect to="/" />}
                 {!user && <Signup />}
-              </Route>
-              <Route path="/users/:id/history">
+              </div>
+              {user && <OnlineUsers />}
+            </Route>
+            <Route path="/users/:id/history">
+              {user && <Sidebar />}
+              <div className="container">
+                <Navbar />
                 {!user && <Redirect to="/login" />}
                 {user && <UserHistory />}
-              </Route>
-              <Route path="/users/:id/account">
+              </div>
+              {user && <OnlineUsers />}
+            </Route>
+            <Route path="/users/:id/account">
+              {user && <Sidebar />}
+              <div className="container">
+                <Navbar />
                 {!user && <Redirect to="/login" />}
                 {user && <UserAccount />}
-              </Route>
-              <Route path="/users/:id/favorite">
+              </div>
+              {user && <OnlineUsers />}
+            </Route>
+            <Route path="/users/:id/favorite">
+              {user && <Sidebar />}
+              <div className="container">
+                <Navbar />
                 {!user && <Redirect to="/login" />}
                 {user && <UserFavorite />}
-              </Route>
-              <Route path="/users/:id/cart">
+              </div>
+              {user && <OnlineUsers />}
+            </Route>
+            <Route path="/users/:id/cart">
+              {user && <Sidebar />}
+              <div className="container">
+                <Navbar />
                 {!user && <Redirect to="/login" />}
                 {user && <Cart />}
-              </Route>
-              <Route path="/terms">
-                <Terms />
-              </Route>
-              <Route path="/privacy">
-                <Privacy />
-              </Route>
-            </Switch>
-          </div>
-          {user && <OnlineUsers />}
+              </div>
+              {user && <OnlineUsers />}
+            </Route>
+          </Switch>
         </BrowserRouter>
       )}
     </div>
