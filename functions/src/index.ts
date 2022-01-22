@@ -1,15 +1,16 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 import Stripe from "stripe";
-
+const express = require("express");
+require("dotenv").config();
+const app = express();
 admin.initializeApp();
 
-const stripe = new Stripe(
-  "sk_test_51JBawwHlnbfxWLbN9zSs5c550PmsFCSVGLvQOR4wc5jb9FeMBZlMUMXcByo61YUVa7MhvzyOaJzHG8QOrJXSXRO20021tgTFeg",
-  {
-    apiVersion: "2020-08-27",
-  }
-);
+if (!process.env.STRIPE_API) throw new Error("we cant find your account");
+
+const stripe = new Stripe(process.env.STRIPE_API, {
+  apiVersion: "2020-08-27",
+});
 
 // FIXME:timestampを追加する
 export const addProduct = functions.https.onCall(
@@ -75,3 +76,10 @@ export const helloWorld = functions.https.onRequest(
     await response.send("hello world!");
   }
 );
+
+app.get("/hello", (req: any, res: any) => {
+  res.send("Hello Express!");
+});
+
+const api = functions.https.onRequest(app);
+module.exports = { api };
