@@ -38,7 +38,8 @@ const Dashboard: FC = () => {
   if (!user) throw new Error("we cant find your account");
 
   const filteredProductItems = productItems
-    ? productItems.filter((productItem: ProductItem) => {
+    ? // eslint-disable-next-line
+      productItems.filter((productItem: ProductItem) => {
         switch (currentFilter) {
           case "all":
             return true;

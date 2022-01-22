@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import { FC, useState } from "react";
-import { productUseCase, ProductItem } from "../../utilities/stripeClient";
+import { FC } from "react";
+import { ProductItem } from "../../utilities/stripeClient";
 import { useAuthContext } from "../../hooks/useAuthContext";
 
 type Props = {

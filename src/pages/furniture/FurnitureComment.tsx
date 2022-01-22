@@ -1,14 +1,13 @@
 import { FC, useState } from "react";
 import Avatar from "../../components/Avatar";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
-import { Comment, ProjectType, CommentToAdd } from "../../types/dashboard";
+import { Comment } from "../../types/dashboard";
 import FormModal from "../../components/Modal/FormModal";
 import FlatButton from "../../components/Button/FlatButton";
-import { productUseCase, ProductItem } from "../../utilities/stripeClient";
+import { ProductItem } from "../../utilities/stripeClient";
 import { useParams } from "react-router-dom";
 import { useSubCollection } from "../../hooks/useSubCollection";
 import { convertedPath } from "../../utilities/convertValue";
-import { ProductDoc } from "../../types/stripe";
 
 type Props = {
   furniture: ProductItem;
