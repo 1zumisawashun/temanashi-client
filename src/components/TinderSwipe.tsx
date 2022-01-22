@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import ThumbUp from "../assets/icon/thumb_up.svg";
 import ThumbDown from "../assets/icon/thumb_down.svg";
 import Undo from "../assets/icon/undo.svg";
-import { ProjectType } from "../types/dashboard";
+import { ProductDoc } from "../types/stripe";
 import ProgressBar from "./ProgressBar";
 import { delay } from "../utilities/convertValue";
 import Loading from "../components/Loading";
@@ -12,7 +12,7 @@ import Loading from "../components/Loading";
 // クラスに切り出したい
 
 type Props = {
-  db: Array<ProjectType>;
+  db: Array<ProductDoc>;
 };
 
 const TinderSwipe: FC<Props> = ({ db }) => {
@@ -102,15 +102,9 @@ const TinderSwipe: FC<Props> = ({ db }) => {
               onCardLeftScreen={() => outOfFrame(character.name, index)}
             >
               <div
-                style={{
-                  backgroundImage: `url("http://placekitten.com/200/300")`,
-                }}
+                style={{ backgroundImage: "url(" + character.images[0] + ")" }}
                 className="card"
               >
-                {/* <div
-              style={{ backgroundImage: "url(" + character.url + ")" }}
-              className="card"
-            > */}
                 <h3>{character.name}</h3>
               </div>
             </TinderCard>

@@ -19,7 +19,7 @@ const FurnitureList: FC<Props> = ({ productItems }) => {
           <Link to={`/furnitures/${item.product.id}`} key={item.product.id}>
             <div className="image-box">
               {item.product.images.length > 0 ? (
-                <img src={item.product.images[0]} alt="" width="100" />
+                <img src={item.product.images[0]} alt="" width="300" />
               ) : (
                 <img
                   src="https://placehold.jp/200x160.png"
