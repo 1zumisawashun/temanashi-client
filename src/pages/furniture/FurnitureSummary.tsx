@@ -7,6 +7,7 @@ import PreviewModal from "../../components/Modal/PreviewModal";
 import { ProductItem, productUseCase } from "../../utilities/stripeClient";
 import { useParams } from "react-router-dom";
 import Loading from "../../components/Loading";
+import { taxIncludedPrice } from "../../utilities/convertValue";
 
 type Props = {
   furniture: ProductItem;
@@ -59,7 +60,6 @@ const ProjectSummary: FC<Props> = ({ furniture }) => {
         <div className="image-box">
           <img
             src={furniture.product.images[0]}
-            width="200px"
             alt=""
             className="image"
             onClick={openModal}
@@ -72,23 +72,15 @@ const ProjectSummary: FC<Props> = ({ furniture }) => {
           )}
         </div>
         <h2 className="page-title">{furniture.product.name}</h2>
-        {/* <p>By {project.createdBy?.displayName}</p> */}
         <p className="due-date">
-          Project due by
           {/* {project.dueDate?.toDate().toDateString()} */}
         </p>
         <p className="details">{furniture.product.description}</p>
-        <h4>Project is assigned to:</h4>
-        <div className="assigned-users">
-          {/* {project.assignedUsersList?.map((user) => (
-            <div key={user.id}>
-              <Avatar src={user.photoURL} />
-            </div>
-          ))} */}
-        </div>
         {Object.keys(furniture.prices).map((priceIndex) => (
           <div key={priceIndex}>
-            <div>{furniture.prices[priceIndex].unit_amount}</div>
+            <div>
+              {taxIncludedPrice(furniture.prices[priceIndex].unit_amount)}
+            </div>
             <button className="btn" onClick={() => onClickBuy(priceIndex)}>
               購入
             </button>
@@ -96,11 +88,10 @@ const ProjectSummary: FC<Props> = ({ furniture }) => {
         ))}
         <LikeButton furniture={furniture} />
       </div>
-      {/* {user.uid === project.createdBy?.id && (
-        <button className="btn" onClick={handleClick}>
-          Mark as Complete
-        </button>
-      )} */}
+      {/* {user.uid === project.createdBy?.id && ( */}
+      <button className="btn" onClick={handleClick}>
+        Mark as Complete
+      </button>
     </div>
   );
 };

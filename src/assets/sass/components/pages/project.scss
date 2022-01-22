@@ -8,9 +8,12 @@
 /* project summary */
 .project-summary-container {
   > .project-summary {
-    background-color:$white;
+    background-color: $white;
     padding: 30px;
     border-radius: 4px;
+  }
+  > .project-summary > .image-box > img {
+    width: 400px;
   }
   > .project-summary > .due-date {
     margin: 10px 0;
@@ -59,7 +62,7 @@
     border: 1px solid #f2f2f2;
     margin-top: 20px;
     box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.05);
-    background:$white;
+    background: $white;
   }
   > .comment-list > li > .comment-auther {
     display: flex;

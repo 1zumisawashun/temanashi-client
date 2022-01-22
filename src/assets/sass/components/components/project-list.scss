@@ -1,12 +1,13 @@
 .project-list {
   margin-top: 40px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   grid-gap: 20px;
 
   > a {
     background-color: $white;
     padding: 16px;
+    margin: 0 auto;
     border-radius: 6px;
     box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.05);
     text-decoration: none;
@@ -15,6 +16,13 @@
 
   > a > .image-box {
     text-align: center;
+    width: 200px;
+    height: 200px;
+  }
+  > a > .image-box > img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
   }
 
   > a > h4 {
