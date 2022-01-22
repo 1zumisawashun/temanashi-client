@@ -2,11 +2,14 @@ import { FC, useState, FormEvent } from "react";
 import Select from "react-select";
 import { projectFunctions, projectStorage } from "../../firebase/config";
 import { useHistory } from "react-router-dom";
-import PhotosUpload from "../../components/Input/PhotosUpload";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { delay } from "../../utilities/convertValue";
 import Loading from "../../components/Loading";
 import { useRandomContext } from "../../hooks/useRandomContext";
+import InputText from "../../components/Input/InputText";
+import InputNumber from "../../components/Input/InputNumber";
+import InputTextarea from "../../components/Input/InputTextarea";
+import InputFileMulti from "../../components/Input/InputFileMulti";
 
 const categories = [
   { value: "development", label: "Development" },
@@ -99,64 +102,14 @@ const CreateProject: FC = () => {
       <div className="create-form">
         <h2 className="page-title">Create a new Furniture</h2>
         <form onSubmit={handleSubmit}>
-          <PhotosUpload name="photos" photos={photos} setPhotos={setPhotos} />
-          <label>
-            <span>Furniture name:</span>
-            <input
-              required
-              type="text"
-              onChange={(e) => setName(e.target.value)}
-              value={name}
-            />
-          </label>
-          <label>
-            <span>Furniture description:</span>
-            <textarea
-              required
-              onChange={(e) => setDescription(e.target.value)}
-              value={description}
-            />
-          </label>
-          <label>
-            <span>Furniture price:</span>
-            <input
-              type="text"
-              onChange={(e) => setPrice(Number(e.target.value))}
-              value={price}
-            />
-          </label>
-          <label>
-            <span>Furniture stock:</span>
-            <input
-              type="text"
-              onChange={(e) => setStock(Number(e.target.value))}
-              value={stock}
-            />
-          </label>
-          <label>
-            <span>Furniture width:</span>
-            <input
-              type="text"
-              onChange={(e) => setWidth(Number(e.target.value))}
-              value={width}
-            />
-          </label>
-          <label>
-            <span>Furniture depth:</span>
-            <input
-              type="text"
-              onChange={(e) => setDepth(Number(e.target.value))}
-              value={depth}
-            />
-          </label>
-          <label>
-            <span>Furniture height:</span>
-            <input
-              type="text"
-              onChange={(e) => setHeight(Number(e.target.value))}
-              value={height}
-            />
-          </label>
+          <InputFileMulti name="photos" photos={photos} setPhotos={setPhotos} />
+          <InputText label="name" state={name} setState={setName} />
+          <InputTextarea label="description" state={description} setState={setDescription} />
+          <InputNumber label="price" state={price} setState={setPrice} />
+          <InputNumber label="strock" state={stock} setState={setStock} />
+          <InputNumber label="width" state={width} setState={setWidth} />
+          <InputNumber label="depth" state={depth} setState={setDepth} />
+          <InputNumber label="height" state={height} setState={setHeight} />
           <label>
             <span>Project category:</span>
             <Select

@@ -2,7 +2,7 @@ import React, { FC, useState } from "react";
 import CloseButton from "../Button/CloseButton";
 import ExecuteModal from "../Modal/ExecuteModal";
 
-interface PhotosUploadProps {
+interface Props {
   name: string;
   // NOTE:input["file"]とlabelをリンクさせるためのフラグ
   photos: File[];
@@ -17,11 +17,11 @@ const mineType = [
   "image/svg+xml",
 ];
 
-const PhotosUpload: FC<PhotosUploadProps> = ({
+const PhotosUpload: FC<Props> = ({
   name,
   photos,
   setPhotos,
-}: PhotosUploadProps): React.ReactElement => {
+}): React.ReactElement => {
   const [toggleModal, setToggleModal] = useState(false);
   const [isSameError, setIsSameError] = useState(false);
   const [isNumberError, setIsNumberError] = useState(false);
