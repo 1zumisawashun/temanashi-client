@@ -5,9 +5,12 @@ import { useAuthContext } from "../../hooks/useAuthContext";
 import { productUseCase, ProductItem } from "../../utilities/stripeClient";
 import FurnitureList from "../../components/DefinitionList/FurnitureList";
 import Loading from "../../components/Loading";
+import { useRandomContext } from "../../hooks/useRandomContext";
 
 const Dashboard: FC = () => {
   const { user } = useAuthContext();
+  const { random, dispatch } = useRandomContext();
+  console.log(random, "random");
   const [currentFilter, setCurrentFilter] = useState<String>("all");
   const [isPending, setIsPending] = useState<boolean>(false);
   const [productItems, setProductItems] = useState<ProductItem[]>([]);
@@ -28,7 +31,8 @@ const Dashboard: FC = () => {
 
   useEffect(() => {
     fetchProducts();
-  }, []);
+    dispatch({ type: "SAVE_COUNT", payload: productItems.length + 1 });
+  }, [dispatch, productItems.length]);
 
   // nullチェック・通常のreturnだとエラーになる
   if (!user) throw new Error("we cant find your account");

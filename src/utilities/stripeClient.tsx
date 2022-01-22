@@ -7,6 +7,7 @@ import {
 } from "../types/stripe";
 import { firebase, projectFirestore } from "../firebase/config";
 import { Comment } from "../types/dashboard";
+
 export type ProductItem = {
   product: ProductDoc;
   prices: { [key: string]: PriceDoc };
@@ -52,6 +53,7 @@ class ProductUseCase {
           prices: priceMap,
           comments: [], //PickでCommentを省く
         };
+
         return productItem;
       })
     );

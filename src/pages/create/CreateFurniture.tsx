@@ -6,6 +6,7 @@ import PhotosUpload from "../../components/Input/PhotosUpload";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { delay } from "../../utilities/convertValue";
 import Loading from "../../components/Loading";
+import { useRandomContext } from "../../hooks/useRandomContext";
 
 const categories = [
   { value: "development", label: "Development" },
@@ -35,6 +36,8 @@ const CreateProject: FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const { user } = useAuthContext();
+  const { random } = useRandomContext();
+  console.log(random, "random yeah");
   //createdUserを追加する
 
   if (!user) {
@@ -74,6 +77,7 @@ const CreateProject: FC = () => {
       width,
       depth,
       height,
+      random: Number(random),
       category: category.value,
     };
 
