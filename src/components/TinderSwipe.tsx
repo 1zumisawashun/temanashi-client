@@ -33,12 +33,10 @@ const TinderSwipe: FC<Props> = ({ db }) => {
   );
 
   const progressBarCalclation = (val: number) => {
-    console.log(val, "val");
     const result = val + 1;
     const result2 = result / db.length;
     const result3 = 1 - result2;
     setPercent(result3);
-    console.log(result3, "========");
   };
 
   const updateCurrentIndex = async (val: number) => {
@@ -62,7 +60,6 @@ const TinderSwipe: FC<Props> = ({ db }) => {
   const swiped = (direction: string, nameToDelete: string, index: number) => {
     setLastDirection(direction);
     updateCurrentIndex(index - 1);
-    console.log("swiped");
   };
 
   const outOfFrame = (name: string, idx: number) => {

@@ -25,10 +25,13 @@ export const useRandomDocument = () => {
             .startAt(startIndex)
             .endAt(startIndex) //querying 1 random items
             .get();
+          // 取得できなかったらの条件式を書く
           const data = await snapshot.docs.map((doc) => {
             return { ...(doc.data() as ProductDoc), id: doc.id };
           });
-          await randomDocument.push(...data); //1個のみ配列をパースしてオブジェクトをpushする
+          if (data) {
+            await randomDocument.push(...data); //1個のみ配列をパースしてオブジェクトをpushする
+          }
           if (randomDocument.length === 5) {
             setDocuments(randomDocument);
           }
