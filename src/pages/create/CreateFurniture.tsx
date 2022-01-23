@@ -87,7 +87,7 @@ const CreateProject: FC = () => {
 
     try {
       const result = await axios.post(
-        `${process.env.REACT_APP_BASE_URL}/api/add-product`,
+        `${process.env.REACT_APP_BASE_URL}/api/stripe-post`,
         furniture
       );
       console.log(result, process.env.REACT_APP_BASE_URL);
