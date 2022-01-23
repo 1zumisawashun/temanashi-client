@@ -1,5 +1,5 @@
 import * as functions from "firebase-functions";
-import * as admin from "firebase-admin";
+import { firestore, timestamp } from "./firebase";
 
 const express = require("express");
 const cors = require("cors");
@@ -7,7 +7,6 @@ const app = express();
 const stripeRoute = require("./routes/stripeRoute");
 
 app.options("*", cors({ origin: true }));
-admin.initializeApp();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -17,15 +16,17 @@ const logActivities = functions.firestore
   .document("/{collection}/{id}")
   .onCreate((snap, context) => {
     const collection = context.params.collection;
-    const activities = admin.firestore().collection("activities");
+    const activities = firestore.collection("activities");
     if (collection === "products") {
       return activities.add({
         text: "a new product was added",
+        date: timestamp,
       });
     }
     if (collection === "users") {
       return activities.add({
         text: "a new user signed up",
+        date: timestamp,
       });
     }
     return null;
