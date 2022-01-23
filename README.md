@@ -15,22 +15,22 @@ APIサーバー： Cloud Functions, Express
 E2Eテスト： Cypress
 ```
 
-## Available Scripts
-
-以下の手順で開発を進めてください。
+# Available Scripts
 
 ### `npm install`
 
-クローン後にパッケージをインストールする
+cloneした後にパッケージをインストールする
 
-### `npm start`
+### `npm run start`
 
-開発環境を立てる
+localの開発環境を実行する
 
-### `npm run build:functions`
+### `npm run build:firebase`
 
-cloud functions のコンパイルと関数のデプロイを実行する
+root ディレクトリで指定のコマンドを実行する。
+Cloud Functions の TypeScript をコンパイルし作成した関数のみのデプロイを実行する。
 
 ### `npm run deploy:firebase`
 
-src ディレクトリのビルドと firebase hosting へのデプロイを実行する
+root ディレクトリで指定のコマンドを実行する。
+src ディレクトリをビルドして Firebase Hosting へのデプロイを実行する
