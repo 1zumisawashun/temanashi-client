@@ -1,6 +1,6 @@
 import { FC, useState, FormEvent } from "react";
 import Select from "react-select";
-import { projectFunctions, projectStorage } from "../../firebase/config";
+import { projectStorage } from "../../firebase/config";
 import { useHistory } from "react-router-dom";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { delay } from "../../utilities/convertValue";
@@ -10,6 +10,7 @@ import InputText from "../../components/Input/InputText";
 import InputNumber from "../../components/Input/InputNumber";
 import InputTextarea from "../../components/Input/InputTextarea";
 import InputFileMulti from "../../components/Input/InputFileMulti";
+import axios from "axios";
 
 const categories = [
   { value: "development", label: "Development" },
@@ -84,10 +85,12 @@ const CreateProject: FC = () => {
       category: category.value,
     };
 
-    const addProduct = await projectFunctions.httpsCallable("addProduct");
     try {
-      const result = await addProduct(furniture);
-      console.log(result.data);
+      const result = await axios.post(
+        `${process.env.REACT_APP_BASE_URL}/api/add-product`,
+        furniture
+      );
+      console.log(result, process.env.REACT_APP_BASE_URL);
     } catch (error) {
       console.log(error);
       alert("エラーが発生しました");
@@ -104,7 +107,11 @@ const CreateProject: FC = () => {
         <form onSubmit={handleSubmit}>
           <InputFileMulti name="photos" photos={photos} setPhotos={setPhotos} />
           <InputText label="name" state={name} setState={setName} />
-          <InputTextarea label="description" state={description} setState={setDescription} />
+          <InputTextarea
+            label="description"
+            state={description}
+            setState={setDescription}
+          />
           <InputNumber label="price" state={price} setState={setPrice} />
           <InputNumber label="strock" state={stock} setState={setStock} />
           <InputNumber label="width" state={width} setState={setWidth} />

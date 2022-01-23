@@ -3,16 +3,22 @@ import { projectFunctions } from "../../firebase/config";
 import axios from "axios";
 
 const Cart: FC = () => {
-  const test1 = () => {
-    const sayHello = projectFunctions.httpsCallable("sayHello");
-    sayHello({ name: `shun` }).then((result) => {
+  const onCallTest = () => {
+    const helloOnCall = projectFunctions.httpsCallable("helloOnCall");
+    helloOnCall({ name: `shun` }).then((result) => {
       console.log(result.data);
     });
   };
-  const test2 = async () => {
+  const onRequestTest = async () => {
     const url = "https://us-central1-temanashi-39b3f.cloudfunctions.net";
     if (!url) return;
-    const result = await axios.get(`${url}/api/hello-json`);
+    const result = await axios.get(`${url}/helloOnRequest`);
+    console.log(result, "result");
+  };
+  const getAxiosTest = async () => {
+    const url = "https://us-central1-temanashi-39b3f.cloudfunctions.net";
+    if (!url) return;
+    const result = await axios.get(`${url}/api/hello`);
     console.log(result, "result");
   };
 
@@ -20,11 +26,14 @@ const Cart: FC = () => {
     <>
       <div className="cart-container">
         <div className="inner">
-          <button onClick={test1} className="btn">
-            CloudFunctionsTest
+          <button onClick={onCallTest} className="btn">
+            OnCallTest
           </button>
-          <button onClick={test2} className="btn">
-            AxiosTest
+          <button onClick={onRequestTest} className="btn">
+            OnRequestTest
+          </button>
+          <button onClick={getAxiosTest} className="btn">
+            GetAxiosTest
           </button>
         </div>
       </div>
