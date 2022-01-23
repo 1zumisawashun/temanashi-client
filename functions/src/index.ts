@@ -1,36 +1,17 @@
 import * as functions from "firebase-functions";
-import { firestore, timestamp } from "./firebase";
 
 const express = require("express");
 const cors = require("cors");
 const app = express();
 const stripeRoute = require("./routes/stripeRoute");
+const logActivities = require("./utilities/logger");
 
 app.options("*", cors({ origin: true }));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/", stripeRoute);
-
-const logActivities = functions.firestore
-  .document("/{collection}/{id}")
-  .onCreate((snap, context) => {
-    const collection = context.params.collection;
-    const activities = firestore.collection("activities");
-    if (collection === "products") {
-      return activities.add({
-        text: "a new product was added",
-        date: timestamp,
-      });
-    }
-    if (collection === "users") {
-      return activities.add({
-        text: "a new user signed up",
-        date: timestamp,
-      });
-    }
-    return null;
-  });
+app.use(logActivities);
 
 // On Call Test
 const helloOnCall = functions.https.onCall((data, context) => {
