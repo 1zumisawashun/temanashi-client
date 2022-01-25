@@ -1,17 +1,18 @@
 import * as functions from "firebase-functions";
+import * as express from "express";
+import * as cors from "cors";
+// NOTE:requireでモジュールを読み込むと型がanyになる
+// NOTE:emulatorは既に入っている（npm run serveは使える）よく見るあれはGUIのをインポートするかの差
 
-const express = require("express");
-const cors = require("cors");
 const app = express();
 const stripeRoute = require("./routes/stripeRoute");
 const logActivities = require("./utilities/logger");
 
-app.options("*", cors({ origin: true }));
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors({ origin: true }));
+
 app.use("/", stripeRoute);
-app.use(logActivities);
 
 // On Call Test
 const helloOnCall = functions.https.onCall((data, context) => {
@@ -20,9 +21,7 @@ const helloOnCall = functions.https.onCall((data, context) => {
 
 // On Request Test
 const helloOnRequest = functions.https.onRequest((req, res) => {
-  cors()(req, res, () => {
-    res.status(200).send("hello, on request!");
-  });
+  res.status(200).send("hello, on request!");
 });
 
 // Get Axios Test
