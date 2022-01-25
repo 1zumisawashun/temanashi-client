@@ -1,6 +1,42 @@
-// .recommendation{
+.recommendation {
+  font-size: 16px;
+  > .image-box {
+    border-radius: 20px;
+    text-align: center;
+  }
+  > .image-box > img {
+    width: 700px;
+    object-fit: cover;
+  }
 
-// }
+  > .content-box > .price > .item > .total {
+    font-weight: bold;
+    margin: 0 10px;
+  }
+  > .content-box > .color {
+    width: 55%;
+    display: flex;
+    justify-content: space-between;
+    margin: 15px 0;
+  }
+  > .content-box > .color > .item {
+    display: flex;
+  }
+  > .content-box > .color > .item > .cercle {
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    border: 1px solid $basalt-grey;
+    margin-left: 10px;
+    &.-white {
+      background: $white;
+    }
+    &.-grey {
+      background: grey;
+    }
+  }
+}
 
 .diagnose-result-list {
   margin-top: 40px;
@@ -10,6 +46,7 @@
 
   > a {
     display: flex;
+    justify-content: space-between;
     background-color: $white;
     padding: 16px;
     border-radius: 6px;
@@ -20,6 +57,7 @@
 
   > a > .image-box {
     text-align: center;
+    margin: auto;
   }
   > a > .content-box {
     margin: 10px;
@@ -36,14 +74,13 @@
   }
 
   > a > .content-box > .assigned-to {
-    margin-top: 20px;
-    padding-top: 10px;
+    margin-top: 10px;
     border-top: 1px solid #eee;
   }
 
   > a > .content-box > .assigned-to > ul {
     margin: 10px 0;
-    display: flex;
+    font-size: 14px;
   }
 
   > a > .content-box > .assigned-to > ul > li {
