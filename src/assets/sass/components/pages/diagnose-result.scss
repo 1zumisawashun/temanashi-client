@@ -1,12 +1,18 @@
 .recommendation {
   font-size: 16px;
   > .image-box {
-    border-radius: 20px;
+    background: white;
+    padding: 50px 0;
     text-align: center;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.05);
+    border-radius: 6px;
   }
   > .image-box > img {
     width: 700px;
     object-fit: cover;
+  }
+  > .content-box {
+    margin: 20px 0;
   }
 
   > .content-box > .price > .item > .total {
@@ -17,7 +23,7 @@
     width: 55%;
     display: flex;
     justify-content: space-between;
-    margin: 15px 0;
+    margin: 10px 0;
   }
   > .content-box > .color > .item {
     display: flex;
@@ -56,10 +62,18 @@
   }
 
   > a > .image-box {
+    width: 70%;
     text-align: center;
     margin: auto;
   }
+  > a > .image-box > img {
+    width: 210px;
+    height: 160px;
+    object-fit: cover;
+  }
+
   > a > .content-box {
+    width: 30%;
     margin: 10px;
   }
 

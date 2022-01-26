@@ -3,14 +3,13 @@ import { Link } from "react-router-dom";
 import { db, recommendation } from "../../utilities/dammyData";
 import { Furniture } from "../../types/dashboard";
 import { taxIncludedPrice } from "../../utilities/convertValue";
-import furnitureImage from "../../assets/image/furniture_1.jpg";
 
 const DiagnoseResult: FC = () => {
   return (
     <>
       <div className="recommendation">
         <div className="image-box">
-          <img src={furnitureImage} alt="" />
+          <img src={recommendation.imageUrl} alt="" />
         </div>
         <div className="content-box">
           <h1>シンプル風</h1>
@@ -38,7 +37,7 @@ const DiagnoseResult: FC = () => {
         {db.map((furniture: Furniture) => (
           <Link to="/diagnose" key={furniture.name}>
             <div className="image-box">
-              <img src={furniture.imageUrl} alt="" className="image" />
+              <img src={furniture.imageUrl} alt="" />
             </div>
             <div className="content-box">
               <h4>{furniture.name}</h4>

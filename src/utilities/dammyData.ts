@@ -1,8 +1,14 @@
 import { firebase } from "../firebase/config";
 import { Furniture } from "../types/dashboard";
-
-const dammyImage = "https://placehold.jp/200x160.png";
-const dammyMainImage = "https://placehold.jp/750x460.png";
+import theme_1 from "../assets/image/furniture_1.jpg";
+import furniture_bed from "../assets/image/furniture_bed.jpg";
+import furniture_blanket from "../assets/image/furniture_blanket.jpg";
+import furniture_chair from "../assets/image/furniture_chair.jpg";
+import furniture_lamp from "../assets/image/furniture_lamp.jpg";
+import furniture_plant from "../assets/image/furniture_plant.jpg";
+import furniture_rug from "../assets/image/furniture_rug.jpg";
+import furniture_shelf from "../assets/image/furniture_shelf.jpg";
+import furniture_sofa from "../assets/image/furniture_sofa.jpg";
 
 export const recommendation: Furniture = {
   width: 97,
@@ -15,7 +21,7 @@ export const recommendation: Furniture = {
   likedCount: 23,
   category: "bed",
   name: "ベッド",
-  imageUrl: dammyMainImage,
+  imageUrl: theme_1,
   details:
     "ドライフラワーと照明が特徴的なワンルームの一人暮らしインテリア。テキトタイルはグレー系で揃えられ、IKEAの毛布やサイドテーブル、照明などで特徴立たせている、シンプルな雰囲気のお部屋。",
   createdAt: firebase.firestore.Timestamp.fromDate(new Date()),
@@ -33,7 +39,7 @@ export const db: Array<Furniture> = [
     likedCount: 23,
     category: "bed",
     name: "ベッド",
-    imageUrl: dammyImage,
+    imageUrl: furniture_bed,
     details: "texttexttexttexttexttexttexttexttexttext",
     createdAt: firebase.firestore.Timestamp.fromDate(new Date()),
   },
@@ -48,7 +54,7 @@ export const db: Array<Furniture> = [
     likedCount: 2,
     category: "table",
     name: "テーブル",
-    imageUrl: dammyImage,
+    imageUrl: furniture_chair,
     details: "texttexttexttexttexttexttexttexttexttext",
     createdAt: firebase.firestore.Timestamp.fromDate(new Date()),
   },
@@ -63,7 +69,7 @@ export const db: Array<Furniture> = [
     likedCount: 33,
     category: "sofa",
     name: "ソファ",
-    imageUrl: dammyImage,
+    imageUrl: furniture_sofa,
     details: "texttexttexttexttexttexttexttexttexttext",
     createdAt: firebase.firestore.Timestamp.fromDate(new Date()),
   },
@@ -78,7 +84,7 @@ export const db: Array<Furniture> = [
     likedCount: 1,
     category: "light",
     name: "間接照明",
-    imageUrl: dammyImage,
+    imageUrl: furniture_lamp,
     details: "texttexttexttexttexttexttexttexttexttext",
     createdAt: firebase.firestore.Timestamp.fromDate(new Date()),
   },
@@ -93,7 +99,7 @@ export const db: Array<Furniture> = [
     likedCount: 12,
     category: "carpet",
     name: "ラグ",
-    imageUrl: dammyImage,
+    imageUrl: furniture_rug,
     details: "texttexttexttexttexttexttexttexttexttext",
     createdAt: firebase.firestore.Timestamp.fromDate(new Date()),
   },
@@ -108,7 +114,7 @@ export const db: Array<Furniture> = [
     likedCount: 12,
     category: "bed",
     name: "毛布",
-    imageUrl: dammyImage,
+    imageUrl: furniture_blanket,
     details: "texttexttexttexttexttexttexttexttexttext",
     createdAt: firebase.firestore.Timestamp.fromDate(new Date()),
   },
@@ -123,7 +129,7 @@ export const db: Array<Furniture> = [
     likedCount: 123,
     category: "shelf",
     name: "ラック",
-    imageUrl: dammyImage,
+    imageUrl: furniture_shelf,
     details: "texttexttexttexttexttexttexttexttexttext",
     createdAt: firebase.firestore.Timestamp.fromDate(new Date()),
   },
@@ -138,7 +144,7 @@ export const db: Array<Furniture> = [
     likedCount: 81,
     category: "plant",
     name: "観葉植物",
-    imageUrl: dammyImage,
+    imageUrl: furniture_plant,
     details: "texttexttexttexttexttexttexttexttexttext",
     createdAt: firebase.firestore.Timestamp.fromDate(new Date()),
   },

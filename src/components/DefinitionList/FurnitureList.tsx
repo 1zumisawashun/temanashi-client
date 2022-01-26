@@ -14,7 +14,7 @@ const FurnitureList: FC<Props> = ({ productItems }) => {
   if (!user) throw new Error("we cant find your account");
 
   return (
-    <div className="project-list">
+    <div className="diagnose-result-list">
       {productItems &&
         productItems.map((item: ProductItem) => (
           <Link to={`/furnitures/${item.product.id}`} key={item.product.id}>
@@ -29,16 +29,24 @@ const FurnitureList: FC<Props> = ({ productItems }) => {
                 />
               )}
             </div>
-            <div>
+            <div className="content-box">
               <h4>{item.product.name}</h4>
-            </div>
-            {Object.keys(item.prices).map((priceIndex) => (
-              <div key={priceIndex}>
-                <div>
+              {Object.keys(item.prices).map((priceIndex) => (
+                <p key={priceIndex}>
                   {taxIncludedPrice(item.prices[priceIndex].unit_amount)}
-                </div>
+                </p>
+              ))}
+              <div className="assigned-to">
+                <ul>
+                  {/* <li>幅{item.metadata.width}cm</li>
+                    <li>深さ{item.metadata.depth}cm</li>
+                    <li>高さ{item.metadata.height}cm</li> */}
+                  <li>幅111cm</li>
+                  <li>深さ222cm</li>
+                  <li>高さ333cm</li>
+                </ul>
               </div>
-            ))}
+            </div>
           </Link>
         ))}
     </div>
