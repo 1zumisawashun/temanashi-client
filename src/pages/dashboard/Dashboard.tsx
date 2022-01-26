@@ -5,11 +5,9 @@ import { useAuthContext } from "../../hooks/useAuthContext";
 import { productUseCase, ProductItem } from "../../utilities/stripeClient";
 import FurnitureList from "../../components/DefinitionList/FurnitureList";
 import Loading from "../../components/Loading";
-// import { useRandomContext } from "../../hooks/useRandomContext";
 
 const Dashboard: FC = () => {
   const { user } = useAuthContext();
-  // const { random, dispatch } = useRandomContext();
   const [currentFilter, setCurrentFilter] = useState<String>("all");
   const [isPending, setIsPending] = useState<boolean>(false);
   const [productItems, setProductItems] = useState<ProductItem[]>([]);
@@ -23,6 +21,8 @@ const Dashboard: FC = () => {
       const productItems = await productUseCase.fetchAll();
       setProductItems(productItems);
       console.log(productItems, "productItem");
+      // storeに保存するとリロード時に消えるためsessionStorageに格納する
+      sessionStorage.setItem("random", `${productItems.length}`);
     } finally {
       setIsPending(false);
     }
@@ -30,8 +30,6 @@ const Dashboard: FC = () => {
 
   useEffect(() => {
     fetchProducts();
-    // dispatch({ type: "SAVE_COUNT", payload: productItems.length + 1 });
-    // }, [dispatch, productItems.length]);
   }, []);
 
   // nullチェック・通常のreturnだとエラーになる

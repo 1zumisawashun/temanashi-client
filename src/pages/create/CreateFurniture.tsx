@@ -29,8 +29,10 @@ const CreateProject: FC = () => {
   // FIXME: any型を潰す
   const [name, setName] = useState<string>("");
   const [photos, setPhotos] = useState<File[]>([]);
-  const [description, setDescription] = useState<string>("");
-  const [price, setPrice] = useState<number>(0);
+  const [description, setDescription] = useState<string>(
+    "Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+  );
+  const [price, setPrice] = useState<number>(1000);
   const [width, setWidth] = useState<number>(0);
   const [depth, setDepth] = useState<number>(0);
   const [height, setHeight] = useState<number>(0);
@@ -64,10 +66,14 @@ const CreateProject: FC = () => {
     }
     const newPhotos: Array<string> = [];
     await photos.forEach(async (photo) => {
-      const yeah = await getImageUrl(photo);
-      console.log(yeah);
-      newPhotos.push(yeah);
+      const imgUrl = await getImageUrl(photo);
+      console.log(imgUrl);
+      newPhotos.push(imgUrl);
     });
+
+    // NOTE:
+    const random = await sessionStorage.getItem("random");
+    console.log(random, "random");
 
     // FIXME:非同期がうまく効かないため一時的にdelayを使っている
     await delay(7000);
@@ -95,6 +101,8 @@ const CreateProject: FC = () => {
       console.log(error);
       alert("エラーが発生しました");
     } finally {
+      // FIXME:なぜかsessionStorageが消えない
+      await sessionStorage.removeItem("random");
       setIsLoading(false);
       history.push("/");
     }
