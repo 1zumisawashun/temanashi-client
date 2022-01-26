@@ -105,7 +105,7 @@ const TinderSwipe: FC<Props> = ({ db }) => {
     <>
       {isLoading && <Loading message="yeah" />}
       <div className="tinder-swipe">
-        <ProgressBar width={400} percent={percent} />
+        <ProgressBar width={100} percent={percent} />
         <div className="cardContainer">
           {db.map((character, index) => (
             <TinderCard

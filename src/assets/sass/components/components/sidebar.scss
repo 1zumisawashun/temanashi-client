@@ -6,6 +6,9 @@
   box-sizing: border-box;
   position: relative;
   color: $white;
+  @include sp {
+    display: none;
+  }
 
   > .sidebar-content {
     position: fixed;
@@ -38,7 +41,7 @@
     padding: 10px;
     text-decoration: none;
     width: 100%;
-    color:$white;
+    color: $white;
     box-sizing: border-box;
   }
 

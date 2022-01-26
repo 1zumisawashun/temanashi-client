@@ -5,6 +5,9 @@
   box-sizing: border-box;
   background: #fbfbfb;
   color: $goshawk-grey;
+  @include sp {
+    display: none;
+  }
 
   > h2 {
     text-align: right;

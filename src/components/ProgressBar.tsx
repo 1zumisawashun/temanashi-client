@@ -13,8 +13,8 @@ const ProgressBar: FC<Props> = ({ width, percent }) => {
   }, [width, percent]);
 
   return (
-    <div className="progress-div" style={{ width: width }}>
-      <div style={{ width: `${value}px` }} className="progress" />
+    <div className="progress-div" style={{ width: `${width}%` }}>
+      <div style={{ width: `${value}%` }} className="progress" />
     </div>
   );
 };

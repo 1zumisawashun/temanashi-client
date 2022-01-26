@@ -1,12 +1,10 @@
 .tinder-swipe {
-  width: 80%;
-  margin: 0 auto;
   text-align: center;
 
   > .cardContainer {
     width: 300px;
-    max-width: 260px;
-    height: 320px;
+    max-width: 280px;
+    height: 400px;
     margin: 0 auto;
   }
 
@@ -17,9 +15,9 @@
   > .cardContainer > .swipe > .card {
     position: relative;
     background-color: $white;
-    width: 260px;
-    max-width: 260px;
-    height: 300px;
+    width: 300px;
+    max-width: 280px;
+    height: 400px;
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
     border-radius: 20px;
     background-size: cover;
