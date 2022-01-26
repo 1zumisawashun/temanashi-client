@@ -33,10 +33,10 @@ const CreateProject: FC = () => {
     "Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
   );
   const [price, setPrice] = useState<number>(1000);
-  const [width, setWidth] = useState<number>(0);
-  const [depth, setDepth] = useState<number>(0);
-  const [height, setHeight] = useState<number>(0);
-  const [stock, setStock] = useState<number>(1);
+  const [width, setWidth] = useState<number>(111);
+  const [depth, setDepth] = useState<number>(222);
+  const [height, setHeight] = useState<number>(333);
+  const [stock, setStock] = useState<number>(10);
   const [category, setCategory] = useState<CategoryOp | null>(null);
   const [formError, setFromError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);

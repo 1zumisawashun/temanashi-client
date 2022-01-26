@@ -71,26 +71,29 @@ const ProjectSummary: FC<Props> = ({ furniture }) => {
             />
           )}
         </div>
+
         <h2 className="page-title">{furniture.product.name}</h2>
-        <p className="due-date">
-          {/* {project.dueDate?.toDate().toDateString()} */}
-        </p>
-        <p className="details">{furniture.product.description}</p>
+        {/* <p className="due-date">
+          {project.dueDate?.toDate().toDateString()}
+        </p> */}
         {Object.keys(furniture.prices).map((priceIndex) => (
           <div key={priceIndex}>
-            <div>
+            <div className="price">
               {taxIncludedPrice(furniture.prices[priceIndex].unit_amount)}
             </div>
-            <button className="btn" onClick={() => onClickBuy(priceIndex)}>
-              購入
-            </button>
+            <p className="details">{furniture.product.description}</p>
+            <div className="btnarea">
+              <button className="btn" onClick={() => onClickBuy(priceIndex)}>
+                購入
+              </button>
+              <LikeButton furniture={furniture} />
+            </div>
           </div>
         ))}
-        <LikeButton furniture={furniture} />
       </div>
       {/* {user.uid === project.createdBy?.id && ( */}
       <button className="btn" onClick={handleClick}>
-        Mark as Complete
+        Delete Here...
       </button>
     </div>
   );
