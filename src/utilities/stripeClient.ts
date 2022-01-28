@@ -5,7 +5,7 @@ import {
   ProductDoc,
   SubscriptionDoc,
 } from "../types/stripe";
-import { firebase, projectFirestore } from "../firebase/config";
+import { projectFirestore } from "../firebase/config";
 import { Comment } from "../types/dashboard";
 
 export type ProductItem = {
@@ -20,9 +20,9 @@ export type SubscriptionItem = {
   price: PriceDoc;
 };
 
-export type urls = {
-  seccess_url: string;
-  cancel_url: string;
+export type line_item = {
+  price: string;
+  quantity: number;
 };
 
 class ProductUseCase {
@@ -32,7 +32,6 @@ class ProductUseCase {
   async fetchAll(): Promise<ProductItem[]> {
     const productQuery = projectFirestore
       .collection("products")
-      // .where("active", "==", true)
       .orderBy("metadata.createdAt", "desc");
 
     const productSnapshot = await productQuery.get();
@@ -51,7 +50,7 @@ class ProductUseCase {
             ...doc.data(),
           } as ProductDoc,
           prices: priceMap,
-          comments: [], //PickでCommentを省く
+          comments: [], // FIXME:PickでCommentを省く
         };
 
         return productItem;
@@ -93,9 +92,14 @@ class ProductUseCase {
    * 更新①
    */
 
-  //NOTE:購入後にメールを送る、複数購入可能にする、カートページを作る,とりあえずcloud functionsを入れる、addできるようにする
-  //NOTE:stockの項目を作り0になったらsctive:falseにして購入不可にする
-  async buy(uid: string, priceId: string, url: urls) {
+  // NOTE:購入後にメールを送る
+  // NOTE:stockの項目を作り0になったらsctive:falseにして購入不可にする
+  async buy(
+    uid: string,
+    line_items: Array<line_item>,
+    success_url: string,
+    cancel_url: string
+  ) {
     return new Promise(async (resolve, reject) => {
       const docRef = await projectFirestore
         .collection("customers")
@@ -103,9 +107,9 @@ class ProductUseCase {
         .collection("checkout_sessions")
         .add({
           mode: "payment",
-          price: priceId,
-          success_url: url.seccess_url,
-          cancel_url: url.cancel_url,
+          line_items, // 複数購入に対応
+          success_url,
+          cancel_url,
         });
 
       docRef.onSnapshot(async (snap) => {
@@ -121,18 +125,6 @@ class ProductUseCase {
         }
       });
     });
-  }
-  /**
-   * 参照②
-   */
-  async getCustomerURL() {
-    const functionRef = await firebase
-      .app()
-      .functions("asia-northeast1")
-      .httpsCallable("ext-firestore-stripe-subscriptions-createPortalLink");
-    console.log(functionRef, "functionRef");
-    const { data } = await functionRef({ returnUrl: window.location.origin });
-    return data.url;
   }
 }
 

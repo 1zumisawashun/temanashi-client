@@ -51,7 +51,7 @@ export interface Product {
   /**
    * my additional properties
    */
-  id?: string;
+  id: string;
   comments?: Array<Comment>;
   /**
    * stripe properties

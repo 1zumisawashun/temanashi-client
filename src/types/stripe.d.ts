@@ -20,7 +20,7 @@ export type CheckoutSessionDoc = {
   tax_rates?: Array<string>; // default: []
   allow_promotion_codes?: boolean; // default: false
   trial_from_plan?: boolean; // default: true
-  line_items?: Stripe.Checkout.SessionCreateParams.LineItem[];
+  line_items?: Stripe.Checkout.SessionCreateParams.LineItem[]; // 複数購入
   billing_address_collection?: Stripe.Checkout.SessionCreateParams.BillingAddressCollection; // default: 'required',
   collect_shipping_address?: boolean; // default: false,
   locale?: Stripe.Checkout.SessionCreateParams.Locale; // default: 'auto',
