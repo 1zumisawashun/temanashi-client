@@ -15,34 +15,30 @@ type Props = {
 
 const ProjectSummary: FC<Props> = ({ furniture }) => {
   const [toggleModal, setToggleModal] = useState<boolean>(false);
-  const [isPendingBuy, setIsPendingBuy] = useState<boolean>(false);
+  const [isPending, setIsPending] = useState<boolean>(false);
   const { deleteDocument } = useFirestore();
   const { id }: { id: string } = useParams();
   const { user } = useAuthContext();
   const history = useHistory();
   if (!user) throw new Error("we cant find your account");
 
-  const onClickBuy = async (priceId: string) => {
-    try {
-      setIsPendingBuy(true);
-      const uid = user.uid;
-      if (!uid) return;
-      const url = window.location.origin;
-      const urls = {
-        seccess_url: `${url}/complete`,
-        cancel_url: `${url}/error`,
-      };
-      await productUseCase.buy(uid, priceId, urls);
-    } catch (error) {
-      if (error instanceof Error) {
-        alert(`Error: ${!!error.message ? error.message : error}`);
-      }
-    } finally {
-      console.log("success");
-      setIsPendingBuy(false);
+  const addCart = async (productId: string) => {
+    console.log(productId, "productId");
+    if (!productId) return;
+    setIsPending(true);
+    const getItems = sessionStorage.getItem("productId");
+    console.log(getItems, "getItems");
+    if (!getItems) {
+      const newArray = [productId];
+      await sessionStorage.setItem("productId", JSON.stringify(newArray));
+    } else {
+      const datalist = JSON.parse(getItems);
+      const newArray = [productId, ...datalist];
+      await sessionStorage.setItem("productId", JSON.stringify(newArray));
     }
+    setIsPending(false);
+    // history.push("/cart");
   };
-
   const handleClick = (e: FormEvent) => {
     if (furniture.product) deleteDocument<ProductItem>("products", id);
     history.push("/");
@@ -55,7 +51,7 @@ const ProjectSummary: FC<Props> = ({ furniture }) => {
   // オプショナルチェーンを付けないとバグる。早期リターンを付与する
   return (
     <div className="project-summary-container">
-      {isPendingBuy && <Loading />}
+      {isPending && <Loading />}
       <div className="project-summary">
         <div className="image-box">
           <img
@@ -83,7 +79,13 @@ const ProjectSummary: FC<Props> = ({ furniture }) => {
             </div>
             <p className="details">{furniture.product.description}</p>
             <div className="btnarea">
-              <button className="btn" onClick={() => onClickBuy(priceIndex)}>
+              {/* <button className="btn" onClick={() => onClickBuy(priceIndex)}>
+                購入
+              </button> */}
+              <button
+                className="btn"
+                onClick={() => addCart(furniture.product.id)}
+              >
                 購入
               </button>
               <LikeButton furniture={furniture} />
