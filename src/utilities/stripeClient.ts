@@ -14,6 +14,8 @@ export type ProductItem = {
   comments: Array<Comment>;
 };
 
+export type ProductItemWithoutComment = Pick<ProductItem, "product" | "prices">;
+
 export type SubscriptionItem = {
   subscription: SubscriptionDoc;
   product: ProductDoc;
@@ -89,9 +91,33 @@ class ProductUseCase {
     return productItem;
   }
   /**
+   * 参照③
+   */
+  async fetchProductItemWitoutComment(
+    id: string
+  ): Promise<ProductItemWithoutComment> {
+    const productItemRef = projectFirestore.collection("products").doc(id);
+    const productItemSnapshot = await productItemRef.get();
+    const priceRef = await productItemSnapshot.ref.collection("prices");
+    const priceSnapshot = await priceRef.get();
+    const priceMap = await priceSnapshot.docs.reduce((acc, v) => {
+      // @ts-ignore
+      acc[v.id] = v.data() as PriceDoc;
+      return acc;
+    }, {});
+
+    const productItem: ProductItemWithoutComment = {
+      product: {
+        id: productItemSnapshot.id,
+        ...productItemSnapshot.data(),
+      } as ProductDoc,
+      prices: priceMap,
+    };
+    return productItem;
+  }
+  /**
    * 更新①
    */
-
   // NOTE:購入後にメールを送る
   // NOTE:stockの項目を作り0になったらsctive:falseにして購入不可にする
   async buy(
