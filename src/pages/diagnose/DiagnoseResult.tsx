@@ -19,10 +19,10 @@ const DiagnoseResult: FC = () => {
               <p className="text">ベースカラー：{recommendation.baseColor}</p>
               <span className="cercle -white"></span>
             </div>
-            <p className="item">
+            <div className="item">
               <p className="text">サブカラー：{recommendation.subColor}</p>
               <span className="cercle -grey"></span>
-            </p>
+            </div>
           </div>
           <div className="price">
             <p className="item">

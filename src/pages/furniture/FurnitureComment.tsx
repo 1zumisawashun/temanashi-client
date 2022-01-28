@@ -38,12 +38,10 @@ const ProjectComments: FC<Props> = ({ furniture }) => {
               <p>temanashi-tester</p>
             </div>
             <div className="comment-date">
-              <p>
-                4 minutes ago
-                {/* {formatDistanceToNow(comment.createdAt?.toDate(), {
+              <p>4 minutes ago</p>
+              {/* {formatDistanceToNow(comment.createdAt?.toDate(), {
                   addSuffix: true,
                 })} */}
-              </p>
             </div>
             <div className="comment-content">
               <p>free comment area !</p>
