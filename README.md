@@ -8,7 +8,7 @@ CSSアーキテクチャ： ITCSS, RSCSS
 ライブラリ： React
 ホスティング： Firebase Hosting
 DB： Firestore
-認証： Firebase Authentication
+認証： Firebase Authentication, JWT
 APIサーバー： Cloud Functions, Express
 ストレージ： Cloud Storage
 決済： Firebase Stripe Extention
@@ -19,18 +19,18 @@ E2Eテスト： Cypress
 
 ### `npm install`
 
-cloneした後にパッケージをインストールする
+clone した後にパッケージをインストールする
 
 ### `npm run start`
 
-localの開発環境を実行する
+local の開発環境を実行する
 
 ### `npm run build:firebase`
 
-root ディレクトリで指定のコマンドを実行する。
+root ディレクトリで指定のコマンドを実行する。  
 Cloud Functions の TypeScript をコンパイルし作成した関数のみのデプロイを実行する。
 
 ### `npm run deploy:firebase`
 
-root ディレクトリで指定のコマンドを実行する。
+root ディレクトリで指定のコマンドを実行する。  
 src ディレクトリをビルドして Firebase Hosting へのデプロイを実行する

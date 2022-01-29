@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import { FC, FormEvent, useState } from "react";
 import LikeButton from "../../components/Button/LikeButton";
 import PreviewModal from "../../components/Modal/PreviewModal";
-import { ProductItem, productUseCase } from "../../utilities/stripeClient";
+import { ProductItem } from "../../utilities/stripeClient";
 import { useParams } from "react-router-dom";
 import Loading from "../../components/Loading";
 import { taxIncludedPrice } from "../../utilities/convertValue";
@@ -37,7 +37,7 @@ const ProjectSummary: FC<Props> = ({ furniture }) => {
       await sessionStorage.setItem("productId", JSON.stringify(newArray));
     }
     setIsPending(false);
-    // history.push("/cart");
+    history.push(`/users/${user.uid}/cart`);
   };
   const handleClick = (e: FormEvent) => {
     if (furniture.product) deleteDocument<ProductItem>("products", id);

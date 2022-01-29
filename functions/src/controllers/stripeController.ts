@@ -1,9 +1,12 @@
 import Stripe from "stripe";
-import { STRIPE_API } from "../env";
+// import { STRIPE_API } from "../env";
 import * as functions from "firebase-functions";
 
 const cors = require("cors");
-const stripe = new Stripe(STRIPE_API, { apiVersion: "2020-08-27" });
+const stripe = new Stripe(
+  "sk_test_51JBawwHlnbfxWLbN9zSs5c550PmsFCSVGLvQOR4wc5jb9FeMBZlMUMXcByo61YUVa7MhvzyOaJzHG8QOrJXSXRO20021tgTFeg",
+  { apiVersion: "2020-08-27" }
+);
 
 const stripe_post = (req: any, res: any) => {
   functions.logger.info(req.body);
