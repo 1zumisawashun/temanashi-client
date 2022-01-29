@@ -15,13 +15,14 @@ export const useCartDocument = () => {
       const datalist: Array<string> = JSON.parse(getItems);
       return datalist;
     }
-    return [""];
+    return [];
   };
 
   useEffect(() => {
     const randomDocument: Array<ProductItemWithoutComment> = [];
 
     function asyncLoop(items: Array<string>) {
+      if (!items.length) return; // sessionStorageが空の場合は早期リターン
       items.forEach(async (productId: string) => {
         const result = await productUseCase.fetchProductItemWitoutComment(
           productId
