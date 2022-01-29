@@ -1,22 +1,23 @@
 import { useEffect, useState } from "react";
 import { documentPoint } from "../utilities/converter";
+import { firebasePath } from "../utilities/convertValue";
 
-export const useDocument = <T,>(collection: string, docId: string) => {
+export const useDocument = <T,>({ collection, document }: firebasePath) => {
   type Id = {
     id: string; // 追加したい型
   };
 
-  const [document, setDocument] = useState<T & Id>();
+  const [documents, setDocuments] = useState<T & Id>();
   const [error, setError] = useState<string | null>(null);
 
   //real time data for document
   useEffect(() => {
-    let ref = documentPoint<T>(collection, docId);
+    let ref = documentPoint<T>(collection, document);
     if (ref !== undefined) {
       const unsubscribe = ref.onSnapshot(
         (snapshot) => {
           if (snapshot) {
-            setDocument({
+            setDocuments({
               ...(snapshot.data() as T),
               id: snapshot.id,
             });
@@ -33,11 +34,11 @@ export const useDocument = <T,>(collection: string, docId: string) => {
       // clean a function
       return () => unsubscribe();
     }
-  }, [collection, docId]);
+  }, [collection, document]);
   // loading入れる。
   // reactqueryを確認する
   // undefiendが帰るのはしかたないのでloading(reactqueryにある？)する
   // 流クエスト失敗しても２回するとか便利っぽい・
 
-  return { document, error };
+  return { documents, error };
 };

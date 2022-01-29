@@ -37,11 +37,11 @@ const LikeButton: FC<Prop> = ({ furniture }) => {
   if (!user) throw new Error("we cant find your account");
 
   const likedUser: LikedUser = useSubDocument<ProjectType, likedUsers>(
-    convertedPath(`products/${furniture.product.id}/liked_users/${user.uid}`)
+    convertedPath(`/products/${furniture.product.id}/liked_users/${user.uid}`)
   );
 
   const likedFurniture: LikedFuritures = useSubDocument<User, likedFurnitures>(
-    convertedPath(`users/${user.uid}/liked_furnitures/${furniture.product.id}`)
+    convertedPath(`/users/${user.uid}/liked_furnitures/${furniture.product.id}`)
   );
 
   const addLikedUser = () => {

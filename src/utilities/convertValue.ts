@@ -1,6 +1,18 @@
-export const convertedPath = (path: string): Array<string> => {
+export type firebasePath = {
+  collection: string;
+  document: string;
+  subCollection: string;
+  subDocument: string;
+};
+
+export const convertedPath = (path: string): firebasePath => {
   const result = path.split("/");
-  return result;
+  return {
+    collection: result[1] ?? "",
+    document: result[2] ?? "",
+    subCollection: result[3] ?? "",
+    subDocument: result[4] ?? "",
+  };
 };
 
 export const taxIncludedPrice = (price: number, taxRate?: number): string => {

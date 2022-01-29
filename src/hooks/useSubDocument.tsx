@@ -1,22 +1,25 @@
 import { useEffect, useState } from "react";
 import { subDocumentPoint } from "../utilities/converter";
 import { firebase } from "../firebase/config";
+import { firebasePath } from "../utilities/convertValue";
 
 type Id = {
   id: string; // 追加したい型
 };
 
-export const useSubDocument = <T, U>(path: Array<string>) => {
+export const useSubDocument = <T, U>({
+  collection,
+  document,
+  subCollection,
+  subDocument,
+}: firebasePath) => {
   const [documents, setDocuments] = useState<U & Id>();
   const [error, setError] = useState<string | null>(null);
   const [
     referense,
     setReferense,
   ] = useState<firebase.firestore.DocumentReference<U> | null>(null);
-  const collection = path[0];
-  const document = path[1];
-  const subCollection = path[2];
-  const subDocument = path[3];
+  console.log(collection, document, subCollection, subDocument);
 
   useEffect(() => {
     const ref = subDocumentPoint<T, U>(

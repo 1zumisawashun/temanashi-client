@@ -1,17 +1,19 @@
 import { useEffect, useState } from "react";
 import { subCollectionPoint } from "../utilities/converter";
 import { firebase } from "../firebase/config";
+import { firebasePath } from "../utilities/convertValue";
 
-export const useSubCollection = <T, U>(path: Array<string>) => {
+export const useSubCollection = <T, U>({
+  collection,
+  document,
+  subCollection,
+}: firebasePath) => {
   const [documents, setDocuments] = useState<Array<U>>([]);
   const [error, setError] = useState<string | null>(null);
   const [
     referense,
     setReferense,
   ] = useState<firebase.firestore.CollectionReference<U> | null>(null);
-  const collection = path[1];
-  const document = path[2];
-  const subCollection = path[3];
 
   useEffect(() => {
     let ref = subCollectionPoint<T, U>(collection, document, subCollection);

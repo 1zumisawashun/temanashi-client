@@ -1,9 +1,10 @@
 import { useEffect, useState, useRef } from "react";
 import { firebase } from "../firebase/config";
 import { collectionPoint } from "../utilities/converter";
+import { firebasePath } from "../utilities/convertValue";
 
 export const useCollection = <T,>(
-  collection: string,
+  { collection }: firebasePath,
   _query?: [string, WhereFilterOp, any],
   _orderBy?: [string, OrderByDirection]
 ) => {
