@@ -11,7 +11,7 @@ export type CustomerDoc = {
 // /customers/{uid}/checkout_sessions/{id}
 export type CheckoutSessionDoc = {
   mode?: "subscription" | "payment" | string; // default: 'subscription'
-  price?: string;
+  price?: string; // price or line_items is required
   success_url: string;
   cancel_url: string;
   quantity?: number; // default: 1

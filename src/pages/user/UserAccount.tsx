@@ -25,7 +25,7 @@ const UserAccount: FC = () => {
   return (
     <>
       <UserNavbar />
-      <div className="cart-container">
+      <div className="user-container">
         <div className="inner">
           <button onClick={onCallTest} className="btn">
             OnCallTest
