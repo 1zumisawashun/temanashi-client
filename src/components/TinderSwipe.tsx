@@ -53,9 +53,9 @@ const TinderSwipe: FC<Props> = ({ db }) => {
     currentIndexRef.current = val;
     progressBarCalclation(val);
     if (currentIndexRef.current === -1) {
-      await delay(500); // progressbarのdelayを待つ
+      await delay(300); // progressbarのdelayを待つ
       setIsLoading(true);
-      await delay(3000); // NOTE:意図的ナビゲーションを遅らせないとレンダリングについてこれずに固まる
+      await delay(2000); // NOTE:意図的ナビゲーションを遅らせないとレンダリングについてこれずに固まる
       setIsLoading(false);
       history.push("/diagnose/result");
     }

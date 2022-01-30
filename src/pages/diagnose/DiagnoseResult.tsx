@@ -3,10 +3,12 @@ import { Link } from "react-router-dom";
 import { db, recommendation } from "../../utilities/dammyData";
 import { Furniture } from "../../types/dashboard";
 import { taxIncludedPrice } from "../../utilities/convertValue";
+import Loading from "../../components/Loading";
 
 const DiagnoseResult: FC = () => {
   return (
     <>
+      {db.length === 0 && recommendation && <Loading />}
       <div className="recommendation">
         <div className="image-box">
           <img src={recommendation.imageUrl} alt="" />
@@ -33,7 +35,6 @@ const DiagnoseResult: FC = () => {
         </div>
       </div>
       <div className="diagnose-result-list">
-        {db.length === 0 && <p>No furnitures yet!</p>}
         {db.map((furniture: Furniture) => (
           <Link to="/diagnose" key={furniture.name}>
             <div className="image-box">
