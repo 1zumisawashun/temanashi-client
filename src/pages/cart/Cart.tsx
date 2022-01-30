@@ -5,9 +5,9 @@ import { useCartDocument } from "../../hooks/useCartDocument";
 import { Link } from "react-router-dom";
 import { taxIncludedPrice } from "../../utilities/convertValue";
 import Loading from "../../components/Loading";
+import ToggleButton from "../../components/Button/ToggleButton";
 
 const Cart: FC = () => {
-  // NOTE:sessionStorageがないとエラーになるのでハンドリングを実装する
   const [isPendingBuy, setIsPendingBuy] = useState<boolean>(false);
   const [line_items, setLinetems] = useState<Array<line_item>>([]);
 
@@ -31,12 +31,20 @@ const Cart: FC = () => {
       setIsPendingBuy(false);
     }
   };
-  const onClickSelect = async (price: string, quantity: number) => {
+
+  const selectProduct = async (price: string, quantity: number) => {
     const lineItem: line_item = {
       price,
       quantity,
     };
     const newArray = [...line_items, lineItem];
+    await setLinetems(newArray);
+  };
+
+  const removeProduct = async (price: string, quantity: number) => {
+    const newArray = await line_items.filter((item: any) => {
+      return item.price !== price;
+    });
     await setLinetems(newArray);
   };
 
@@ -80,13 +88,11 @@ const Cart: FC = () => {
               </Link>
               {Object.keys(item.prices).map((priceIndex) => (
                 <div key={priceIndex}>
-                  <button
-                    className="btn"
-                    onClick={() => onClickSelect(priceIndex, 1)}
-                  >
-                    選択する
-                  </button>
-                  <button className="btn">削除</button>
+                  <ToggleButton
+                    selectProduct={selectProduct}
+                    removeProduct={removeProduct}
+                    priceIndex={priceIndex}
+                  />
                 </div>
               ))}
             </>
