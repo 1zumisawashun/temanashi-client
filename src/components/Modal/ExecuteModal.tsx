@@ -29,7 +29,7 @@ const ExecuteModal: FC<Props> = ({ message, onClick, setToggleModal }) => {
 
   return (
     <div className="execute-modal">
-      <div className="overlay -h130" style={styles}>
+      <div className="overlay" style={styles}>
         <div className="wrapper -form">
           <p className="message">{message}</p>
           <div className="buttons">

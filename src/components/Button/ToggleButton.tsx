@@ -1,8 +1,8 @@
 import { FC, useState } from "react";
 
 type Prop = {
-  selectProduct: any;
-  removeProduct: any;
+  selectProduct: Function;
+  removeProduct: Function;
   priceIndex: string;
 };
 

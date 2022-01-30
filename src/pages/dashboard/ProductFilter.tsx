@@ -1,7 +1,6 @@
 import { FC } from "react";
 const filterList: Array<string> = [
   "all",
-  "mine",
   "development",
   "sales",
   "design",
@@ -13,16 +12,15 @@ type Props = {
   changeFilter: Function;
 };
 
-const ProjectFilter: FC<Props> = ({ currentFilter, changeFilter }) => {
+const ProductFilter: FC<Props> = ({ currentFilter, changeFilter }) => {
   const handleClick = (newFilter: String) => {
     changeFilter(newFilter);
   };
   return (
     <div className="project-filter">
       <nav>
-        <p>FIlter by:</p>
+        <p>FILTER BY</p>
         {filterList.map((f) => (
-          // 無名関数にする理由は？→引数をとる際は無名関数にする
           <button
             key={f}
             onClick={() => handleClick(f)}
@@ -36,4 +34,4 @@ const ProjectFilter: FC<Props> = ({ currentFilter, changeFilter }) => {
   );
 };
 
-export default ProjectFilter;
+export default ProductFilter;

@@ -19,7 +19,6 @@ export const useSubDocument = <T, U>({
     referense,
     setReferense,
   ] = useState<firebase.firestore.DocumentReference<U> | null>(null);
-  console.log(collection, document, subCollection, subDocument);
 
   useEffect(() => {
     const ref = subDocumentPoint<T, U>(

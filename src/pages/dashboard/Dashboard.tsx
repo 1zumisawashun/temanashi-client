@@ -1,5 +1,5 @@
 import { FC, useEffect } from "react";
-import ProjectFilter from "./ProjectFilter";
+import ProductFilter from "./ProductFilter";
 import { useState } from "react";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { productUseCase, ProductItem } from "../../utilities/stripeClient";
@@ -20,8 +20,6 @@ const Dashboard: FC = () => {
       setIsPending(true);
       const productItems = await productUseCase.fetchAll();
       setProductItems(productItems);
-      console.log(productItems, "productItem");
-      // storeに保存するとリロード時に消えるためsessionStorageに格納する
       sessionStorage.setItem("random", `${productItems.length}`);
     } finally {
       setIsPending(false);
@@ -41,20 +39,11 @@ const Dashboard: FC = () => {
         switch (currentFilter) {
           case "all":
             return true;
-          case "mine":
-            break;
-          // let assignedTome = false;
-          // document.assignedUsersList.forEach((u: User) => {
-          //   if (user.uid === u.id) {
-          //     assignedTome = true;
-          //   }
-          // });
-          // return assignedTome;
           case "development":
           case "salses":
           case "design":
           case "marketing":
-            return productItem.product.category === currentFilter;
+            return productItem.product.metadata.category === currentFilter;
           default:
             return true;
         }
@@ -66,7 +55,7 @@ const Dashboard: FC = () => {
       <h2 className="page-title">Dashboard</h2>
       {isPending && <Loading />}
       {filteredProductItems && (
-        <ProjectFilter
+        <ProductFilter
           currentFilter={currentFilter}
           changeFilter={changeFilter}
         />
