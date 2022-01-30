@@ -1,21 +1,34 @@
 import { FC } from "react";
 
 interface Props {
-  state: string;
-  setState: React.Dispatch<React.SetStateAction<string>>;
+  state: boolean;
+  setState: React.Dispatch<React.SetStateAction<boolean>>;
+  text: string;
 }
 
-const InputCheckbox: FC<Props> = ({ state, setState }) => {
+const InputCheckbox: FC<Props> = ({ state, setState, text }) => {
   return (
     <>
-      <label>
+      <div className="checkbox-container">
+        {state && (
+          <label htmlFor="checkbox-area" className="checkbox">
+            <span className="icon -checked"></span>
+          </label>
+        )}
+        {!state && (
+          <label htmlFor="checkbox-area" className="checkbox">
+            <span className="icon"></span>
+          </label>
+        )}
         <input
           required
           type="checkbox"
-          onChange={(e) => setState(e.target.value)}
-          value={state}
+          onChange={() => setState(!state)}
+          id="checkbox-area"
+          hidden
         />
-      </label>
+        <p className="text">{text}</p>
+      </div>
     </>
   );
 };

@@ -1,0 +1,44 @@
+.checkbox-container {
+  width: 40%;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  > .checkbox {
+    margin: 0;
+  }
+  > .checkbox > .icon {
+    width: 30px;
+    height: 30px;
+    margin-left: auto;
+    border-radius: 3px;
+    border: 1px solid black;
+    margin: 12px auto;
+    /*
+    * チェックマークの作成
+    */
+    &.-checked {
+      position: relative;
+      border: 1px solid $spicy-berry;
+    }
+    &.-checked:after {
+      content: "";
+      display: block;
+      position: absolute;
+    }
+    &.-checked:after {
+      border-left: 3px solid $spicy-berry;
+      border-bottom: 3px solid$spicy-berry;
+      width: 11px;
+      height: 7px;
+      -webkit-transform: rotate(-45deg);
+      transform: rotate(-45deg);
+      left: 8px;
+      top: 8px;
+    }
+  }
+  > .text {
+    width: 80%;
+    margin: auto 0;
+    font-size: 16px;
+  }
+}

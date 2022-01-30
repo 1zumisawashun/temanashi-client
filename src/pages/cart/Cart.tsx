@@ -6,8 +6,10 @@ import { Link } from "react-router-dom";
 import { taxIncludedPrice } from "../../utilities/convertValue";
 import Loading from "../../components/Loading";
 import ToggleButton from "../../components/Button/ToggleButton";
+import InpuCheckbox from "../../components/Input/InputCheckbox";
 
 const Cart: FC = () => {
+  const [isAccepted, setIsAccepted] = useState<boolean>(false);
   const [isPendingBuy, setIsPendingBuy] = useState<boolean>(false);
   const [line_items, setLinetems] = useState<Array<line_item>>([]);
 
@@ -17,6 +19,10 @@ const Cart: FC = () => {
   const { documents } = useCartDocument();
 
   const onClickBuy = async () => {
+    if (line_items.length === 0) {
+      alert("購入する製品を選択してください");
+      return;
+    }
     try {
       setIsPendingBuy(true);
       const uid = user.uid;
@@ -48,12 +54,14 @@ const Cart: FC = () => {
     await setLinetems(newArray);
   };
 
+  const handleAlert = () => {
+    alert("利用規約に同意してください");
+  };
+
   return (
-    <>
+    <div className="cart-container">
+      {!documents && <Loading />}
       {isPendingBuy && <Loading />}
-      <button className="btn" onClick={onClickBuy}>
-        購入する
-      </button>
       <div className="diagnose-result-list">
         {documents &&
           documents.map((item: any) => (
@@ -89,8 +97,10 @@ const Cart: FC = () => {
               {Object.keys(item.prices).map((priceIndex) => (
                 <div key={priceIndex}>
                   <ToggleButton
-                    selectProduct={selectProduct}
-                    removeProduct={removeProduct}
+                    add={selectProduct}
+                    remove={removeProduct}
+                    addText="選択する"
+                    removeText="取り消す"
                     priceIndex={priceIndex}
                   />
                 </div>
@@ -98,7 +108,24 @@ const Cart: FC = () => {
             </>
           ))}
       </div>
-    </>
+      <div className="accept-block">
+        <InpuCheckbox
+          state={isAccepted}
+          setState={setIsAccepted}
+          text="利用規約に同意しますか？"
+        />
+        {isAccepted && (
+          <button className="btn" onClick={onClickBuy}>
+            購入する
+          </button>
+        )}
+        {!isAccepted && (
+          <button className="btn -disabled" onClick={handleAlert}>
+            購入する
+          </button>
+        )}
+      </div>
+    </div>
   );
 };
 export default Cart;

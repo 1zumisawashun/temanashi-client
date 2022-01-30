@@ -65,6 +65,16 @@ ul {
     margin: auto;
     border-radius: 50px;
   }
+  &.-disabled {
+    background: $black-shadow;
+    color: $overlay;
+    border: 1px solid $overlay;
+    &:hover {
+      background: $black-shadow;
+      color: $overlay;
+      border: 1px solid $overlay;
+    }
+  }
 }
 .btn:hover {
   color: $white;
