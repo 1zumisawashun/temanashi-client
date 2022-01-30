@@ -1,7 +1,6 @@
 import { FC } from "react";
 import { Link } from "react-router-dom";
 import { db, recommendation } from "../../utilities/dammyData";
-import { Furniture } from "../../types/dashboard";
 import { taxIncludedPrice } from "../../utilities/convertValue";
 import Loading from "../../components/Loading";
 
@@ -35,14 +34,14 @@ const DiagnoseResult: FC = () => {
         </div>
       </div>
       <div className="diagnose-result-list">
-        {db.map((furniture: Furniture) => (
+        {db.map((furniture) => (
           <Link to="/diagnose" key={furniture.name}>
             <div className="image-box">
               <img src={furniture.imageUrl} alt="" />
             </div>
             <div className="content-box">
               <h4>{furniture.name}</h4>
-              <p>{taxIncludedPrice(furniture.price)}</p>
+              {furniture.price && <p>{taxIncludedPrice(furniture.price)}</p>}
               <div className="assigned-to">
                 <ul>
                   <li>幅{furniture.width}cm</li>

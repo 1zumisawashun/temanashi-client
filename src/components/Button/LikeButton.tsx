@@ -91,7 +91,6 @@ const LikeButton: FC<Prop> = ({ furniture }) => {
     if (!likedFurniture.referense) return;
     const unsubscribe = likedFurniture.referense.onSnapshot(
       (snapshot) => {
-        console.log(snapshot, "snapshot");
         if (snapshot.exists) {
           setLike(true);
         } else {
