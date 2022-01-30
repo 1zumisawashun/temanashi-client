@@ -1,14 +1,18 @@
 import { FC, useState } from "react";
 
 type Prop = {
-  selectProduct: Function;
-  removeProduct: Function;
-  priceIndex: string;
+  add: Function;
+  remove: Function;
+  addText: string;
+  removeText: string;
+  priceIndex?: string;
 };
 
 const ToggleButton: FC<Prop> = ({
-  selectProduct,
-  removeProduct,
+  add,
+  remove,
+  addText,
+  removeText,
   priceIndex,
 }) => {
   const [isSelected, setIsSelected] = useState<boolean>(false);
@@ -21,17 +25,17 @@ const ToggleButton: FC<Prop> = ({
       {!isSelected && (
         <button
           className="btn"
-          onClick={() => [selectProduct(priceIndex, 1), handleToggle()]}
+          onClick={() => [add(priceIndex, 1), handleToggle()]}
         >
-          選択する
+          {addText}
         </button>
       )}
       {isSelected && (
         <button
           className="btn"
-          onClick={() => [removeProduct(priceIndex, 1), handleToggle()]}
+          onClick={() => [remove(priceIndex, 1), handleToggle()]}
         >
-          取り消し
+          {removeText}
         </button>
       )}
     </>
