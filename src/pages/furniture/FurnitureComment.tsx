@@ -8,7 +8,7 @@ import { ProductItem } from "../../utilities/stripeClient";
 import { useParams } from "react-router-dom";
 import { useSubCollection } from "../../hooks/useSubCollection";
 import { convertedPath } from "../../utilities/convertValue";
-import freeImage from "../../assets/image/temanashi.jpg";
+import PersonIcon from "../../assets/icon/person_icon.svg";
 
 type Props = {
   furniture: ProductItem;
@@ -34,7 +34,7 @@ const ProjectComments: FC<Props> = ({ furniture }) => {
         <ul className="comment-list">
           <li>
             <div className="comment-auther">
-              <Avatar src={freeImage} />
+              <Avatar src={PersonIcon} />
               <p>temanashi-tester</p>
             </div>
             <div className="comment-date">
