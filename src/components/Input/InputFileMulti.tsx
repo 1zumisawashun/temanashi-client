@@ -106,6 +106,7 @@ const PhotosUpload: FC<Props> = ({
             </div>
           ) : (
             <div>
+              <CloseButton styleName="close-upload -disable" onClick={openModal} />
               <label className="wrapper" htmlFor={name} key={index}>
                 <img
                   src="https://placehold.jp/200x200.png"

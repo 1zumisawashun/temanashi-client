@@ -16,6 +16,10 @@
   background: none;
   top: 14%;
   left: 82%;
+  &.-disable {
+    opacity: 0;
+    pointer-events: none;
+  }
 }
 
 .modal {
