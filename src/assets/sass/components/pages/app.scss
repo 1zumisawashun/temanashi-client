@@ -1,8 +1,14 @@
 .App {
   display: flex;
+  @include sp {
+    display: block;
+  }
   > .container {
     flex-grow: 1;
     padding: 0 50px 50px;
+    @include sp {
+      padding: 0;
+    }
     &.-auth {
       padding: 0;
     }
