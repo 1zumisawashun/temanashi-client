@@ -75,6 +75,13 @@ ul {
       border: 1px solid $overlay;
     }
   }
+  &.-link {
+    background: $vintage-blue;
+    padding: 0 10px;
+    border-radius: 0;
+    color: $white;
+    border-bottom: 1px solid $white;
+  }
 }
 .btn:hover {
   color: $white;

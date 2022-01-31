@@ -34,24 +34,28 @@ const HamburgerMenu: FC<Prop> = ({ state, setState }) => {
             <ul className="menu">
               <li className="hamburger-link">
                 <FlatButton
+                  styleName="-link"
                   content="dashboard"
                   onClick={() => closeHamburger("/")}
                 />
               </li>
               <li className="hamburger-link">
                 <FlatButton
+                  styleName="-link"
                   content="New Furniture"
                   onClick={() => closeHamburger("/create/furniture")}
                 />
               </li>
               <li className="hamburger-link">
                 <FlatButton
+                  styleName="-link"
                   content="Diagnose"
                   onClick={() => closeHamburger("/diagnose")}
                 />
               </li>
               <li className="hamburger-link">
                 <FlatButton
+                  styleName="-link"
                   content="Shopping Cart"
                   onClick={() => closeHamburger(`/users/${user.uid}/cart`)}
                 />
