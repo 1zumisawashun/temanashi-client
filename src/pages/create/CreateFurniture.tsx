@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { delay } from "../../utilities/convertValue";
 import Loading from "../../components/Loading";
-import { useRandomContext } from "../../hooks/useRandomContext";
+// import { useRandomContext } from "../../hooks/useRandomContext";
 import InputText from "../../components/Input/InputText";
 import InputNumber from "../../components/Input/InputNumber";
 import InputTextarea from "../../components/Input/InputTextarea";
@@ -42,9 +42,7 @@ const CreateProject: FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const { user } = useAuthContext();
-  const { random } = useRandomContext();
-  console.log(random, "random yeah");
-  //createdUserを追加する
+  // const { random } = useRandomContext();
 
   if (!user) {
     throw new Error("Could not complete signup");
@@ -73,7 +71,6 @@ const CreateProject: FC = () => {
 
     // NOTE:
     const random = await sessionStorage.getItem("random");
-    console.log(random, "random");
 
     // FIXME:非同期がうまく効かないため一時的にdelayを使っている
     await delay(7000);
@@ -96,7 +93,7 @@ const CreateProject: FC = () => {
         `${process.env.REACT_APP_BASE_URL}/api/stripe-post`,
         furniture
       );
-      console.log(result, process.env.REACT_APP_BASE_URL);
+      console.log(result);
     } catch (error) {
       console.log(error);
       alert("エラーが発生しました");

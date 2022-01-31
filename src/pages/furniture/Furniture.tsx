@@ -16,7 +16,6 @@ const Project: FC = () => {
       setIsPending(true);
       const productItem = await productUseCase.fetchProductItem(id);
       setProductItem(productItem);
-      console.log(productItem, "productItem");
     } finally {
       setIsPending(false);
     }

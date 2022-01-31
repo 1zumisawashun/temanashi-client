@@ -1,9 +1,7 @@
 .project-filter {
   margin: 30px auto;
-  @include sp {
-    display: none;
-  }
-  // 一旦レスポンシブのために非表示にする
+  /*コレ*/
+  overflow-x: scroll;
 
   > nav {
     display: flex;

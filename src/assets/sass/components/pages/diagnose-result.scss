@@ -1,5 +1,8 @@
 .recommendation {
   font-size: 16px;
+  @include sp {
+    margin: 10px;
+  }
   > .image-box {
     background: white;
     padding: 50px 0;
@@ -10,6 +13,9 @@
   > .image-box > img {
     width: 700px;
     object-fit: cover;
+    @include sp {
+      width: 100%;
+    }
   }
   > .content-box {
     margin: 20px 0;
@@ -24,6 +30,9 @@
     display: flex;
     justify-content: space-between;
     margin: 10px 0;
+    @include sp {
+      width: 100%;
+    }
   }
   > .content-box > .color > .item {
     display: flex;
@@ -44,11 +53,15 @@
   }
 }
 
+// difinition-list
 .diagnose-result-list {
   margin-top: 40px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   grid-gap: 20px;
+  @include sp {
+    margin: 10px;
+  }
 
   > a {
     display: flex;

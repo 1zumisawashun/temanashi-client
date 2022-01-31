@@ -3,18 +3,30 @@
   grid-template-columns: 3fr 2fr;
   align-items: start;
   grid-gap: 60px;
+  @include sp {
+    display: block;
+  }
 }
 
 /* project summary */
 .project-summary-container {
+  width: 100%;
+
   > .project-summary {
     background-color: $white;
     padding: 30px;
     border-radius: 4px;
     box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.05);
+    @include sp {
+      padding: 0;
+      margin: 10px;
+    }
   }
   > .project-summary > .image-box > img {
     width: 400px;
+    @include sp {
+      width: 100%;
+    }
   }
   > .project-summary > .due-date {
     margin: 10px 0;
@@ -64,12 +76,17 @@
 /* comment list */
 
 .project-comments {
+  width: 100%;
+
   > h4 {
     color: $goshawk-grey;
   }
   > .comment-list {
     max-height: 590px; //オーバーしたらスクロールバーが追加される
     overflow: auto;
+    @include sp {
+      margin: 10px;
+    }
   }
   > .comment-list > li {
     padding: 16px;
