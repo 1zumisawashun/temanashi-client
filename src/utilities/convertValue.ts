@@ -1,9 +1,4 @@
-export type firebasePath = {
-  collection: string;
-  document: string;
-  subCollection: string;
-  subDocument: string;
-};
+import { firebasePath } from "../@types/dashboard";
 
 export const convertedPath = (path: string): firebasePath => {
   const result = path.split("/");

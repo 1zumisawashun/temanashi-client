@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { subCollectionPoint } from "../utilities/converter";
 import { firebase } from "../firebase/config";
-import { firebasePath } from "../utilities/convertValue";
+import { firebasePath } from "../@types/dashboard";
 
 export const useSubCollection = <T, U>({
   collection,

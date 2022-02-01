@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { subDocumentPoint } from "../utilities/converter";
 import { firebase } from "../firebase/config";
-import { firebasePath } from "../utilities/convertValue";
+import { firebasePath } from "../@types/dashboard";
 
 type Id = {
   id: string; // 追加したい型

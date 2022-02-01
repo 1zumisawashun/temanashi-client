@@ -81,3 +81,10 @@ export type FurnitureType = {
   likedCount: firebase.firestore.FieldValue; //いいね総数
   createdAt: firebase.firestore.Timestamp; //追加した日時
 };
+
+export type firebasePath = {
+  collection: string;
+  document: string;
+  subCollection: string;
+  subDocument: string;
+};

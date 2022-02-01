@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { documentPoint } from "../utilities/converter";
-import { firebasePath } from "../utilities/convertValue";
+import { firebasePath } from "../@types/dashboard";
 
 export const useDocument = <T,>({ collection, document }: firebasePath) => {
   type Id = {

@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { firebase } from "../firebase/config";
 import { collectionPoint } from "../utilities/converter";
-import { firebasePath } from "../utilities/convertValue";
+import { firebasePath } from "../@types/dashboard";
 
 export const useCollection = <T,>(
   { collection }: firebasePath,
