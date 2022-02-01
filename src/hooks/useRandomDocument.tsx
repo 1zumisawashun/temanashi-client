@@ -5,7 +5,7 @@ import { useCookies } from "react-cookie";
 
 export const useRandomDocument = () => {
   const [documents, setDocuments] = useState<Array<ProductDoc>>([]);
-  const [cookies] = useCookies();
+  const [cookies] = useCookies(["random"]);
   const random = Number(cookies.random);
 
   useEffect(() => {

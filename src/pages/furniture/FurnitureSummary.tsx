@@ -17,7 +17,7 @@ type Props = {
 const ProjectSummary: FC<Props> = ({ furniture }) => {
   const [toggleModal, setToggleModal] = useState<boolean>(false);
   const [isPending, setIsPending] = useState<boolean>(false);
-  const [cookies, setCookie] = useCookies();
+  const [cookies, setCookie] = useCookies(["productId"]);
 
   const { deleteDocument } = useFirestore();
   const { id }: { id: string } = useParams();
@@ -31,7 +31,7 @@ const ProjectSummary: FC<Props> = ({ furniture }) => {
     try {
       if (!cookies.productId) {
         const newArray = [productId];
-        setCookie("productId", newArray);
+        setCookie("productId", newArray, { path: "/" });
       } else {
         const newArray = [productId, ...cookies.productId];
         setCookie("productId", newArray);

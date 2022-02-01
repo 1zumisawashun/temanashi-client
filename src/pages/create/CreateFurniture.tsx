@@ -40,7 +40,7 @@ const CreateProject: FC = () => {
   const [category, setCategory] = useState<CategoryOp | null>(null);
   const [formError, setFromError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [cookies] = useCookies();
+  const [cookies] = useCookies(["random"]);
 
   const { user } = useAuthContext();
 

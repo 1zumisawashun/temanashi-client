@@ -13,7 +13,7 @@ type Response = {
 const UserAccount: FC = () => {
   const { user } = useAuthContext();
   if (!user) throw new Error("we cant find your account");
-  const [cookies, setCookie] = useCookies();
+  const [cookies, setCookie] = useCookies(["jwt"]);
 
   const onCallTest = () => {
     const helloOnCall = projectFunctions.httpsCallable("helloOnCall");
@@ -42,7 +42,7 @@ const UserAccount: FC = () => {
       `${process.env.REACT_APP_BASE_URL}/api/jwt`,
       params
     );
-    setCookie("jwt", result.data.jwt);
+    setCookie("jwt", result.data.jwt, { path: "/" });
     console.log(result, "result");
     console.log(cookies, "cookies");
   };

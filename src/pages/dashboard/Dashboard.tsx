@@ -12,7 +12,7 @@ const Dashboard: FC = () => {
   const [currentFilter, setCurrentFilter] = useState<String>("all");
   const [isPending, setIsPending] = useState<boolean>(false);
   const [productItems, setProductItems] = useState<ProductItem[]>([]);
-  const [cookies, setCookie] = useCookies();
+  const [cookies, setCookie] = useCookies(["random"]);
   console.log(cookies);
 
   const changeFilter = (newFilter: String) => {
@@ -31,7 +31,7 @@ const Dashboard: FC = () => {
 
   useEffect(() => {
     fetchProducts();
-    setCookie("random", productItems.length);
+    setCookie("random", productItems.length, { path: "/" });
   }, [setCookie, productItems.length]);
 
   // nullチェック・通常のreturnだとエラーになる

@@ -9,7 +9,7 @@ export const useCartDocument = () => {
   const [documents, setDocuments] = useState<Array<ProductItemWithoutComment>>(
     []
   );
-  const [cookies] = useCookies();
+  const [cookies] = useCookies(["productId"]);
   console.log(cookies, "cookies");
 
   useEffect(() => {
