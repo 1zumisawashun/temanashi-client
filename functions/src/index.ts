@@ -1,6 +1,12 @@
 import * as functions from "firebase-functions";
+import { Request, Response } from "express";
 import * as express from "express";
 import * as cors from "cors";
+import {
+  createJWT,
+  authenticateWithJWT,
+  authenticateWithFirebase,
+} from "./Middlewares/authMiddleware";
 // NOTE:requireでモジュールを読み込むと型がanyになる
 // NOTE:emulatorは既に入っている（npm run serveは使える）よく見るあれはGUIのをインポートするかの差
 
@@ -13,6 +19,18 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors({ origin: true }));
 
 app.use("/", stripeRoute);
+
+// jwtの発行
+app.post("/jwt", createJWT);
+
+// jwtの確認
+app.get(
+  "/jwt/check",
+  [authenticateWithJWT, authenticateWithFirebase],
+  (req: Request, res: Response) => {
+    res.status(200).json({ message: "認証されました。" });
+  }
+);
 
 // On Call Test
 const helloOnCall = functions.https.onCall((data, context) => {
