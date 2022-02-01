@@ -1,6 +1,7 @@
 import Stripe from "stripe";
 // import { STRIPE_API } from "../env";
 import * as functions from "firebase-functions";
+import { RequestHandler } from "express";
 
 const cors = require("cors");
 const stripe = new Stripe(
@@ -8,7 +9,7 @@ const stripe = new Stripe(
   { apiVersion: "2020-08-27" }
 );
 
-const stripe_post = (req: any, res: any) => {
+const stripe_post: RequestHandler = (req, res) => {
   functions.logger.info(req.body);
   cors()(req, res, async () => {
     // cors解除のためにラップする
