@@ -1,7 +1,7 @@
 import { FC, useState, FormEvent } from "react";
 import { firebase, timestamp } from "../../firebase/config";
 import { useAuthContext } from "../../hooks/useAuthContext";
-import { CommentToAdd } from "../../types/dashboard";
+import { CommentToAdd } from "../../@types/dashboard";
 import FlatButton from "../Button/FlatButton";
 import CloseButton from "../Button/CloseButton";
 import { ProductItem } from "../../utilities/stripeClient";

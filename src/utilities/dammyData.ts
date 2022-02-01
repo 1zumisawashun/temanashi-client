@@ -1,4 +1,4 @@
-import { Furniture } from "../types/dashboard";
+import { Furniture } from "../@types/dashboard";
 import theme_1 from "../assets/image/furniture_1.jpg";
 import furniture_bed from "../assets/image/furniture_bed.jpg";
 import furniture_blanket from "../assets/image/furniture_blanket.jpg";

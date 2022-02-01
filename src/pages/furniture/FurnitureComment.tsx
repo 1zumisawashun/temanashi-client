@@ -1,7 +1,7 @@
 import { FC, useState } from "react";
 import Avatar from "../../components/Avatar";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
-import { Comment } from "../../types/dashboard";
+import { Comment } from "../../@types/dashboard";
 import FormModal from "../../components/Modal/FormModal";
 import FlatButton from "../../components/Button/FlatButton";
 import { ProductItem } from "../../utilities/stripeClient";

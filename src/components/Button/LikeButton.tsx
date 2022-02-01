@@ -3,7 +3,7 @@ import {
   User,
   likedFurnitures,
   likedUsers,
-} from "../../types/dashboard";
+} from "../../@types/dashboard";
 import { FC, useState, useEffect } from "react";
 import { timestamp, firebase } from "../../firebase/config";
 import { useAuthContext } from "../../hooks/useAuthContext";

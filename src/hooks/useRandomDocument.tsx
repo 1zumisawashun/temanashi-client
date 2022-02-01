@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { projectFirestore } from "../firebase/config";
-import { ProductDoc } from "../types/stripe";
+import { ProductDoc } from "../@types/stripe";
 import { useCookies } from "react-cookie";
 
 export const useRandomDocument = () => {

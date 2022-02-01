@@ -2,7 +2,7 @@ import { FC } from "react";
 import UserNavbar from "../../components/UserNavbar";
 import { useSubCollection } from "../../hooks/useSubCollection";
 import { convertedPath } from "../../utilities/convertValue";
-import { User, likedFurnitures } from "../../types/dashboard";
+import { User, likedFurnitures } from "../../@types/dashboard";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import FurnitureList from "../../components/DefinitionList/FurnitureList";
 import { ProductItem } from "../../utilities/stripeClient";

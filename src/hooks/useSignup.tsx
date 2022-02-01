@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { projectAuth, projectStorage } from "../firebase/config";
 import { useAuthContext } from "./useAuthContext";
 import { documentPoint } from "../utilities/converter";
-import { User } from "../types/dashboard";
+import { User } from "../@types/dashboard";
 
 export const useSignup = () => {
   const [isCancelled, setIsCancelled] = useState(false);

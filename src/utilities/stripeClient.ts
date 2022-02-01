@@ -4,9 +4,9 @@ import {
   PriceDoc,
   ProductDoc,
   SubscriptionDoc,
-} from "../types/stripe";
+} from "../@types/stripe";
 import { projectFirestore } from "../firebase/config";
-import { Comment } from "../types/dashboard";
+import { Comment } from "../@types/dashboard";
 
 export type ProductItem = {
   product: ProductDoc;
