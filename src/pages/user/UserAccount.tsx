@@ -2,8 +2,21 @@ import { FC } from "react";
 import UserNavbar from "../../components/UserNavbar";
 import { projectFunctions } from "../../firebase/config";
 import axios from "axios";
+import { useAuthContext } from "../../hooks/useAuthContext";
+import { useCookies } from "react-cookie";
+
+type Response = {
+  message: string;
+  jwt: string;
+};
 
 const UserAccount: FC = () => {
+  const url = "https://us-central1-temanashi-39b3f.cloudfunctions.net";
+  const { user } = useAuthContext();
+  if (!user) throw new Error("we cant find your account");
+  // const [cookies, setCookie, removeCookie] = useCookies();
+  const [cookies, setCookie] = useCookies();
+
   const onCallTest = () => {
     const helloOnCall = projectFunctions.httpsCallable("helloOnCall");
     helloOnCall({ name: `shun` }).then((result) => {
@@ -11,15 +24,28 @@ const UserAccount: FC = () => {
     });
   };
   const onRequestTest = async () => {
-    const url = "https://us-central1-temanashi-39b3f.cloudfunctions.net";
-    if (!url) return;
     const result = await axios.get(`${url}/helloOnRequest`);
     console.log(result, "result");
   };
   const getAxiosTest = async () => {
-    const url = "https://us-central1-temanashi-39b3f.cloudfunctions.net";
-    if (!url) return;
     const result = await axios.get(`${url}/api/hello`);
+    console.log(result, "result");
+  };
+  const createJWT = async () => {
+    const params = {
+      uid: user.uid,
+      name: user.displayName,
+    };
+    const result = await axios.post<Response>(`${url}/api/jwt`, params);
+    setCookie("jwt", result.data.jwt);
+    console.log(result, "result");
+    console.log(cookies, "cookies");
+  };
+  const verifyJWT = async () => {
+    const headers = {
+      Authorization: `Bearer ${cookies.jwt}`,
+    };
+    const result = await axios.get(`${url}/api/jwt/check`, { headers });
     console.log(result, "result");
   };
   return (
@@ -35,6 +61,12 @@ const UserAccount: FC = () => {
           </button>
           <button onClick={getAxiosTest} className="btn">
             GetAxiosTest
+          </button>
+          <button onClick={createJWT} className="btn">
+            CreateJWT
+          </button>
+          <button onClick={verifyJWT} className="btn">
+            verifyJWT
           </button>
         </div>
       </div>
