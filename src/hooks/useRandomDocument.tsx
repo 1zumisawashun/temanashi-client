@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { projectFirestore } from "../firebase/config";
 import { ProductDoc } from "../types/stripe";
+import { useCookies } from "react-cookie";
 
 export const useRandomDocument = () => {
   const [documents, setDocuments] = useState<Array<ProductDoc>>([]);
-  const random = Number(sessionStorage.getItem("random"));
+  const [cookies] = useCookies();
+  const random = Number(cookies.random);
 
   useEffect(() => {
     const indexs: Array<string> = [];
@@ -26,7 +28,7 @@ export const useRandomDocument = () => {
           const data = await snapshot.docs.map((doc) => {
             return { ...(doc.data() as ProductDoc), id: doc.id };
           });
-            await randomDocument.push(...data); //1個のみ配列をパースしてオブジェクトをpushする
+          await randomDocument.push(...data); //1個のみ配列をパースしてオブジェクトをpushする
           if (randomDocument.length === 5) {
             setDocuments(randomDocument);
           }

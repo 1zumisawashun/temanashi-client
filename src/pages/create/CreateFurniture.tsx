@@ -5,12 +5,12 @@ import { useHistory } from "react-router-dom";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { delay } from "../../utilities/convertValue";
 import Loading from "../../components/Loading";
-// import { useRandomContext } from "../../hooks/useRandomContext";
 import InputText from "../../components/Input/InputText";
 import InputNumber from "../../components/Input/InputNumber";
 import InputTextarea from "../../components/Input/InputTextarea";
 import InputFileMulti from "../../components/Input/InputFileMulti";
 import axios from "axios";
+import { useCookies } from "react-cookie";
 
 const categories = [
   { value: "development", label: "Development" },
@@ -40,9 +40,9 @@ const CreateProject: FC = () => {
   const [category, setCategory] = useState<CategoryOp | null>(null);
   const [formError, setFromError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [cookies] = useCookies();
 
   const { user } = useAuthContext();
-  // const { random } = useRandomContext();
 
   if (!user) {
     throw new Error("Could not complete signup");
@@ -69,9 +69,6 @@ const CreateProject: FC = () => {
       newPhotos.push(imgUrl);
     });
 
-    // NOTE:
-    const random = await sessionStorage.getItem("random");
-
     // FIXME:非同期がうまく効かないため一時的にdelayを使っている
     await delay(7000);
 
@@ -84,7 +81,7 @@ const CreateProject: FC = () => {
       width,
       depth,
       height,
-      random: Number(random),
+      random: cookies.random,
       category: category.value,
     };
 
@@ -98,8 +95,6 @@ const CreateProject: FC = () => {
       console.log(error);
       alert("エラーが発生しました");
     } finally {
-      // FIXME:なぜかsessionStorageが消えない
-      await sessionStorage.removeItem("random");
       setIsLoading(false);
       history.push("/");
     }

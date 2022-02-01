@@ -5,12 +5,16 @@ import { useAuthContext } from "../../hooks/useAuthContext";
 import { productUseCase, ProductItem } from "../../utilities/stripeClient";
 import FurnitureList from "../../components/DefinitionList/FurnitureList";
 import Loading from "../../components/Loading";
+import { useCookies } from "react-cookie";
 
 const Dashboard: FC = () => {
   const { user } = useAuthContext();
   const [currentFilter, setCurrentFilter] = useState<String>("all");
   const [isPending, setIsPending] = useState<boolean>(false);
   const [productItems, setProductItems] = useState<ProductItem[]>([]);
+  const [cookies, setCookie] = useCookies();
+  console.log(cookies);
+
   const changeFilter = (newFilter: String) => {
     setCurrentFilter(newFilter);
   };
@@ -20,7 +24,6 @@ const Dashboard: FC = () => {
       setIsPending(true);
       const productItems = await productUseCase.fetchAll();
       setProductItems(productItems);
-      sessionStorage.setItem("random", `${productItems.length}`);
     } finally {
       setIsPending(false);
     }
@@ -28,7 +31,8 @@ const Dashboard: FC = () => {
 
   useEffect(() => {
     fetchProducts();
-  }, []);
+    setCookie("random", productItems.length);
+  }, [setCookie, productItems.length]);
 
   // nullチェック・通常のreturnだとエラーになる
   if (!user) throw new Error("we cant find your account");
