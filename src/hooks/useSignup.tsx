@@ -3,12 +3,14 @@ import { projectAuth, projectStorage } from "../firebase/config";
 import { useAuthContext } from "./useAuthContext";
 import { documentPoint } from "../utilities/converter";
 import { User } from "../@types/dashboard";
+import { useToken } from "../hooks/useToken";
 
 export const useSignup = () => {
   const [isCancelled, setIsCancelled] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isPending, setIsPending] = useState(false);
   const { dispatch } = useAuthContext();
+  const { createJWT } = useToken();
 
   const signup = async (
     email: string,
@@ -45,6 +47,8 @@ export const useSignup = () => {
         photoURL: imgUrl,
       });
 
+      if (res.user.displayName === null) return;
+      createJWT({ uid: res.user.uid, name: res.user.displayName });
       // dispatch login action
       dispatch({ type: "LOGIN", payload: res.user });
 
