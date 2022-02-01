@@ -11,7 +11,6 @@ type Response = {
 };
 
 const UserAccount: FC = () => {
-  const url = "https://us-central1-temanashi-39b3f.cloudfunctions.net";
   const { user } = useAuthContext();
   if (!user) throw new Error("we cant find your account");
   const [cookies, setCookie] = useCookies();
@@ -23,11 +22,15 @@ const UserAccount: FC = () => {
     });
   };
   const onRequestTest = async () => {
-    const result = await axios.get(`${url}/helloOnRequest`);
+    const result = await axios.get(
+      `${process.env.REACT_APP_BASE_URL}/helloOnRequest`
+    );
     console.log(result, "result");
   };
   const getAxiosTest = async () => {
-    const result = await axios.get(`${url}/api/hello`);
+    const result = await axios.get(
+      `${process.env.REACT_APP_BASE_URL}/api/hello`
+    );
     console.log(result, "result");
   };
   const createJWT = async () => {
@@ -35,7 +38,10 @@ const UserAccount: FC = () => {
       uid: user.uid,
       name: user.displayName,
     };
-    const result = await axios.post<Response>(`${url}/api/jwt`, params);
+    const result = await axios.post<Response>(
+      `${process.env.REACT_APP_BASE_URL}/api/jwt`,
+      params
+    );
     setCookie("jwt", result.data.jwt);
     console.log(result, "result");
     console.log(cookies, "cookies");
@@ -44,7 +50,10 @@ const UserAccount: FC = () => {
     const headers = {
       Authorization: `Bearer ${cookies.jwt}`,
     };
-    const result = await axios.get(`${url}/api/jwt/check`, { headers });
+    const result = await axios.get(
+      `${process.env.REACT_APP_BASE_URL}/api/jwt/check`,
+      { headers }
+    );
     console.log(result, "result");
   };
   return (
