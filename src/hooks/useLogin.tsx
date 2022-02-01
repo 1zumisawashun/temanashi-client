@@ -3,12 +3,32 @@ import { projectAuth } from "../firebase/config";
 import { useAuthContext } from "./useAuthContext";
 import { documentPoint } from "../utilities/converter";
 import { User } from "../@types/dashboard";
+import { useCookies } from "react-cookie";
+import axios from "axios";
 
 export const useLogin = () => {
   const [isCancelled, setIsCancelled] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isPending, setIsPending] = useState(false);
   const { dispatch } = useAuthContext();
+  const [cookies, setCookie] = useCookies(["jwt"]);
+
+  type Response = {
+    message: string;
+    jwt: string;
+  };
+  type Params = {
+    uid: string;
+    name: string;
+  };
+
+  const createJWT = async (params: Params) => {
+    const result = await axios.post<Response>(
+      `${process.env.REACT_APP_BASE_URL}/api/jwt`,
+      params
+    );
+    setCookie("jwt", result.data.jwt, { path: "/" });
+  };
 
   const login = async (email: string, password: string) => {
     setError(null);
@@ -23,6 +43,8 @@ export const useLogin = () => {
       await documentPoint<addUser>("users", res.user.uid).update({
         online: true,
       });
+      if (res.user.displayName === null) return;
+      createJWT({ uid: res.user.uid, name: res.user.displayName });
 
       dispatch({ type: "LOGIN", payload: res.user });
 

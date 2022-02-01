@@ -7,20 +7,43 @@ import { taxIncludedPrice } from "../../utilities/convertValue";
 import Loading from "../../components/Loading";
 import ToggleButton from "../../components/Button/ToggleButton";
 import InpuCheckbox from "../../components/Input/InputCheckbox";
+import { useCookies } from "react-cookie";
+import axios from "axios";
 
 const Cart: FC = () => {
   const [isAccepted, setIsAccepted] = useState<boolean>(false);
   const [isPendingBuy, setIsPendingBuy] = useState<boolean>(false);
   const [line_items, setLinetems] = useState<Array<line_item>>([]);
+  const [cookies, setCookie] = useCookies(["jwt"]);
 
   const { user } = useAuthContext();
   if (!user) throw new Error("we cant find your account");
 
   const { documents } = useCartDocument();
 
+  const verifyJWT = async () => {
+    const headers = {
+      Authorization: `Bearer ${cookies.jwt}`,
+    };
+    const result = await axios.get(
+      `${process.env.REACT_APP_BASE_URL}/api/jwt/check`,
+      { headers }
+    );
+    console.log(result, "===================");
+    return result.data.message;
+    // 恐らくエラーになるのはJWTのExpireが関係している
+    // アラートを出すためにあえてnullを返したい
+  };
+
   const onClickBuy = async () => {
     if (line_items.length === 0) {
       alert("購入する製品を選択してください");
+      return;
+    }
+    // NOTE:awaitをつけるとPromise<string>がstringになる
+    const result = await verifyJWT();
+    if (!result) {
+      alert("認証ユーザーではありません");
       return;
     }
     try {

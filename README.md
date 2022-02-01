@@ -8,7 +8,8 @@ CSSアーキテクチャ： ITCSS, RSCSS
 ライブラリ： React
 ホスティング： Firebase Hosting
 DB： Firestore
-認証： Firebase Authentication, JWT
+認証： Firebase Authentication
+トークン： JsonWebToken
 APIサーバー： Cloud Functions, Express
 ストレージ： Cloud Storage
 決済： Firebase Stripe Extention
