@@ -8,6 +8,7 @@ import { ProductItem } from "../../utilities/stripeClient";
 import { useParams } from "react-router-dom";
 import Loading from "../../components/Loading";
 import { taxIncludedPrice } from "../../utilities/convertValue";
+import { useCookies } from "react-cookie";
 
 type Props = {
   furniture: ProductItem;
@@ -16,6 +17,8 @@ type Props = {
 const ProjectSummary: FC<Props> = ({ furniture }) => {
   const [toggleModal, setToggleModal] = useState<boolean>(false);
   const [isPending, setIsPending] = useState<boolean>(false);
+  const [cookies, setCookie] = useCookies();
+
   const { deleteDocument } = useFirestore();
   const { id }: { id: string } = useParams();
   const { user } = useAuthContext();
@@ -23,22 +26,24 @@ const ProjectSummary: FC<Props> = ({ furniture }) => {
   if (!user) throw new Error("we cant find your account");
 
   const addCart = async (productId: string) => {
-    console.log(productId, "productId");
     if (!productId) return;
     setIsPending(true);
-    const getItems = sessionStorage.getItem("productId");
-    console.log(getItems, "getItems");
-    if (!getItems) {
-      const newArray = [productId];
-      await sessionStorage.setItem("productId", JSON.stringify(newArray));
-    } else {
-      const datalist = JSON.parse(getItems);
-      const newArray = [productId, ...datalist];
-      await sessionStorage.setItem("productId", JSON.stringify(newArray));
+    try {
+      if (!cookies.productId) {
+        const newArray = [productId];
+        setCookie("productId", newArray);
+      } else {
+        const newArray = [productId, ...cookies.productId];
+        setCookie("productId", newArray);
+      }
+    } catch (error) {
+      alert(error);
+    } finally {
+      setIsPending(false);
+      history.push(`/users/${user.uid}/cart`);
     }
-    setIsPending(false);
-    history.push(`/users/${user.uid}/cart`);
   };
+
   const handleClick = (e: FormEvent) => {
     if (furniture.product) deleteDocument<ProductItem>("products", id);
     history.push("/");

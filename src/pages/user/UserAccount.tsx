@@ -14,7 +14,6 @@ const UserAccount: FC = () => {
   const url = "https://us-central1-temanashi-39b3f.cloudfunctions.net";
   const { user } = useAuthContext();
   if (!user) throw new Error("we cant find your account");
-  // const [cookies, setCookie, removeCookie] = useCookies();
   const [cookies, setCookie] = useCookies();
 
   const onCallTest = () => {

@@ -3,41 +3,32 @@ import {
   productUseCase,
   ProductItemWithoutComment,
 } from "../utilities/stripeClient";
+import { useCookies } from "react-cookie";
 
 export const useCartDocument = () => {
   const [documents, setDocuments] = useState<Array<ProductItemWithoutComment>>(
     []
   );
-
-  const getItems = (): Array<string> => {
-    const getItems = sessionStorage.getItem("productId");
-    if (getItems) {
-      const datalist: Array<string> = JSON.parse(getItems);
-      return datalist;
-    }
-    return [];
-  };
+  const [cookies] = useCookies();
+  console.log(cookies, "cookies");
 
   useEffect(() => {
     const randomDocument: Array<ProductItemWithoutComment> = [];
 
-    function asyncLoop(items: Array<string>) {
-      if (!items.length) return; // sessionStorageが空の場合は早期リターン
-      items.forEach(async (productId: string) => {
+    function asyncLoop() {
+      if (!cookies.productId.length) return; // cookiesが空の場合は早期リターン
+      cookies.productId.forEach(async (productId: string) => {
         const result = await productUseCase.fetchProductItemWitoutComment(
           productId
         );
         await randomDocument.push(result);
-        if (randomDocument.length === items.length) {
+        if (randomDocument.length === cookies.productId.length) {
           setDocuments(randomDocument);
         }
       });
     }
-    const items = getItems();
-    if (items) {
-      return asyncLoop(items);
-    }
-  }, []);
+    return asyncLoop();
+  }, [cookies.productId]);
 
   return { documents };
 };
