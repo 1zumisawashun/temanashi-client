@@ -6,7 +6,7 @@ import {
   createJWT,
   authenticateWithJWT,
   authenticateWithFirebase,
-} from "./Middlewares/authMiddleware";
+} from "./middlewares/authMiddleware";
 // NOTE:requireでモジュールを読み込むと型がanyになる
 // NOTE:emulatorは既に入っている（npm run serveは使える）よく見るあれはGUIのをインポートするかの差
 
