@@ -11,6 +11,7 @@ import InputTextarea from "../../components/Input/InputTextarea";
 import InputFileMulti from "../../components/Input/InputFileMulti";
 import axios from "axios";
 import { useCookies } from "react-cookie";
+import { useLogout } from "../../hooks/useLogout";
 
 const categories = [
   { value: "development", label: "Development" },
@@ -25,6 +26,7 @@ type CategoryOp = {
 
 const CreateProject: FC = () => {
   const history = useHistory();
+  const { logout } = useLogout();
 
   // FIXME: any型を潰す
   const [name, setName] = useState<string>("");
@@ -40,7 +42,7 @@ const CreateProject: FC = () => {
   const [category, setCategory] = useState<CategoryOp | null>(null);
   const [formError, setFromError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [cookies] = useCookies(["random"]);
+  const [cookies] = useCookies(["random", "jwt"]);
 
   const { user } = useAuthContext();
 
@@ -86,14 +88,20 @@ const CreateProject: FC = () => {
     };
 
     try {
+      const headers = {
+        Authorization: `Bearer ${cookies.jwt}`,
+      };
       const result = await axios.post(
         `${process.env.REACT_APP_BASE_URL}/api/stripe-post`,
-        furniture
+        furniture,
+        { headers }
       );
       console.log(result);
     } catch (error) {
       console.log(error);
       alert("エラーが発生しました");
+      logout();
+      history.push("/login");
     } finally {
       setIsLoading(false);
       history.push("/");

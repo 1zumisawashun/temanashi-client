@@ -18,7 +18,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({ origin: true }));
 
-app.use("/", stripeRoute);
+app.use("/", [authenticateWithJWT, authenticateWithFirebase], stripeRoute);
 
 // jwtの発行
 app.post("/jwt", createJWT);
