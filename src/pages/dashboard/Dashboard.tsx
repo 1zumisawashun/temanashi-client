@@ -14,6 +14,7 @@ const Dashboard: FC = () => {
   const [productItems, setProductItems] = useState<ProductItem[]>([]);
   const [cookies, setCookie] = useCookies(["random"]);
   console.log(cookies);
+  //cookieのレンダリングが激しいのでチェックoptionのpathが怪しい。もしくはuseRefに入れる
 
   const changeFilter = (newFilter: String) => {
     setCurrentFilter(newFilter);

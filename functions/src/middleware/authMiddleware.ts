@@ -19,7 +19,7 @@ export const createJWT: RequestHandler = (req, res) => {
     });
     res.status(200).json({ message: "create jwt", jwt: token });
   } else {
-    res.status(400).send({ error: "Payloadが指定されていません。" });
+    res.status(400).json({ error: "Payloadが指定されていません。" });
   }
 };
 
@@ -32,10 +32,10 @@ export const authenticateWithJWT: RequestHandler = (req, res, next) => {
       req.jwtPayload = jwtPayload as JWTPayloadType;
       next();
     } catch (error) {
-      res.status(401).send({ error: "認証に失敗しました。" });
+      res.status(401).json({ error: "認証に失敗しました。" });
     }
   } else {
-    res.status(403).send({ error: "tokenが指定されていません。" });
+    res.status(403).json({ error: "tokenが指定されていません。" });
   }
 };
 
@@ -62,4 +62,3 @@ export const authenticateWithFirebase: RequestHandler = async (
     res.status(403).send({ error: "アクセス権限がありません。" });
   }
 };
-

@@ -3,12 +3,14 @@ import { projectAuth } from "../firebase/config";
 import { useAuthContext } from "./useAuthContext";
 import { documentPoint } from "../utilities/converter";
 import { User } from "../@types/dashboard";
+import { useToken } from "../hooks/useToken";
 
 export const useLogout = () => {
   const [isCancelled, setIsCancelled] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isPending, setIsPending] = useState(false);
   const { dispatch, user } = useAuthContext();
+  const { removeJWT } = useToken();
 
   const logout = async () => {
     setError(null);
@@ -25,6 +27,9 @@ export const useLogout = () => {
 
       // sign the user out
       await projectAuth.signOut();
+
+      // remove jwt in cookie
+      removeJWT();
 
       // dispatch logout action
       dispatch({ type: "LOGOUT", payload: user });

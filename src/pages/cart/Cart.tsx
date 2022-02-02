@@ -8,12 +8,16 @@ import Loading from "../../components/Loading";
 import ToggleButton from "../../components/Button/ToggleButton";
 import InpuCheckbox from "../../components/Input/InputCheckbox";
 import { useToken } from "../../hooks/useToken";
+import { useLogout } from "../../hooks/useLogout";
+import { useHistory } from "react-router-dom";
 
 const Cart: FC = () => {
   const [isAccepted, setIsAccepted] = useState<boolean>(false);
   const [isPendingBuy, setIsPendingBuy] = useState<boolean>(false);
   const [line_items, setLinetems] = useState<Array<line_item>>([]);
   const { verifyJWT } = useToken();
+  const { logout } = useLogout();
+  const history = useHistory();
 
   const { user } = useAuthContext();
   if (!user) throw new Error("we cant find your account");
@@ -27,10 +31,15 @@ const Cart: FC = () => {
     }
     // NOTE:awaitをつけるとPromise<string>がstringになる
     const result = await verifyJWT();
+    console.log(result);
+
     if (!result) {
-      alert("認証ユーザーではありません");
+      alert("認証トークンが有効期限切れです。ログインしなおしてください。");
+      logout();
+      history.push("/login");
       return;
     }
+
     try {
       setIsPendingBuy(true);
       const uid = user.uid;

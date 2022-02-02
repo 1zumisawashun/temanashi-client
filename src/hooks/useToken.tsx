@@ -5,13 +5,14 @@ type Response = {
   message: string;
   jwt: string;
 };
+
 type Params = {
   uid: string;
   name: string;
 };
 
 export const useToken = () => {
-  const [cookies, setCookie] = useCookies(["jwt"]);
+  const [cookies, setCookie, removeCookie] = useCookies(["jwt"]);
 
   const createJWT = async (params: Params) => {
     const result = await axios.post<Response>(
@@ -26,15 +27,23 @@ export const useToken = () => {
     const headers = {
       Authorization: `Bearer ${cookies.jwt}`,
     };
-    const result = await axios.get(
-      `${process.env.REACT_APP_BASE_URL}/api/jwt/check`,
-      { headers }
-    );
-    console.log(result, "verifyJWT");
-    return result.data.message;
-    // 恐らくエラーになるのはJWTのExpireが関係している
-    // アラートを出すためにあえてnullを返したい
+
+    try {
+      const result = await axios.get(
+        `${process.env.REACT_APP_BASE_URL}/api/jwt/check`,
+        { headers }
+      );
+      console.log(result, "verifyJWT");
+      return result.data.message;
+    } catch (error) {
+      console.log(error);
+    }
+    // NOTE:JWTの有効期限切れでエラーになる
   };
 
-  return { verifyJWT, createJWT };
+  const removeJWT = async () => {
+    await removeCookie("jwt", { path: "/" });
+  };
+
+  return { verifyJWT, createJWT, removeJWT };
 };
