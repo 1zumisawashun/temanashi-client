@@ -39,9 +39,6 @@ const ProjectComments: FC<Props> = ({ furniture }) => {
             </div>
             <div className="comment-date">
               <p>4 minutes ago</p>
-              {/* {formatDistanceToNow(comment.createdAt?.toDate(), {
-                  addSuffix: true,
-                })} */}
             </div>
             <div className="comment-content">
               <p>free comment area !</p>

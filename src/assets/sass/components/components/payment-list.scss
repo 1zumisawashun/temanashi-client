@@ -1,0 +1,16 @@
+.payment-list {
+  > div > .box {
+    padding: 10px;
+    border-bottom: 3px solid $vintage-blue;
+  }
+  > div > .box > .name {
+    font-weight: bold;
+  }
+  > div > .box > .date {
+    display: inline-block;
+    font-size: 10px;
+    vertical-align: middle;
+  }
+  > div > .box > .link {
+  }
+}

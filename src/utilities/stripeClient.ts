@@ -116,6 +116,24 @@ class ProductUseCase {
     return productItem;
   }
   /**
+   * 参照④
+   */
+  async fetchPayments(uid: string): Promise<any> {
+    const paymentsRef = await projectFirestore
+      .collection("customers")
+      .doc(uid)
+      .collection("payments")
+      .where("status", "==", "succeeded");
+    const paymentSnapshot = await paymentsRef.get();
+    const payments = await paymentSnapshot.docs.map((doc) => {
+      return {
+        id: doc.id,
+        ...doc.data(),
+      };
+    });
+    return payments;
+  }
+  /**
    * 更新①
    */
   // NOTE:購入後にメールを送る

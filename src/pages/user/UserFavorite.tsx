@@ -6,6 +6,8 @@ import { User, likedFurnitures } from "../../@types/dashboard";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import FurnitureList from "../../components/DefinitionList/FurnitureList";
 import { ProductItem } from "../../utilities/stripeClient";
+// pendingを追加したい
+import Loading from "../../components/Loading";
 
 const UserFavorite: FC = () => {
   const { user } = useAuthContext();
@@ -32,6 +34,7 @@ const UserFavorite: FC = () => {
   return (
     <>
       <UserNavbar />
+      {!documents && <Loading />}
       <div className="user-container">
         <div className="inner">
           {documents && (
