@@ -39,7 +39,7 @@ const ProjectComments: FC<Props> = ({ furniture }) => {
               <p>temanashi-tester</p>
             </div>
             <div className="comment-date">
-              <p>4 minutes ago</p>
+              <p>約5分前</p>
             </div>
             <div className="comment-content">
               <p>free comment area !</p>
