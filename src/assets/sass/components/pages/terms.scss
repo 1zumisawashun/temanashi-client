@@ -1,0 +1,26 @@
+.terms {
+  > .inner {
+    width: 60%;
+    margin: 50px auto;
+  }
+  > .inner > .title {
+    font-weight: bold;
+    font-size: 20px;
+    text-align: center;
+  }
+  > .inner > .subtitle {
+    text-align: center;
+  }
+  > .inner > .box {
+    display: flex;
+  }
+
+  > .inner > .box > .article {
+    width: 20%;
+    margin: auto 0;
+    text-align: center;
+  }
+  > .inner > .box > .text {
+    width: 80%;
+  }
+}
