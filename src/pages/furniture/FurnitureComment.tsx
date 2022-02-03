@@ -9,6 +9,7 @@ import { useParams } from "react-router-dom";
 import { useSubCollection } from "../../hooks/useSubCollection";
 import { convertedPath } from "../../utilities/convertValue";
 import PersonIcon from "../../assets/icon/person_icon.svg";
+import { ja } from "date-fns/locale";
 
 type Props = {
   furniture: ProductItem;
@@ -55,6 +56,7 @@ const ProjectComments: FC<Props> = ({ furniture }) => {
                   <p>
                     {formatDistanceToNow(comment.createdAt?.toDate(), {
                       addSuffix: true,
+                      locale: ja,
                     })}
                   </p>
                 </div>

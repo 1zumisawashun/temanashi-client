@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { Link } from "react-router-dom";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
+import { ja } from "date-fns/locale";
 
 type Prop = {
   paymentItems: any;
@@ -16,8 +17,9 @@ const PaymentList: FC<Prop> = ({ paymentItems }) => {
               <div key={item.id} className="box">
                 <span className="name">{item.description}</span>
                 <span className="date">
-                  {formatDistanceToNow(payment.created, {
+                  {formatDistanceToNow(new Date(item.price.created), {
                     addSuffix: true,
+                    locale: ja,
                   })}
                 </span>
                 <Link to={`/furnitures/${item.price.product}`} className="link">
