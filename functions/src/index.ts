@@ -18,8 +18,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({ origin: true }));
 
-app.use("/", [authenticateWithJWT, authenticateWithFirebase], stripeRoute);
-
 // jwtの発行
 app.post("/jwt", createJWT);
 
@@ -31,6 +29,8 @@ app.get(
     res.status(200).json({ message: "認証されました。" });
   }
 );
+
+app.use("/", [authenticateWithJWT, authenticateWithFirebase], stripeRoute);
 
 // On Call Test
 const helloOnCall = functions.https.onCall((data, context) => {
