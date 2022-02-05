@@ -8,7 +8,7 @@ const DiagnoseResult: FC = () => {
   return (
     <>
       {db.length === 0 && recommendation && <Loading />}
-      <div className="recommendation">
+      <div className="diagnose-result">
         <div className="image-box">
           <img src={recommendation.imageUrl} alt="" />
         </div>
