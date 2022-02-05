@@ -1,6 +1,5 @@
-.project-filter {
-  margin: 30px auto;
-  /*コレ*/
+.product-filter-container {
+  margin: 30px auto 0;
   overflow-x: scroll;
 
   > nav {
@@ -11,9 +10,10 @@
     border-radius: 4px;
   }
 
-  > nav > p {
+  > nav > .title {
+    width: 80px;
+    font-weight: bold;
     font-size: 0.9em;
-    margin-right: 10px;
   }
 
   > nav > button {

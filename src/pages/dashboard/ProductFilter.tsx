@@ -17,9 +17,9 @@ const ProductFilter: FC<Props> = ({ currentFilter, changeFilter }) => {
     changeFilter(newFilter);
   };
   return (
-    <div className="project-filter">
+    <div className="product-filter-container">
       <nav>
-        <p>FILTER BY</p>
+        <p className="title">FILTER BY</p>
         {filterList.map((f) => (
           <button
             key={f}

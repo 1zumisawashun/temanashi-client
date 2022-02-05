@@ -18,10 +18,9 @@
 
 /* Page Layer */
 @import "./pages/app.scss";
-@import "./pages/dashboard.scss";
 @import "./pages/diagnose-result.scss";
 @import "./pages/error.scss";
-@import "./pages/login.scss";
+@import "./pages/auth-container.scss";
 @import "./pages/user.scss";
 @import "./pages/cart-container.scss";
 @import "./pages/terms.scss";
@@ -29,3 +28,4 @@
 @import "./pages/product-container.scss";
 @import "./pages/product-summary.scss";
 @import "./pages/product-comments.scss";
+@import "./pages/product-filter-container.scss";
