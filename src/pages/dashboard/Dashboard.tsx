@@ -3,7 +3,7 @@ import ProductFilter from "./ProductFilter";
 import { useState } from "react";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { productUseCase, ProductItem } from "../../utilities/stripeClient";
-import FurnitureList from "../../components/DefinitionList/FurnitureList";
+import ProductList from "../../components/DefinitionList/ProductList";
 import Loading from "../../components/Loading";
 import { useCookies } from "react-cookie";
 
@@ -66,7 +66,7 @@ const Dashboard: FC = () => {
         />
       )}
       {filteredProductItems && (
-        <FurnitureList productItems={filteredProductItems} />
+        <ProductList productItems={filteredProductItems} />
       )}
     </>
   );

@@ -2,14 +2,12 @@ import { FC, useState } from "react";
 import { line_item, productUseCase } from "../../utilities/stripeClient";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { useCartDocument } from "../../hooks/useCartDocument";
-import { Link } from "react-router-dom";
-import { taxIncludedPrice } from "../../utilities/convertValue";
 import Loading from "../../components/Loading";
-import ToggleButton from "../../components/Button/ToggleButton";
 import InpuCheckbox from "../../components/Input/InputCheckbox";
 import { useToken } from "../../hooks/useToken";
 import { useLogout } from "../../hooks/useLogout";
 import { useHistory } from "react-router-dom";
+import ProductList from "../../components/DefinitionList/ProductList";
 
 const Cart: FC = () => {
   const [isAccepted, setIsAccepted] = useState<boolean>(false);
@@ -79,52 +77,13 @@ const Cart: FC = () => {
     <div className="cart-container">
       {!documents && <Loading />}
       {isPendingBuy && <Loading />}
-      <div className="diagnose-result-list">
-        {documents &&
-          documents.map((item: any) => (
-            <>
-              <Link to={`/furnitures/${item.product.id}`} key={item.product.id}>
-                <div className="image-box">
-                  {item.product.images.length > 0 ? (
-                    <img src={item.product.images[0]} alt="" />
-                  ) : (
-                    <img
-                      src="https://placehold.jp/200x160.png"
-                      alt=""
-                      width="100"
-                    />
-                  )}
-                </div>
-                <div className="content-box">
-                  <h4>{item.product.name}</h4>
-                  {Object.keys(item.prices).map((priceIndex) => (
-                    <p key={priceIndex}>
-                      {taxIncludedPrice(item.prices[priceIndex].unit_amount)}
-                    </p>
-                  ))}
-                  <div className="assigned-to">
-                    <ul>
-                      <li>幅111cm</li>
-                      <li>深さ222cm</li>
-                      <li>高さ333cm</li>
-                    </ul>
-                  </div>
-                </div>
-              </Link>
-              {Object.keys(item.prices).map((priceIndex) => (
-                <div key={priceIndex}>
-                  <ToggleButton
-                    add={selectProduct}
-                    remove={removeProduct}
-                    addText="選択する"
-                    removeText="取り消す"
-                    priceIndex={priceIndex}
-                  />
-                </div>
-              ))}
-            </>
-          ))}
-      </div>
+      {documents && (
+        <ProductList
+          productItems={documents}
+          selectProduct={selectProduct}
+          removeProduct={removeProduct}
+        />
+      )}
       <div className="accept-block">
         <InpuCheckbox
           state={isAccepted}

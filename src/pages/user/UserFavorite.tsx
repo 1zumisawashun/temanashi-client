@@ -4,7 +4,7 @@ import { useSubCollection } from "../../hooks/useSubCollection";
 import { convertedPath } from "../../utilities/convertValue";
 import { User, likedFurnitures } from "../../@types/dashboard";
 import { useAuthContext } from "../../hooks/useAuthContext";
-import FurnitureList from "../../components/DefinitionList/FurnitureList";
+import ProductList from "../../components/DefinitionList/ProductList";
 import { ProductItem } from "../../utilities/stripeClient";
 // pendingを追加したい
 import Loading from "../../components/Loading";
@@ -38,7 +38,7 @@ const UserFavorite: FC = () => {
       <div className="user-container">
         <div className="inner">
           {documents && (
-            <FurnitureList productItems={getLikedFurnitures(documents)} />
+            <ProductList productItems={getLikedFurnitures(documents)} />
           )}
         </div>
       </div>
