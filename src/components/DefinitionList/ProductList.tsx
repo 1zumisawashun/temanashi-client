@@ -53,9 +53,9 @@ const FurnitureList: FC<Props> = ({
                 ))}
                 <div className="dimentions">
                   <ul>
-                    <li>幅111cm</li>
-                    <li>深さ222cm</li>
-                    <li>高さ333cm</li>
+                    <li>幅 111cm</li>
+                    <li>深さ 222cm</li>
+                    <li>高さ 333cm</li>
                   </ul>
                 </div>
               </div>

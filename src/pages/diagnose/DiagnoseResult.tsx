@@ -6,14 +6,14 @@ import Loading from "../../components/Loading";
 
 const DiagnoseResult: FC = () => {
   return (
-    <>
+    <div className="common-container">
       {db.length === 0 && recommendation && <Loading />}
       <div className="diagnose-result">
         <div className="thumbnail">
           <img src={recommendation.imageUrl} alt="" />
         </div>
         <div className="content">
-          <h1>シンプル風</h1>
+          <h1 className="name">シンプル風</h1>
           <p className="text">{recommendation.details}</p>
           <div className="colors">
             <div className="item">
@@ -46,16 +46,16 @@ const DiagnoseResult: FC = () => {
               )}
               <div className="dimentions">
                 <ul>
-                  <li>幅{furniture.width}cm</li>
-                  <li>深さ{furniture.depth}cm</li>
-                  <li>高さ{furniture.height}cm</li>
+                  <li>幅 {furniture.width}cm</li>
+                  <li>深さ {furniture.depth}cm</li>
+                  <li>高さ {furniture.height}cm</li>
                 </ul>
               </div>
             </div>
           </Link>
         ))}
       </div>
-    </>
+    </div>
   );
 };
 export default DiagnoseResult;

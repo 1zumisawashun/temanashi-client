@@ -108,10 +108,9 @@ const CreateProject: FC = () => {
     }
   };
   return (
-    <>
+    <div className="common-container">
       {isLoading && <Loading />}
       <div className="create-form">
-        <h2 className="page-title">Create a new Furniture</h2>
         <form onSubmit={handleSubmit}>
           <InputFileMulti name="photos" photos={photos} setPhotos={setPhotos} />
           <InputText label="name" state={name} setState={setName} />
@@ -136,7 +135,7 @@ const CreateProject: FC = () => {
           {formError && <p className="error">{formError}</p>}
         </form>
       </div>
-    </>
+    </div>
   );
 };
 

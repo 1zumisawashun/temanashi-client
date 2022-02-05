@@ -81,6 +81,7 @@ const TinderSwipe: FC<Props> = ({ db }) => {
   const swiped = (direction: string, index: number) => {
     setLastDirection(direction);
     updateCurrentIndex(index - 1);
+    console.log(lastDirection);
   };
   /**
    *　ライブラリのonSwipeメソッドを叩く>ローカルのswipeメソッドを叩く
@@ -102,8 +103,8 @@ const TinderSwipe: FC<Props> = ({ db }) => {
   };
 
   return (
-    <>
-      {isLoading && <Loading message="yeah" />}
+    <div className="common-container">
+      {isLoading && <Loading />}
       <div className="tinder-swipe">
         <ProgressBar width={100} percent={percent} />
         <div className="cardContainer">
@@ -135,13 +136,8 @@ const TinderSwipe: FC<Props> = ({ db }) => {
             <img src={ThumbUp} alt="" />
           </button>
         </div>
-        {lastDirection && (
-          <h3 key={lastDirection} className="infoText">
-            You swiped {lastDirection}
-          </h3>
-        )}
       </div>
-    </>
+    </div>
   );
 };
 

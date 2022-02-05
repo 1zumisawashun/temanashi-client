@@ -3,9 +3,6 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   grid-gap: 20px;
-  @include sp {
-    margin: 10px;
-  }
 
   > .wrapper {
     display: flex;
@@ -20,24 +17,33 @@
 
   > .wrapper > .thumbnail {
     width: 70%;
-    text-align: center;
+    display: flex;
     margin: auto;
   }
   > .wrapper > .thumbnail > img {
-    width: 210px;
+    width: 230px;
     height: 160px;
     object-fit: cover;
+    @include sp {
+      width: 210px;
+    }
   }
 
   > .wrapper > .content {
     width: 30%;
-    margin: 10px;
+    margin: auto;
   }
 
   > .wrapper > .content > .name {
     font-size: 0.9em;
     color: $goshawk-grey;
     font-weight: bold;
+    height: 50px;
+    // 3点リーダー
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
   }
 
   > .wrapper > .content > .price {
@@ -51,7 +57,7 @@
   }
 
   > .wrapper > .content > .dimentions > ul {
-    margin: 10px 0;
+    margin: 10px 0 0 0;
     font-size: 14px;
   }
 

@@ -74,7 +74,7 @@ const Cart: FC = () => {
   };
 
   return (
-    <div className="cart-container">
+    <div className="common-container">
       {!documents && <Loading />}
       {isPendingBuy && <Loading />}
       {documents && (

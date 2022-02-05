@@ -56,8 +56,7 @@ const Dashboard: FC = () => {
     : null;
 
   return (
-    <>
-      <h2 className="page-title">Dashboard</h2>
+    <div className="common-container">
       {isPending && <Loading />}
       {filteredProductItems && (
         <ProductFilter
@@ -68,7 +67,7 @@ const Dashboard: FC = () => {
       {filteredProductItems && (
         <ProductList productItems={filteredProductItems} />
       )}
-    </>
+    </div>
   );
 };
 

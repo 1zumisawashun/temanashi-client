@@ -1,28 +1,31 @@
 .diagnose-result {
   font-size: 16px;
-  @include sp {
-    margin: 10px;
-  }
   > .thumbnail {
     background: white;
-    padding: 50px 0;
+    padding: 40px 0;
     text-align: center;
     box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.05);
     border-radius: 6px;
     @include sp {
-      padding: 10px 0;
+      padding: 5% 0;
     }
   }
   > .thumbnail > img {
     width: 700px;
     object-fit: cover;
     @include sp {
-      width: 95%;
+      width: 90%;
       margin: 0 auto;
     }
   }
   > .content {
     margin: 20px 0;
+    @include sp {
+      margin: 20px 10px;
+    }
+  }
+  > .content > .name {
+    font-size: 1.6rem;
   }
 
   > .content > .price > .item > .total {

@@ -4,6 +4,7 @@
   overflow-x: scroll;
 
   > nav {
+    width: min-content;
     display: flex;
     padding: 10px;
     background-color: $white;
