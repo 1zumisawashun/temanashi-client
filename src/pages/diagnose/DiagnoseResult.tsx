@@ -9,13 +9,13 @@ const DiagnoseResult: FC = () => {
     <>
       {db.length === 0 && recommendation && <Loading />}
       <div className="diagnose-result">
-        <div className="image-box">
+        <div className="thumbnail">
           <img src={recommendation.imageUrl} alt="" />
         </div>
-        <div className="content-box">
+        <div className="content">
           <h1>シンプル風</h1>
           <p className="text">{recommendation.details}</p>
-          <div className="color">
+          <div className="colors">
             <div className="item">
               <p className="text">ベースカラー：{recommendation.baseColor}</p>
               <span className="cercle -white"></span>
@@ -33,7 +33,7 @@ const DiagnoseResult: FC = () => {
           </div>
         </div>
       </div>
-      <div className="diagnose-result-list">
+      <div className="product-list">
         {db.map((furniture) => (
           <Link to="/diagnose" key={furniture.name}>
             <div className="image-box">

@@ -3,41 +3,46 @@
   @include sp {
     margin: 10px;
   }
-  > .image-box {
+  > .thumbnail {
     background: white;
     padding: 50px 0;
     text-align: center;
     box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.05);
     border-radius: 6px;
+    @include sp {
+      padding: 10px 0;
+    }
   }
-  > .image-box > img {
+  > .thumbnail > img {
     width: 700px;
     object-fit: cover;
     @include sp {
-      width: 100%;
+      width: 95%;
+      margin: 0 auto;
     }
   }
-  > .content-box {
+  > .content {
     margin: 20px 0;
   }
 
-  > .content-box > .price > .item > .total {
+  > .content > .price > .item > .total {
     font-weight: bold;
     margin: 0 10px;
   }
-  > .content-box > .color {
+  > .content > .colors {
     width: 55%;
     display: flex;
     justify-content: space-between;
     margin: 10px 0;
     @include sp {
+      display: block;
       width: 100%;
     }
   }
-  > .content-box > .color > .item {
+  > .content > .colors > .item {
     display: flex;
   }
-  > .content-box > .color > .item > .cercle {
+  > .content > .colors > .item > .cercle {
     display: inline-block;
     width: 25px;
     height: 25px;
@@ -52,4 +57,3 @@
     }
   }
 }
-

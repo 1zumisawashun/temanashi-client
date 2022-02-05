@@ -24,7 +24,7 @@ const FurnitureList: FC<Props> = ({
   if (!user) throw new Error("we cant find your account");
 
   return (
-    <div className="diagnose-result-list">
+    <div className="product-list">
       {productItems &&
         productItems.map((item: ProductItem | ProductItemWithoutComment) => (
           <>
