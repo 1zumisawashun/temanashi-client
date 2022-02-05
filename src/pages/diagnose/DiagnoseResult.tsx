@@ -35,14 +35,16 @@ const DiagnoseResult: FC = () => {
       </div>
       <div className="product-list">
         {db.map((furniture) => (
-          <Link to="/diagnose" key={furniture.name}>
-            <div className="image-box">
+          <Link to="/diagnose" key={furniture.name} className="wrapper">
+            <div className="thumbnail">
               <img src={furniture.imageUrl} alt="" />
             </div>
-            <div className="content-box">
-              <h4>{furniture.name}</h4>
-              {furniture.price && <p>{taxIncludedPrice(furniture.price)}</p>}
-              <div className="assigned-to">
+            <div className="content">
+              <h4 className="name">{furniture.name}</h4>
+              {furniture.price && (
+                <p className="price">{taxIncludedPrice(furniture.price)}</p>
+              )}
+              <div className="dimentions">
                 <ul>
                   <li>幅{furniture.width}cm</li>
                   <li>深さ{furniture.depth}cm</li>

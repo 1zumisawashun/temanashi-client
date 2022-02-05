@@ -28,8 +28,12 @@ const FurnitureList: FC<Props> = ({
       {productItems &&
         productItems.map((item: ProductItem | ProductItemWithoutComment) => (
           <>
-            <Link to={`/furnitures/${item.product.id}`} key={item.product.id}>
-              <div className="image-box">
+            <Link
+              to={`/furnitures/${item.product.id}`}
+              key={item.product.id}
+              className="wrapper"
+            >
+              <div className="thumbnail">
                 {item.product.images.length > 0 ? (
                   <img src={item.product.images[0]} alt="" />
                 ) : (
@@ -40,14 +44,14 @@ const FurnitureList: FC<Props> = ({
                   />
                 )}
               </div>
-              <div className="content-box">
-                <h4>{item.product.name}</h4>
+              <div className="content">
+                <h4 className="name">{item.product.name}</h4>
                 {Object.keys(item.prices).map((priceIndex) => (
-                  <p key={priceIndex}>
+                  <p key={priceIndex} className="price">
                     {taxIncludedPrice(item.prices[priceIndex].unit_amount)}
                   </p>
                 ))}
-                <div className="assigned-to">
+                <div className="dimentions">
                   <ul>
                     <li>幅111cm</li>
                     <li>深さ222cm</li>
