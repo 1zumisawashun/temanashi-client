@@ -32,9 +32,11 @@ const Project: FC = () => {
     return <div className="loading">Loading...</div>;
   }
   return (
-    <div className="project-details">
-      <FurnitureSummary furniture={productItem} />
-      <FurnitureComments furniture={productItem} />
+    <div className="common-container">
+      <div className="product-container">
+        <FurnitureSummary furniture={productItem} />
+        <FurnitureComments furniture={productItem} />
+      </div>
     </div>
   );
 };

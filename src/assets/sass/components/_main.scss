@@ -17,13 +17,15 @@
 @import "./components/product-list.scss";
 
 /* Page Layer */
-@import "./pages//app.scss";
+@import "./pages/app.scss";
 @import "./pages/dashboard.scss";
 @import "./pages/diagnose-result.scss";
 @import "./pages/error.scss";
 @import "./pages/login.scss";
-@import "./pages/project.scss";
 @import "./pages/user.scss";
 @import "./pages/cart-container.scss";
 @import "./pages/terms.scss";
 @import "./pages/create-furniture.scss";
+@import "./pages/product-container.scss";
+@import "./pages/product-summary.scss";
+@import "./pages/product-comments.scss";

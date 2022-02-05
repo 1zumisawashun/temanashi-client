@@ -55,16 +55,11 @@ const ProjectSummary: FC<Props> = ({ furniture }) => {
   };
   // オプショナルチェーンを付けないとバグる。早期リターンを付与する
   return (
-    <div className="project-summary-container">
+    <>
       {isPending && <Loading />}
-      <div className="project-summary">
-        <div className="image-box">
-          <img
-            src={furniture.product.images[0]}
-            alt=""
-            className="image"
-            onClick={openModal}
-          />
+      <div className="project-summary-container">
+        <div className="thumbnail">
+          <img src={furniture.product.images[0]} alt="" onClick={openModal} />
           {toggleModal && (
             <PreviewModal
               src={"https://placehold.jp/330x200.png"}
@@ -73,20 +68,17 @@ const ProjectSummary: FC<Props> = ({ furniture }) => {
           )}
         </div>
 
-        <h2 className="page-title">{furniture.product.name}</h2>
-        {/* <p className="due-date">
-          {project.dueDate?.toDate().toDateString()}
-        </p> */}
+        <h2 className="title">{furniture.product.name}</h2>
         {Object.keys(furniture.prices).map((priceIndex) => (
-          <div key={priceIndex}>
+          <div key={priceIndex} className="content">
             <div className="price">
               {taxIncludedPrice(furniture.prices[priceIndex].unit_amount)}
             </div>
             <p className="details">{furniture.product.description}</p>
             <div className="btnarea">
-              {/* <button className="btn" onClick={() => onClickBuy(priceIndex)}>
-                購入
-              </button> */}
+              <button className="btn" onClick={handleClick}>
+                Delete Here...
+              </button>
               <button
                 className="btn"
                 onClick={() => addCart(furniture.product.id)}
@@ -98,11 +90,7 @@ const ProjectSummary: FC<Props> = ({ furniture }) => {
           </div>
         ))}
       </div>
-      {/* {user.uid === project.createdBy?.id && ( */}
-      <button className="btn" onClick={handleClick}>
-        Delete Here...
-      </button>
-    </div>
+    </>
   );
 };
 export default ProjectSummary;

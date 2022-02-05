@@ -30,29 +30,28 @@ const ProjectComments: FC<Props> = ({ furniture }) => {
 
   return (
     <>
-      <div className="project-comments">
-        <h4>Free Comments</h4>
+      <div className="product-comments">
         <ul className="comment-list">
           <li>
-            <div className="comment-auther">
+            <div className="auther">
               <Avatar src={PersonIcon} />
               <p>temanashi-tester</p>
             </div>
-            <div className="comment-date">
+            <div className="date">
               <p>約5分前</p>
             </div>
-            <div className="comment-content">
+            <div className="content">
               <p>free comment area !</p>
             </div>
           </li>
           {furniture.comments?.length > 0 &&
             furniture.comments?.map((comment: Comment) => (
               <li key={comment.id}>
-                <div className="comment-auther">
+                <div className="auther">
                   <Avatar src={comment.photoURL} />
                   <p>{comment.displayName}</p>
                 </div>
-                <div className="comment-date">
+                <div className="date">
                   <p>
                     {formatDistanceToNow(comment.createdAt?.toDate(), {
                       addSuffix: true,
@@ -60,7 +59,7 @@ const ProjectComments: FC<Props> = ({ furniture }) => {
                     })}
                   </p>
                 </div>
-                <div className="comment-content">
+                <div className="content">
                   <p>{comment.content}</p>
                 </div>
               </li>

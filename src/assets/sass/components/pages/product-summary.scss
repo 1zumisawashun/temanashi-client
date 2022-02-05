@@ -1,0 +1,45 @@
+.project-summary-container {
+  background-color: $white;
+  padding: 30px;
+  border-radius: 4px;
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.05);
+  @include sp {
+    padding: 15px;
+  }
+
+  > .thumbnail > img {
+    width: 400px;
+    @include sp {
+      width: 100%;
+    }
+  }
+  > .title {
+    margin-top: 10px;
+    font-size: 1.2em;
+    color: $goshawk-grey;
+  }
+  > .content > .price {
+    font-size: 1.2em;
+    color: $basalt-grey;
+  }
+
+  > .content > .details {
+    margin: 20px 0;
+    color: $basalt-grey;
+    line-height: 1.8em;
+    font-size: 0.9em;
+  }
+
+  > .content > .btnarea {
+    display: flex;
+    justify-content: space-between;
+    width: 60%;
+    @include sp {
+      width: 80%;
+    }
+  }
+
+  > .btn {
+    margin-top: 20px;
+  }
+}
