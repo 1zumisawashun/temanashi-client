@@ -1,6 +1,9 @@
 .cart-list {
   width: 80%;
   margin: 0 auto;
+  @include sp {
+    width: 90%;
+  }
 
   > .wrapper {
     display: flex;
@@ -10,59 +13,60 @@
   }
 
   > .wrapper > .thumbnail {
-    width: 20%;
+    display: block;
+    width: 30%;
     display: flex;
     margin: auto;
+    @include sp {
+      width: 40%;
+    }
   }
   > .wrapper > .thumbnail > img {
-    width: 150px;
-    height: 100px;
+    width: 130px;
+    height: 80px;
     object-fit: cover;
     border-radius: 10px;
     @include sp {
-      width: 210px;
+      width: 100px;
+      height: 60px;
     }
   }
 
   > .wrapper > .content {
-    width: 45%;
-    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    width: 70%;
+    @include sp {
+      width: 60%;
+    }
   }
 
-  > .wrapper > .content > .name {
-    font-size: 0.9em;
+  > .wrapper > .content > .details {
+    margin: auto 0;
+  }
+  > .wrapper > .content > .details > .name {
+    font-size: 1.1rem;
     color: $goshawk-grey;
     font-weight: bold;
-    height: 50px;
     text-decoration: none;
-    // 3点リーダー
+    /*
+    * 3点リーダー
+    */
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 1;
     overflow: hidden;
+    @include sp {
+      font-size: 0.9rem;
+    }
   }
 
-  > .wrapper > .content > .price {
+  > .wrapper > .content > .details > .name > .price {
     color: $basalt-grey;
-    font-size: 0.9em;
-  }
-
-  > .wrapper > .content > .dimentions {
-    margin-top: 10px;
-    border-top: 1px solid #eee;
-  }
-
-  > .wrapper > .content > .dimentions > ul {
-    margin: 10px 0 0 0;
-    font-size: 14px;
-  }
-
-  > .wrapper > .content > .dimentions > ul > li {
-    margin-right: 10px;
-  }
-
-  > .wrapper > .content > .dimentions > ul > li > .avatar {
-    width: 30px;
-    height: 30px;
+    font-size: 0.9rem;
+    margin: 0 10px;
+    @include sp {
+      font-size: 0.4rem;
+    }
   }
 }

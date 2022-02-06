@@ -2,6 +2,10 @@
   width: 65%;
   margin: auto;
   display: flex;
+  @include sp {
+    width: 85%;
+    margin-bottom: 10px;
+  }
   > .checkbox {
     width: 80px;
     margin: 0;

@@ -10,4 +10,7 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 12px;
   box-shadow: 0 26px 42px rgba(0, 0, 0, 0.1);
+  @include sp {
+    margin: 0;
+  }
 }

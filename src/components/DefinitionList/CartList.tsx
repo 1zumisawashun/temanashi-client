@@ -51,7 +51,11 @@ const CartList: FC<Props> = ({
         productItems.map((item: ProductItem | ProductItemWithoutComment) => (
           <>
             <div className="wrapper">
-              <div className="thumbnail">
+              <Link
+                to={`/furnitures/${item.product.id}`}
+                key={item.product.id}
+                className="thumbnail"
+              >
                 {item.product.images.length > 0 ? (
                   <img src={item.product.images[0]} alt="" />
                 ) : (
@@ -61,33 +65,37 @@ const CartList: FC<Props> = ({
                     width="100"
                   />
                 )}
-              </div>
+              </Link>
               <div className="content">
-                <Link
-                  to={`/furnitures/${item.product.id}`}
-                  key={item.product.id}
-                >
-                  <h4 className="name">{item.product.name}</h4>
-                </Link>
                 {Object.keys(item.prices).map((priceIndex) => (
-                  <p key={priceIndex} className="price">
-                    {taxIncludedPrice(item.prices[priceIndex].unit_amount)}
-                  </p>
+                  <>
+                    <div key={item.product.id} className="details">
+                      <p className="name">
+                        {item.product.name}
+                        <span key={priceIndex} className="price">
+                          {taxIncludedPrice(
+                            item.prices[priceIndex].unit_amount
+                          )}
+                        </span>
+                      </p>
+
+                      <div key={priceIndex} className="btnarea">
+                        <Counter add={selectProduct} priceIndex={priceIndex} />
+                      </div>
+                    </div>
+                    <div>
+                      <img
+                        src={DeleteIcon}
+                        alt=""
+                        className="delete-icon"
+                        onClick={() =>
+                          HandleRemove(item.product.id, priceIndex)
+                        }
+                      />
+                    </div>
+                  </>
                 ))}
               </div>
-              {selectProduct &&
-                removeProduct &&
-                Object.keys(item.prices).map((priceIndex) => (
-                  <div key={priceIndex}>
-                    <button
-                      onClick={() => HandleRemove(item.product.id, priceIndex)}
-                      className="btn"
-                    >
-                      <img src={DeleteIcon} alt="" />
-                    </button>
-                    <Counter add={selectProduct} priceIndex={priceIndex} />
-                  </div>
-                ))}
             </div>
             <Divider />
           </>
