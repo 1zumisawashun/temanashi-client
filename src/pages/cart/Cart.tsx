@@ -7,7 +7,7 @@ import InpuCheckbox from "../../components/Input/InputCheckbox";
 import { useToken } from "../../hooks/useToken";
 import { useLogout } from "../../hooks/useLogout";
 import { useHistory } from "react-router-dom";
-import ProductList from "../../components/DefinitionList/ProductList";
+import CartList from "../../components/DefinitionList/CartList";
 
 const Cart: FC = () => {
   const [isAccepted, setIsAccepted] = useState<boolean>(false);
@@ -23,15 +23,42 @@ const Cart: FC = () => {
   const { documents } = useCartDocument();
 
   const onClickBuy = async () => {
-    if (line_items.length === 0) {
-      alert("購入する製品を選択してください");
-      return;
-    }
-    // NOTE:awaitをつけるとPromise<string>がstringになる
-    const result = await verifyJWT();
-    console.log(result);
+    let formatlineItems: any = [];
+    let documentsLineItems: any = [];
 
-    if (!result) {
+    await documents.forEach((document: any) => {
+      Object.keys(document.prices).forEach((priceIndex: string) => {
+        documentsLineItems = [
+          ...documentsLineItems,
+          { price: priceIndex, quantity: 1 },
+        ];
+      });
+    });
+
+    if (line_items.length !== 0) {
+      formatlineItems = line_items.reduce((acc, v) => {
+        // @ts-ignore
+        acc[v.price] = v;
+        return acc;
+      }, {});
+    }
+
+    const resultsLineItems: Array<line_item> = await documentsLineItems.map(
+      (item: line_item) => {
+        const lineItem = formatlineItems[item.price];
+        if (lineItem) {
+          return formatlineItems[item.price];
+        }
+        return item;
+      }
+    );
+    console.log(resultsLineItems, "resultsLineItems");
+
+    // NOTE:awaitをつけるとPromise<string>がstringになる
+    const token = await verifyJWT();
+    console.log(token);
+
+    if (!token) {
       alert("認証トークンが有効期限切れです。ログインしなおしてください。");
       logout();
       history.push("/login");
@@ -43,7 +70,7 @@ const Cart: FC = () => {
       const uid = user.uid;
       const seccess_url = `${window.location.origin}/complete`;
       const cancel_url = `${window.location.origin}/error`;
-      await productUseCase.buy(uid, line_items, seccess_url, cancel_url);
+      await productUseCase.buy(uid, resultsLineItems, seccess_url, cancel_url);
     } catch (error) {
       if (error instanceof Error) {
         alert(`Error: ${!!error.message ? error.message : error}`);
@@ -53,15 +80,27 @@ const Cart: FC = () => {
     }
   };
 
+  const checkSameProduct = (price: string): Array<line_item> => {
+    let result: Array<line_item> = [];
+    line_items.forEach((item: line_item) => {
+      if (item.price !== price) {
+        result = [...result, item];
+      }
+    });
+    return result;
+  };
+
   const selectProduct = async (price: string, quantity: number) => {
     const lineItem: line_item = {
       price,
       quantity,
     };
-    const newArray = [...line_items, lineItem];
-    await setLinetems(newArray);
+    const checkedProduct = await checkSameProduct(price);
+    const result = [...checkedProduct, lineItem];
+    await setLinetems(result);
   };
 
+  // これにcookieの処理も入れる
   const removeProduct = async (price: string, quantity: number) => {
     const newArray = await line_items.filter((item: any) => {
       return item.price !== price;
@@ -78,7 +117,7 @@ const Cart: FC = () => {
       {!documents && <Loading />}
       {isPendingBuy && <Loading />}
       {documents && (
-        <ProductList
+        <CartList
           productItems={documents}
           selectProduct={selectProduct}
           removeProduct={removeProduct}

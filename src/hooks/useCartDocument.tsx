@@ -10,7 +10,6 @@ export const useCartDocument = () => {
     []
   );
   const [cookies] = useCookies(["productId"]);
-  console.log(cookies, "cookies");
 
   useEffect(() => {
     const randomDocument: Array<ProductItemWithoutComment> = [];

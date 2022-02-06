@@ -1,0 +1,76 @@
+.cart-list {
+  width: 80%;
+  margin: 0 auto;
+  // margin-top: 40px;
+  // display: grid;
+  // grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  // grid-gap: 20px;
+  background: $white;
+
+  > .wrapper {
+    display: flex;
+    justify-content: space-between;
+    // background-color: $white;
+    padding: 16px;
+    border-radius: 6px;
+    // box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.05);
+    text-decoration: none;
+    color: inherit;
+  }
+
+  > .wrapper > .thumbnail {
+    width: 30%;
+    display: flex;
+    margin: auto;
+  }
+  > .wrapper > .thumbnail > img {
+    width: 150px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 10px;
+    @include sp {
+      width: 210px;
+    }
+  }
+
+  > .wrapper > .content {
+    width: 50%;
+    margin: auto;
+  }
+
+  > .wrapper > .content > .name {
+    font-size: 0.9em;
+    color: $goshawk-grey;
+    font-weight: bold;
+    height: 50px;
+    // 3点リーダー
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+  }
+
+  > .wrapper > .content > .price {
+    color: $basalt-grey;
+    font-size: 0.9em;
+  }
+
+  > .wrapper > .content > .dimentions {
+    margin-top: 10px;
+    border-top: 1px solid #eee;
+  }
+
+  > .wrapper > .content > .dimentions > ul {
+    margin: 10px 0 0 0;
+    font-size: 14px;
+  }
+
+  > .wrapper > .content > .dimentions > ul > li {
+    margin-right: 10px;
+  }
+
+  > .wrapper > .content > .dimentions > ul > li > .avatar {
+    width: 30px;
+    height: 30px;
+  }
+}
