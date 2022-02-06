@@ -1,6 +1,6 @@
 import { FC } from "react";
 import Hamburger from "hamburger-react";
-import Temple from "../assets/icon/temple.svg";
+import Temple from "../assets/icon/icon_temple.svg";
 import FlatButton from "./Button/FlatButton";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useHistory } from "react-router-dom";

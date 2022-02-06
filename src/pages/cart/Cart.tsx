@@ -123,23 +123,25 @@ const Cart: FC = () => {
           removeProduct={removeProduct}
         />
       )}
-      <div className="accept-block">
-        <InpuCheckbox
-          state={isAccepted}
-          setState={setIsAccepted}
-          text="利用規約・個人情報の取り扱いについて同意しますか？"
-        />
-        {isAccepted && (
-          <button className="btn" onClick={onClickBuy}>
-            購入する
-          </button>
-        )}
-        {!isAccepted && (
-          <button className="btn -disabled" onClick={handleAlert}>
-            購入する
-          </button>
-        )}
-      </div>
+      {documents.length !== 0 && (
+        <div className="accept-block">
+          <InpuCheckbox
+            state={isAccepted}
+            setState={setIsAccepted}
+            text="利用規約・個人情報の取り扱いについて同意しますか？"
+          />
+          {isAccepted && (
+            <button className="btn" onClick={onClickBuy}>
+              購入する
+            </button>
+          )}
+          {!isAccepted && (
+            <button className="btn -disabled" onClick={handleAlert}>
+              購入する
+            </button>
+          )}
+        </div>
+      )}
     </div>
   );
 };

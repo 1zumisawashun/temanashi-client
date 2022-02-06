@@ -1,9 +1,9 @@
 import React, { FC, useState, useRef, useMemo } from "react";
 import TinderCard from "react-tinder-card";
 import { useHistory } from "react-router-dom";
-import ThumbUp from "../assets/icon/thumb_up.svg";
-import ThumbDown from "../assets/icon/thumb_down.svg";
-import Undo from "../assets/icon/undo.svg";
+import ThumbUp from "../assets/icon/icon_thumb_up.svg";
+import ThumbDown from "../assets/icon/icon_thumb_down.svg";
+import Undo from "../assets/icon/icon_undo.svg";
 import { ProductDoc } from "../@types/stripe";
 import ProgressBar from "./ProgressBar";
 import { delay } from "../utilities/convertValue";

@@ -1,9 +1,9 @@
 .checkbox-container {
-  width: 40%;
+  width: 65%;
   margin: auto;
   display: flex;
-  justify-content: space-between;
   > .checkbox {
+    width: 80px;
     margin: 0;
   }
   > .checkbox > .icon {

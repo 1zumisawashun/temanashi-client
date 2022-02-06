@@ -9,6 +9,8 @@ import { taxIncludedPrice } from "../../utilities/convertValue";
 import Counter from "../../components/Counter";
 import { useCookies } from "react-cookie";
 import { useHistory } from "react-router-dom";
+import Divider from "../../components/Divider";
+import DeleteIcon from "../../assets/icon/icon_delete.svg";
 
 type Props = {
   productItems: Array<ProductItem | ProductItemWithoutComment>;
@@ -77,16 +79,17 @@ const CartList: FC<Props> = ({
                 removeProduct &&
                 Object.keys(item.prices).map((priceIndex) => (
                   <div key={priceIndex}>
-                    <Counter add={selectProduct} priceIndex={priceIndex} />
                     <button
                       onClick={() => HandleRemove(item.product.id, priceIndex)}
                       className="btn"
                     >
-                      削除
+                      <img src={DeleteIcon} alt="" />
                     </button>
+                    <Counter add={selectProduct} priceIndex={priceIndex} />
                   </div>
                 ))}
             </div>
+            <Divider />
           </>
         ))}
     </div>

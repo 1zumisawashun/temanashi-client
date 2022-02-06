@@ -1,4 +1,4 @@
-import Temple from "../assets/icon/temple.svg";
+import Temple from "../assets/icon/icon_temple.svg";
 import { useLogout } from "../hooks/useLogout";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { FC, FormEvent, useState } from "react";

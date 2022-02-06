@@ -1,25 +1,16 @@
 .cart-list {
   width: 80%;
   margin: 0 auto;
-  // margin-top: 40px;
-  // display: grid;
-  // grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  // grid-gap: 20px;
-  background: $white;
 
   > .wrapper {
     display: flex;
     justify-content: space-between;
-    // background-color: $white;
     padding: 16px;
     border-radius: 6px;
-    // box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.05);
-    text-decoration: none;
-    color: inherit;
   }
 
   > .wrapper > .thumbnail {
-    width: 30%;
+    width: 20%;
     display: flex;
     margin: auto;
   }
@@ -34,7 +25,7 @@
   }
 
   > .wrapper > .content {
-    width: 50%;
+    width: 45%;
     margin: auto;
   }
 
@@ -43,6 +34,7 @@
     color: $goshawk-grey;
     font-weight: bold;
     height: 50px;
+    text-decoration: none;
     // 3点リーダー
     display: -webkit-box;
     -webkit-box-orient: vertical;

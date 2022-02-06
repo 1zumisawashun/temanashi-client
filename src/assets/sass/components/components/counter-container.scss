@@ -1,0 +1,16 @@
+.counter-container {
+  .count {
+    margin: 0 10px;
+  }
+  .counter {
+    width: 40px;
+    height: 40px;
+    fill: $vintage-blue;
+    border-radius: 50%;
+    border: none;
+    background-color: white;
+    border: 2px solid $vintage-blue;
+    transition: 200ms;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.05);
+  }
+}

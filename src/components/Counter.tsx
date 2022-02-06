@@ -1,4 +1,6 @@
 import { FC, useState } from "react";
+import AddIcon from "../assets/icon/icon_add.svg";
+import RemoveIcon from "../assets/icon/icon_remove.svg";
 
 type Prop = {
   add: Function;
@@ -33,21 +35,21 @@ const Counter: FC<Prop> = ({ add, priceIndex }) => {
   };
 
   return (
-    <div>
+    <div className="counter-container">
       <button
         onClick={() => decreaseCount(-1)}
         disabled={isDecrementActive}
-        className="btn"
+        className="counter"
       >
-        -
+        <img src={RemoveIcon} alt="remove icon" />
       </button>
-      <span>{count}</span>
+      <span className="count">{count}</span>
       <button
         onClick={() => incrementCount(1)}
         disabled={isIncrementActive}
-        className="btn"
+        className="counter"
       >
-        +
+        <img src={AddIcon} alt="add icon" />
       </button>
     </div>
   );

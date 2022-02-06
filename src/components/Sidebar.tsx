@@ -1,10 +1,10 @@
 import { NavLink } from "react-router-dom";
 import Avatar from "./Avatar";
 import { useAuthContext } from "../hooks/useAuthContext";
-import DashboardIcon from "../assets/icon/dashboard_icon.svg";
-import AddIcon from "../assets/icon/add_icon.svg";
-import FeedbackIcon from "../assets/icon/feedback_icon.svg";
-import CartIcon from "../assets/icon/shopping_cart.svg";
+import DashboardIcon from "../assets/icon/icon_dashboard.svg";
+import AddIcon from "../assets/icon/icon_add.svg";
+import FeedbackIcon from "../assets/icon/icon_feedback.svg";
+import CartIcon from "../assets/icon/icon_cart.svg";
 import { FC } from "react";
 
 const Sidebar: FC = () => {
