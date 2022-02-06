@@ -101,7 +101,7 @@ const Cart: FC = () => {
   };
 
   // これにcookieの処理も入れる
-  const removeProduct = async (price: string, quantity: number) => {
+  const removeProduct = async (price: string) => {
     const newArray = await line_items.filter((item: any) => {
       return item.price !== price;
     });
@@ -114,9 +114,9 @@ const Cart: FC = () => {
 
   return (
     <div className="common-container">
-      {!documents && <Loading />}
       {isPendingBuy && <Loading />}
-      {documents && (
+      {documents.length === 0 && <div>documentsの商品がありません。</div>}
+      {documents.length !== 0 && (
         <CartList
           productItems={documents}
           selectProduct={selectProduct}
@@ -127,7 +127,7 @@ const Cart: FC = () => {
         <InpuCheckbox
           state={isAccepted}
           setState={setIsAccepted}
-          text="利用規約に同意しますか？"
+          text="利用規約・個人情報の取り扱いについて同意しますか？"
         />
         {isAccepted && (
           <button className="btn" onClick={onClickBuy}>

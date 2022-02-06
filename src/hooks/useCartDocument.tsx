@@ -15,7 +15,6 @@ export const useCartDocument = () => {
     const randomDocument: Array<ProductItemWithoutComment> = [];
 
     function asyncLoop() {
-      if (!cookies.productId.length) return; // cookiesが空の場合は早期リターン
       cookies.productId.forEach(async (productId: string) => {
         const result = await productUseCase.fetchProductItemWitoutComment(
           productId
@@ -26,7 +25,9 @@ export const useCartDocument = () => {
         }
       });
     }
-    return asyncLoop();
+    if (cookies.productId.length) {
+      return asyncLoop();
+    }
   }, [cookies.productId]);
 
   return { documents };

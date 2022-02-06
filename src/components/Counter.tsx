@@ -8,46 +8,46 @@ type Prop = {
 const Counter: FC<Prop> = ({ add, priceIndex }) => {
   const [count, setCount] = useState<number>(1);
   const [isIncrementActive, setIsIncrementActive] = useState<boolean>(false);
-  const [isDecrementActive, setIsDecrementActive] = useState<boolean>(false);
+  const [isDecrementActive, setIsDecrementActive] = useState<boolean>(true);
 
   // NOTE:増減1~5までを仮として設定する
   const incrementCount = (increment: number) => {
     setCount(count + increment);
-    if (count !== 2) {
+    if (count !== 1 || 2) {
       setIsDecrementActive(false);
     }
     if (count === 4) {
       setIsIncrementActive(true);
     }
-    add(priceIndex, count);
+    add(priceIndex, count + increment);
   };
   const decreaseCount = (decrement: number) => {
     setCount(count + decrement);
-    if (count === 2) {
+    if (count + decrement === 1) {
       setIsDecrementActive(true);
     }
     if (count !== 4) {
       setIsIncrementActive(false);
     }
-    add(priceIndex, count);
+    add(priceIndex, count + decrement);
   };
 
   return (
     <div>
-      <button
-        onClick={() => incrementCount(1)}
-        disabled={isIncrementActive}
-        className="btn"
-      >
-        +
-      </button>
-      <span>{count}</span>
       <button
         onClick={() => decreaseCount(-1)}
         disabled={isDecrementActive}
         className="btn"
       >
         -
+      </button>
+      <span>{count}</span>
+      <button
+        onClick={() => incrementCount(1)}
+        disabled={isIncrementActive}
+        className="btn"
+      >
+        +
       </button>
     </div>
   );
