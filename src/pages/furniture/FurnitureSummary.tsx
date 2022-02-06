@@ -59,7 +59,11 @@ const ProjectSummary: FC<Props> = ({ furniture }) => {
       {isPending && <Loading />}
       <div className="project-summary-container">
         <div className="thumbnail">
-          <img src={furniture.product.images[0]} alt="" onClick={openModal} />
+          {furniture.product.images.length > 0 ? (
+            <img src={furniture.product.images[0]} alt="" onClick={openModal} />
+          ) : (
+            <img src="https://placehold.jp/200x160.png" alt="" width="100" />
+          )}
           {toggleModal && (
             <PreviewModal
               src={"https://placehold.jp/330x200.png"}

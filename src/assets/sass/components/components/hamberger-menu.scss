@@ -1,7 +1,11 @@
 .responsive-header {
-  display: flex;
+  width: 95%;
   margin: 0 auto;
   justify-content: flex-end;
+  &.-flex {
+    display: flex;
+  }
+
   > .logo {
     font-weight: bold;
     color: $goshawk-grey;
@@ -11,23 +15,35 @@
     margin-right: auto;
   }
   > .logo > img {
-    margin-right: 10px;
+    margin: 0 5px;
     filter: invert(25%);
     width: 36px;
     margin-top: -8px;
   }
-  > .hamburger-box {
+
+  // > .responsive-overlay {
+  //   position: absolute;
+  //   top: 0;
+  //   left: 0;
+  //   width: 50%;
+  //   height: 50%;
+  //   background-color: rgba(0, 0, 0, 0.6);
+  //   backdrop-filter: blur(3px); /* 一番下のbody領域をぼやかす */
+  //   z-index: 3;
+  // }
+
+  > .responsive-overlay > .hamburger-box {
     width: 15%;
     margin-left: auto;
   }
-}
-
-.menu {
-  width: 80%;
-  margin: 0 auto;
-  padding: 10px;
-  background: $vintage-blue;
-  > .hamburger-link {
+  > .responsive-overlay > .menu {
+    width: 80%;
+    margin: 0 auto;
+    padding: 10px;
+    background: $vintage-blue;
+    margin-bottom: 50px;
+  }
+  > .responsive-overlay > .menu > .hamburger-link {
     text-align: center;
   }
 }

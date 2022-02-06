@@ -16,13 +16,28 @@ const HamburgerMenu: FC<Prop> = ({ state, setState }) => {
   if (!user) throw new Error("we cant find your account");
 
   const closeHamburger = (path: string) => {
+    document.body.style.overflow = "";
     setState(!state);
     history.push(path);
   };
 
+  const handleClick = () => {
+    console.log("handleClick");
+  };
+
+  const scrollTop = (): number => {
+    return Math.max(
+      window.pageYOffset,
+      document.documentElement.scrollTop,
+      document.body.scrollTop
+    );
+  };
+
+  const styles = { top: scrollTop() };
+
   return (
     <>
-      <ul className="responsive-header">
+      <ul className={state ? `responsive-header` : `responsive-header -flex`}>
         {!state && (
           <li className="logo">
             <img src={Temple} alt="" />
@@ -30,12 +45,15 @@ const HamburgerMenu: FC<Prop> = ({ state, setState }) => {
           </li>
         )}
         {state && (
-          <>
+          <div className="responsive-overlay" style={styles}>
+            <li className="hamburger-box">
+              <Hamburger toggled={state} toggle={setState} />
+            </li>
             <ul className="menu">
               <li className="hamburger-link">
                 <FlatButton
                   styleName="-link"
-                  content="dashboard"
+                  content="Dashboard"
                   onClick={() => closeHamburger("/")}
                 />
               </li>
@@ -60,12 +78,21 @@ const HamburgerMenu: FC<Prop> = ({ state, setState }) => {
                   onClick={() => closeHamburger(`/users/${user.uid}/cart`)}
                 />
               </li>
+              <li className="hamburger-link">
+                <FlatButton
+                  styleName="-link"
+                  content="My Page"
+                  onClick={() => closeHamburger(`/users/${user.uid}/favorite`)}
+                />
+              </li>
             </ul>
-          </>
+          </div>
         )}
-        <li className="hamburger-box">
-          <Hamburger toggled={state} toggle={setState} />
-        </li>
+        {!state && (
+          <li className="hamburger-box" onClick={handleClick}>
+            <Hamburger toggled={state} toggle={setState} />
+          </li>
+        )}
       </ul>
     </>
   );
