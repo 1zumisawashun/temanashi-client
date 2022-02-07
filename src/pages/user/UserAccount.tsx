@@ -1,9 +1,12 @@
-import { FC } from "react";
+import { FC, FormEvent } from "react";
 import UserNavbar from "../../components/UserNavbar";
 import { projectFunctions } from "../../firebase/config";
 import axios from "axios";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { useCookies } from "react-cookie";
+import { useLogout } from "../../hooks/useLogout";
+import { useHistory } from "react-router-dom";
+import FlatButton from "../../components/Button/FlatButton";
 
 type Response = {
   message: string;
@@ -14,6 +17,14 @@ const UserAccount: FC = () => {
   const { user } = useAuthContext();
   if (!user) throw new Error("we cant find your account");
   const [cookies, setCookie] = useCookies(["jwt"]);
+  const { logout, isPending } = useLogout();
+  const history = useHistory();
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    logout();
+    history.push("/login");
+  };
 
   const onCallTest = () => {
     const helloOnCall = projectFunctions.httpsCallable("helloOnCall");
@@ -76,6 +87,10 @@ const UserAccount: FC = () => {
           <button onClick={verifyJWT} className="btn">
             verifyJWT
           </button>
+          {!isPending && <FlatButton content="Logout" onClick={handleSubmit} />}
+          {isPending && (
+            <FlatButton content="Logging out..." isDisabled={true} />
+          )}
         </div>
       </div>
     </>
