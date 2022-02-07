@@ -20,7 +20,7 @@ const Navbar: FC = () => {
   };
 
   return (
-    <div className="navbar">
+    <div className={!isOpen ? "navbar" : "navbar -active"}>
       <ul className="wrapper">
         {!isOpen && (
           <li className="logo">
@@ -52,7 +52,7 @@ const Navbar: FC = () => {
       </ul>
       <div className="responsive-wrapper">
         <HamburgerMenu state={isOpen} setState={setIsOpen} />
-        </div>
+      </div>
     </div>
   );
 };

@@ -2,35 +2,25 @@
   width: 95%;
   margin: 0 auto;
   justify-content: flex-end;
-  &.-flex {
+  padding: 15px 0;
+
+  > .head {
     display: flex;
   }
 
-  > .logo {
+  > .head > .logo {
     font-weight: bold;
-    color: $goshawk-grey;
+    color: $lighthouse;
     letter-spacing: 1px;
     display: flex;
     align-items: center;
     margin-right: auto;
   }
-  > .logo > img {
+  > .head > .logo > img {
     margin: 0 5px;
-    filter: invert(25%);
     width: 36px;
     margin-top: -8px;
   }
-
-  // > .responsive-overlay {
-  //   position: absolute;
-  //   top: 0;
-  //   left: 0;
-  //   width: 50%;
-  //   height: 50%;
-  //   background-color: rgba(0, 0, 0, 0.6);
-  //   backdrop-filter: blur(3px); /* 一番下のbody領域をぼやかす */
-  //   z-index: 3;
-  // }
 
   > .responsive-overlay > .hamburger-box {
     width: 15%;
@@ -40,8 +30,7 @@
     width: 80%;
     margin: 0 auto;
     padding: 10px;
-    background: $vintage-blue;
-    margin-bottom: 50px;
+    animation: fadeIn 0.5s ease-in;
   }
   > .responsive-overlay > .menu > .hamburger-link {
     text-align: center;

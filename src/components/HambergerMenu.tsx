@@ -1,6 +1,6 @@
 import { FC } from "react";
 import Hamburger from "hamburger-react";
-import Temple from "../assets/icon/icon_temple.svg";
+import WhiteTempleIcon from "../assets/icon/icon_temple_white.svg";
 import FlatButton from "./Button/FlatButton";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useHistory } from "react-router-dom";
@@ -37,18 +37,18 @@ const HamburgerMenu: FC<Prop> = ({ state, setState }) => {
 
   return (
     <>
-      <ul className={state ? `responsive-header` : `responsive-header -flex`}>
-        {!state && (
+      <div className="responsive-header">
+        <ul className="head">
           <li className="logo">
-            <img src={Temple} alt="" />
+            <img src={WhiteTempleIcon} alt="" />
             <span>Temanashi</span>
           </li>
-        )}
+          <li className="hamburger-box" onClick={handleClick}>
+            <Hamburger toggled={state} toggle={setState} color="#f4f4f4" />
+          </li>
+        </ul>
         {state && (
           <div className="responsive-overlay" style={styles}>
-            <li className="hamburger-box">
-              <Hamburger toggled={state} toggle={setState} />
-            </li>
             <ul className="menu">
               <li className="hamburger-link">
                 <FlatButton
@@ -88,12 +88,7 @@ const HamburgerMenu: FC<Prop> = ({ state, setState }) => {
             </ul>
           </div>
         )}
-        {!state && (
-          <li className="hamburger-box" onClick={handleClick}>
-            <Hamburger toggled={state} toggle={setState} />
-          </li>
-        )}
-      </ul>
+      </div>
     </>
   );
 };
