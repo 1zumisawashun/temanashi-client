@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 import Avatar from "./Avatar";
 import { useAuthContext } from "../hooks/useAuthContext";
 import DashboardIcon from "../assets/icon/icon_dashboard.svg";
-import AddIcon from "../assets/icon/icon_add.svg";
+import AddCircleIcon from "../assets/icon/icon_add_circle.svg";
 import FeedbackIcon from "../assets/icon/icon_feedback.svg";
 import CartIcon from "../assets/icon/icon_cart.svg";
 import { FC } from "react";
@@ -31,7 +31,7 @@ const Sidebar: FC = () => {
             </li>
             <li>
               <NavLink to="/create/furniture">
-                <img src={AddIcon} alt="add project icon" />
+                <img src={AddCircleIcon} alt="add project icon" />
                 <span>New Furniture</span>
               </NavLink>
             </li>
