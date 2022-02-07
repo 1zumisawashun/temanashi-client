@@ -62,7 +62,7 @@ const ProjectSummary: FC<Props> = ({ furniture }) => {
           {furniture.product.images.length > 0 ? (
             <img src={furniture.product.images[0]} alt="" onClick={openModal} />
           ) : (
-            <img src="https://placehold.jp/200x160.png" alt="" width="100" />
+            <img src="https://placehold.jp/200x160.png" alt=""  />
           )}
           {toggleModal && (
             <PreviewModal

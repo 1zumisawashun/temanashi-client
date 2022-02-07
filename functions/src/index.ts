@@ -9,6 +9,7 @@ import {
 } from "./middleware/authMiddleware";
 // NOTE:requireでモジュールを読み込むと型がanyになる
 // NOTE:emulatorは既に入っている（npm run serveは使える）よく見るあれはGUIのをインポートするかの差
+// NOTE:postmanはcorsを無視するので検証で使える
 
 const app = express();
 const stripeRoute = require("./routes/stripeRoute");

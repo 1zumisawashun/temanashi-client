@@ -25,7 +25,7 @@ export const useCartDocument = () => {
         }
       });
     }
-    if (cookies.productId.length) {
+    if (cookies.productId) {
       return asyncLoop();
     }
   }, [cookies.productId]);
