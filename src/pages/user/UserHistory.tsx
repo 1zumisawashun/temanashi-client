@@ -4,6 +4,7 @@ import { useAuthContext } from "../../hooks/useAuthContext";
 import { productUseCase } from "../../utilities/stripeClient";
 import PaymentList from "../../components/DefinitionList/PaymentList";
 import Loading from "../../components/Loading";
+import NotFound from "../../components/NotFound";
 
 const UserHistory: FC = () => {
   const [isPending, setIsPending] = useState<boolean>(false);
@@ -33,8 +34,8 @@ const UserHistory: FC = () => {
       {isPending && <Loading />}
       <div className="user-container">
         <div className="inner">
-          {payments && <PaymentList paymentItems={payments} />}
-          {!payments && <div>購入履歴がありません</div>}
+          {payments.length !== 0 && <PaymentList paymentItems={payments} />}
+          {payments.length === 0 && <NotFound />}
         </div>
       </div>
     </>

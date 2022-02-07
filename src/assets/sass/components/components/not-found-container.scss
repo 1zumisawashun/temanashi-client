@@ -1,0 +1,13 @@
+.not-found-container {
+  margin: 10% 0;
+  text-align: center;
+  > img {
+    width: 50%;
+  }
+  > .message {
+    font-size: 2rem;
+    font-weight: bold;
+    color: $vintage-blue;
+    margin: 30px 0;
+  }
+}

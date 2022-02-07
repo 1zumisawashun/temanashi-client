@@ -8,6 +8,7 @@ import { useToken } from "../../hooks/useToken";
 import { useLogout } from "../../hooks/useLogout";
 import { useHistory } from "react-router-dom";
 import CartList from "../../components/DefinitionList/CartList";
+import NotFound from "../../components/NotFound";
 
 const Cart: FC = () => {
   const [isAccepted, setIsAccepted] = useState<boolean>(false);
@@ -115,7 +116,7 @@ const Cart: FC = () => {
   return (
     <div className="common-container">
       {isPendingBuy && <Loading />}
-      {documents.length === 0 && <div>documentsの商品がありません。</div>}
+      {documents.length === 0 && <NotFound />}
       {documents.length !== 0 && (
         <CartList
           productItems={documents}

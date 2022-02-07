@@ -7,7 +7,8 @@ import { useAuthContext } from "../../hooks/useAuthContext";
 import ProductList from "../../components/DefinitionList/ProductList";
 import { ProductItem } from "../../utilities/stripeClient";
 // pendingを追加したい
-import Loading from "../../components/Loading";
+// import Loading from "../../components/Loading";
+import NotFound from "../../components/NotFound";
 
 const UserFavorite: FC = () => {
   const { user } = useAuthContext();
@@ -34,10 +35,11 @@ const UserFavorite: FC = () => {
   return (
     <>
       <UserNavbar />
-      {!documents && <Loading />}
       <div className="user-container">
         <div className="inner">
-          {documents && (
+          {documents.length === 0 && <NotFound />}
+          {/* {documents.length === 0 && <Loading />} */}
+          {documents.length !== 0 && (
             <ProductList productItems={getLikedFurnitures(documents)} />
           )}
         </div>
