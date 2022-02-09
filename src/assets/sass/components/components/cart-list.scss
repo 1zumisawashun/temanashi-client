@@ -10,6 +10,8 @@
     justify-content: space-between;
     padding: 16px;
     border-radius: 6px;
+    // content-visibility: auto;
+    // contain-intrinsic-size: 500px;
   }
 
   > .wrapper > .thumbnail {
@@ -21,7 +23,7 @@
       width: 40%;
     }
   }
-  > .wrapper > .thumbnail > img {
+  > .wrapper > .thumbnail > .image {
     width: 130px;
     height: 80px;
     object-fit: cover;

@@ -6,6 +6,7 @@ import {
 } from "../../utilities/stripeClient";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { taxIncludedPrice } from "../../utilities/convertValue";
+import Image from "../Image";
 
 type Props = {
   productItems: Array<ProductItem | ProductItemWithoutComment>;
@@ -28,13 +29,10 @@ const FurnitureList: FC<Props> = ({ productItems }) => {
             >
               <div className="thumbnail">
                 {item.product.images.length > 0 ? (
-                  <img src={item.product.images[0]} alt="" />
+                  <Image src={item.product.images[0]} />
+                  // <img src={item.product.images[0]} className="image" alt="" />
                 ) : (
-                  <img
-                    src="https://placehold.jp/200x160.png"
-                    alt=""
-                    width="100"
-                  />
+                  <Image src="https://placehold.jp/230x160.png" />
                 )}
               </div>
               <div className="content">

@@ -11,6 +11,7 @@ import { useCookies } from "react-cookie";
 import { useHistory } from "react-router-dom";
 import Divider from "../../components/Divider";
 import DeleteIcon from "../../assets/icon/icon_delete.svg";
+import Image from "../Image";
 
 type Props = {
   productItems: Array<ProductItem | ProductItemWithoutComment>;
@@ -57,13 +58,9 @@ const CartList: FC<Props> = ({
                 className="thumbnail"
               >
                 {item.product.images.length > 0 ? (
-                  <img src={item.product.images[0]} alt="" />
+                  <Image src={item.product.images[0]} />
                 ) : (
-                  <img
-                    src="https://placehold.jp/200x160.png"
-                    alt=""
-                    width="100"
-                  />
+                  <Image src="https://placehold.jp/230x160.png" />
                 )}
               </Link>
               <div className="content">
