@@ -50,9 +50,7 @@ const Cart: FC = () => {
       (item: line_item) => formatlineItems[item.price] ?? item
     );
 
-    // NOTE:awaitをつけるとPromise<string>がstringになる
     const token = await verifyJWT();
-    console.log(token);
 
     if (!token) {
       alert("認証トークンが有効期限切れです。ログインしなおしてください。");

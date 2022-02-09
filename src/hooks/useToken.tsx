@@ -23,22 +23,21 @@ export const useToken = () => {
     setCookie("jwt", result.data.jwt, { path: "/" });
   };
 
-  const verifyJWT = async () => {
-    const headers = {
-      Authorization: `Bearer ${cookies.jwt}`,
-    };
-
-    try {
-      const result = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}/api/jwt/check`,
-        { headers }
-      );
-      console.log(result, "verifyJWT");
-      return result.data.message;
-    } catch (error) {
-      console.log(error);
-    }
-    // NOTE:JWTの有効期限切れでエラーになる
+  const verifyJWT = (): Promise<string> => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const headers = {
+          Authorization: `Bearer ${cookies.jwt}`,
+        };
+        const result = await axios.get(
+          `${process.env.REACT_APP_BASE_URL}/api/jwt/check`,
+          { headers }
+        );
+        return resolve(result.data.message);
+      } catch (error) {
+        return reject("トークンが有効期限切れです。再ログインしてください。");
+      }
+    });
   };
 
   const removeJWT = async () => {
