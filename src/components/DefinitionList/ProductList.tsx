@@ -30,7 +30,6 @@ const FurnitureList: FC<Props> = ({ productItems }) => {
               <div className="thumbnail">
                 {item.product.images.length > 0 ? (
                   <Image src={item.product.images[0]} />
-                  // <img src={item.product.images[0]} className="image" alt="" />
                 ) : (
                   <Image src="https://placehold.jp/230x160.png" />
                 )}

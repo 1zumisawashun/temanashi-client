@@ -18,14 +18,6 @@ const Image: FC<Prop> = ({ src, scrollPosition }) => {
       className="image"
       scrollPosition={scrollPosition}
     />
-    // <LazyLoadImage
-    //   src={src}
-    //   width="230"
-    //   height="160"
-    //   effect="blur"
-    //   className="image"
-    //   scrollPosition={scrollPosition}
-    // />
   );
 };
 export default trackWindowScroll(Image);
