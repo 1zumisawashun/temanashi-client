@@ -24,9 +24,10 @@ const Cart: FC = () => {
   const { documents } = useCartDocument();
 
   const onClickBuy = async () => {
-    let documentsLineItems: any = [];
+    let formatlineItems: { [key: string]: line_item } = {};
+    let documentsLineItems: Array<line_item> = [];
 
-    await documents.forEach((document: any) => {
+    documents.forEach((document) => {
       Object.keys(document.prices).forEach((priceIndex: string) => {
         documentsLineItems = [
           ...documentsLineItems,
@@ -35,15 +36,18 @@ const Cart: FC = () => {
       });
     });
 
-    const mergearray = [...documentsLineItems, ...line_items];
+    if (line_items.length !== 0) {
+      formatlineItems = line_items.reduce(
+        (acc: { [key: string]: line_item }, v: line_item) => {
+          acc[v.price] = v;
+          return acc;
+        },
+        {}
+      );
+    }
 
-    // NOTE:配列の重複しているオブジェクトを排除する
-    const resultsLineItems: Array<line_item> = Array.from(
-      mergearray
-        .reduce((map, currentitem) => {
-          return map.set(currentitem.price, currentitem);
-        }, new Map())
-        .values()
+    const resultsLineItems = documentsLineItems.map(
+      (item: line_item) => formatlineItems[item.price] ?? item
     );
 
     // NOTE:awaitをつけるとPromise<string>がstringになる
@@ -73,11 +77,8 @@ const Cart: FC = () => {
   };
 
   const checkSameProduct = (price: string): Array<line_item> => {
-    let result: Array<line_item> = [];
-    line_items.forEach((item: line_item) => {
-      if (item.price !== price) {
-        result = [...result, item];
-      }
+    const result = line_items.filter((item: line_item) => {
+      return item.price !== price;
     });
     return result;
   };
@@ -92,12 +93,9 @@ const Cart: FC = () => {
     await setLinetems(result);
   };
 
-  // これにcookieの処理も入れる
   const removeProduct = async (price: string) => {
-    const newArray = await line_items.filter((item: any) => {
-      return item.price !== price;
-    });
-    await setLinetems(newArray);
+    const result = await checkSameProduct(price);
+    setLinetems(result);
   };
 
   const handleAlert = () => {

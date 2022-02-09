@@ -3,7 +3,6 @@ import Select from "react-select";
 import { projectStorage } from "../../firebase/config";
 import { useHistory } from "react-router-dom";
 import { useAuthContext } from "../../hooks/useAuthContext";
-import { delay } from "../../utilities/convertValue";
 import Loading from "../../components/Loading";
 import InputText from "../../components/Input/InputText";
 import InputNumber from "../../components/Input/InputNumber";
@@ -49,12 +48,6 @@ const CreateProject: FC = () => {
   if (!user) {
     throw new Error("Could not complete signup");
   }
-  const getImageUrl = async (file: File): Promise<string> => {
-    const uploadPath = `photos/${user.uid}/${file.name}`;
-    const img = await projectStorage.ref(uploadPath).put(file);
-    const imgUrl = await img.ref.getDownloadURL();
-    return imgUrl;
-  };
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -64,15 +57,15 @@ const CreateProject: FC = () => {
       setFromError("Please select a furniture category");
       return;
     }
-    const newPhotos: Array<string> = [];
-    await photos.forEach(async (photo) => {
-      const imgUrl = await getImageUrl(photo);
-      console.log(imgUrl);
-      newPhotos.push(imgUrl);
+
+    const promises = photos.map(async (file) => {
+      const uploadPath = `photos/${user.uid}/${file.name}`;
+      const img = await projectStorage.ref(uploadPath).put(file);
+      const imgUrl = await img.ref.getDownloadURL();
+      return imgUrl;
     });
 
-    // FIXME:非同期がうまく効かないため一時的にdelayを使っている
-    await delay(7000);
+    const newPhotos = await Promise.all(promises);
 
     const furniture = {
       name,
