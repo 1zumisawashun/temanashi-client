@@ -24,7 +24,6 @@ const Cart: FC = () => {
   const { documents } = useCartDocument();
 
   const onClickBuy = async () => {
-    let formatlineItems: any = [];
     let documentsLineItems: any = [];
 
     await documents.forEach((document: any) => {
@@ -36,24 +35,16 @@ const Cart: FC = () => {
       });
     });
 
-    if (line_items.length !== 0) {
-      formatlineItems = line_items.reduce((acc, v) => {
-        // @ts-ignore
-        acc[v.price] = v;
-        return acc;
-      }, {});
-    }
+    const mergearray = [...documentsLineItems, ...line_items];
 
-    const resultsLineItems: Array<line_item> = await documentsLineItems.map(
-      (item: line_item) => {
-        const lineItem = formatlineItems[item.price];
-        if (lineItem) {
-          return formatlineItems[item.price];
-        }
-        return item;
-      }
+    // NOTE:配列の重複しているオブジェクトを排除する
+    const resultsLineItems: Array<line_item> = Array.from(
+      mergearray
+        .reduce((map, currentitem) => {
+          return map.set(currentitem.price, currentitem);
+        }, new Map())
+        .values()
     );
-    console.log(resultsLineItems, "resultsLineItems");
 
     // NOTE:awaitをつけるとPromise<string>がstringになる
     const token = await verifyJWT();
