@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { db, recommendation } from "../../utilities/dammyData";
 import { taxIncludedPrice } from "../../utilities/convertValue";
 import Loading from "../../components/Loading";
+import Image from "../../components/Image";
 
 const DiagnoseResult: FC = () => {
   return (
@@ -37,7 +38,7 @@ const DiagnoseResult: FC = () => {
         {db.map((furniture) => (
           <Link to="/diagnose" key={furniture.name} className="wrapper">
             <div className="thumbnail">
-              <img src={furniture.imageUrl} alt="" />
+              {furniture.imageUrl && <Image src={furniture.imageUrl} />}
             </div>
             <div className="content">
               <h4 className="name">{furniture.name}</h4>

@@ -47,12 +47,24 @@ export type Comment = {
   id: number;
 };
 
+export type Metadata = {
+  width: string;
+  height: string;
+  length?: string;
+  stock: string;
+  random: string;
+  category: string;
+  createdAt: string;
+  [propName: string]: any;
+};
+
 export interface Product {
   /**
    * my additional properties
    */
   id: string;
   comments?: Array<Comment>;
+  metadata?: Metadata;
   /**
    * stripe properties
    */

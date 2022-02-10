@@ -1,6 +1,9 @@
 .not-found-container {
   margin: 15% 0;
   text-align: center;
+  @include sp{
+    margin: 30% 0;
+  }
   > img {
     width: 50%;
   }
