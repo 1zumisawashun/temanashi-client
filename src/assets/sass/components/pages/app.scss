@@ -4,9 +4,12 @@
     display: block;
   }
   > .container {
+    // NOTE:sidebar(300px),onlineuser(250px),padding(100px)
+    width: calc(100% - 650px);
     flex-grow: 1;
     padding: 0 50px 50px;
     @include sp {
+      width: auto;
       padding: 0;
     }
     &.-auth {

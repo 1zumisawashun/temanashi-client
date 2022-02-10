@@ -1,6 +1,15 @@
 import { FC } from "react";
 const filterList: Array<string> = [
   "all",
+  "bed",
+  "blanket",
+  "chair",
+  "lamp",
+  "plant",
+  "rug",
+  "table",
+  "shelf",
+  "sofa",
   "development",
   "sales",
   "design",

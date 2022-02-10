@@ -1,9 +1,10 @@
 .product-filter-container {
   margin: 30px auto 0;
-  overflow-x: scroll;
+  overflow-x: auto;
+  white-space: nowrap;
 
   > nav {
-    width: min-content;
+    width: fit-content;
     display: flex;
     padding: 10px;
     background-color: $white;

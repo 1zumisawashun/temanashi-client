@@ -13,6 +13,15 @@ import { useCookies } from "react-cookie";
 import { useLogout } from "../../hooks/useLogout";
 
 const categories = [
+  { value: "bed", label: "Bed" },
+  { value: "blanket", label: "Blanket" },
+  { value: "chair", label: "Chair" },
+  { value: "lamp", label: "Lamp" },
+  { value: "plant", label: "Plant" },
+  { value: "rug", label: "Rug" },
+  { value: "table", label: "Table" },
+  { value: "shelf", label: "Shelf" },
+  { value: "sofa", label: "Sofa" },
   { value: "development", label: "Development" },
   { value: "design", label: "Design" },
   { value: "sales", label: "Sales" },
@@ -34,7 +43,7 @@ const CreateProject: FC = () => {
   );
   const [price, setPrice] = useState<number>(Math.floor(Math.random() * 3000));
   const [width, setWidth] = useState<number>(Math.floor(Math.random() * 100));
-  const [depth, setDepth] = useState<number>(Math.floor(Math.random() * 200));
+  const [length, setLength] = useState<number>(Math.floor(Math.random() * 200));
   const [height, setHeight] = useState<number>(Math.floor(Math.random() * 300));
   const [stock, setStock] = useState<number>(Math.floor(Math.random() * 10));
   const [category, setCategory] = useState<CategoryOp | null>(null);
@@ -75,7 +84,7 @@ const CreateProject: FC = () => {
       price,
       stock,
       width,
-      depth,
+      length,
       height,
       random: cookies.random,
       category: category.value,
@@ -116,7 +125,7 @@ const CreateProject: FC = () => {
           <InputNumber label="price" state={price} setState={setPrice} />
           <InputNumber label="strock" state={stock} setState={setStock} />
           <InputNumber label="width" state={width} setState={setWidth} />
-          <InputNumber label="depth" state={depth} setState={setDepth} />
+          <InputNumber label="length" state={length} setState={setLength} />
           <InputNumber label="height" state={height} setState={setHeight} />
           <label>
             <span>Project category:</span>

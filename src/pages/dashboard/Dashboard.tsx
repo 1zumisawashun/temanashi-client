@@ -44,11 +44,20 @@ const Dashboard: FC = () => {
         switch (currentFilter) {
           case "all":
             return true;
+          case "bed":
+          case "blanket":
+          case "chair":
+          case "lamp":
+          case "plant":
+          case "rug":
+          case "table":
+          case "shelf":
+          case "sofa":
           case "development":
-          case "salses":
+          case "sales":
           case "design":
           case "marketing":
-            return productItem.product.metadata.category === currentFilter;
+            return productItem.product.metadata?.category === currentFilter;
           default:
             return true;
         }
