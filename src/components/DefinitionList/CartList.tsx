@@ -31,15 +31,12 @@ const CartList: FC<Props> = ({
   // nullチェック・通常のreturnだとエラーになる
   if (!user) throw new Error("we cant find your account");
 
-  const HandleRemove = async (productId: string, priceId: string) => {
-    const result: Array<string> = await cookies.productId.filter(
-      (item: string) => {
-        return item !== productId;
-      }
-    );
+  const HandleRemove = (productId: string, priceId: string) => {
+    const result = cookies.productId.filter((item: string) => {
+      return item !== productId;
+    });
     setCookie("productId", result);
     removeProduct(priceId);
-
     // NOTE:全て削除されたたらdashboardにリダイレクトさせる
     if (result.length === 0) {
       history.push(`/`);

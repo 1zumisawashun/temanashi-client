@@ -62,7 +62,7 @@ const ProjectSummary: FC<Props> = ({ furniture }) => {
           {furniture.product.images.length > 0 ? (
             <img src={furniture.product.images[0]} alt="" onClick={openModal} />
           ) : (
-            <img src="https://placehold.jp/200x160.png" alt=""  />
+            <img src="https://placehold.jp/200x160.png" alt="" />
           )}
           {toggleModal && (
             <PreviewModal
@@ -81,7 +81,7 @@ const ProjectSummary: FC<Props> = ({ furniture }) => {
             <p className="details">{furniture.product.description}</p>
             <div className="btnarea">
               <button className="btn" onClick={handleClick}>
-                Delete Here...
+                削除
               </button>
               <button
                 className="btn"

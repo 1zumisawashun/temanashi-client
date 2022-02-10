@@ -58,12 +58,14 @@ const CreateProject: FC = () => {
       return;
     }
 
-    const promises = photos.map(async (file) => {
-      const uploadPath = `photos/${user.uid}/${file.name}`;
-      const img = await projectStorage.ref(uploadPath).put(file);
-      const imgUrl = await img.ref.getDownloadURL();
-      return imgUrl;
-    });
+    const promises = photos.map(
+      async (file): Promise<string> => {
+        const uploadPath = `photos/${user.uid}/${file.name}`;
+        const img = await projectStorage.ref(uploadPath).put(file);
+        const imgUrl = await img.ref.getDownloadURL();
+        return imgUrl;
+      }
+    );
 
     const newPhotos = await Promise.all(promises);
 
