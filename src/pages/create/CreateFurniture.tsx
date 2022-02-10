@@ -27,17 +27,16 @@ const CreateProject: FC = () => {
   const history = useHistory();
   const { logout } = useLogout();
 
-  // FIXME: any型を潰す
   const [name, setName] = useState<string>("");
   const [photos, setPhotos] = useState<File[]>([]);
   const [description, setDescription] = useState<string>(
     "Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
   );
-  const [price, setPrice] = useState<number>(1000);
-  const [width, setWidth] = useState<number>(111);
-  const [depth, setDepth] = useState<number>(222);
-  const [height, setHeight] = useState<number>(333);
-  const [stock, setStock] = useState<number>(10);
+  const [price, setPrice] = useState<number>(Math.floor(Math.random() * 3000));
+  const [width, setWidth] = useState<number>(Math.floor(Math.random() * 100));
+  const [depth, setDepth] = useState<number>(Math.floor(Math.random() * 200));
+  const [height, setHeight] = useState<number>(Math.floor(Math.random() * 300));
+  const [stock, setStock] = useState<number>(Math.floor(Math.random() * 10));
   const [category, setCategory] = useState<CategoryOp | null>(null);
   const [formError, setFromError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
