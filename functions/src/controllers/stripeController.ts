@@ -31,10 +31,9 @@ const stripe_post: RequestHandler = (req, res) => {
         currency: "jpy",
         product: product.id,
       });
+      return res.status(200).json({ status: req.body });
     } catch (error) {
-      return res.status(200).json({ status: req.body });
-    } finally {
-      return res.status(200).json({ status: req.body });
+      return res.status(400).json({ status: req.body });
     }
   });
 };

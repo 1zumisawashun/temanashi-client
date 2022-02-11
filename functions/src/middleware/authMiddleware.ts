@@ -9,7 +9,7 @@ type JWTPayloadType = {
 };
 
 export const createJWT: RequestHandler = (req, res) => {
-  const { uid, name, expiresIn = "1m" } = req.body as JWTPayloadType;
+  const { uid, name, expiresIn = "5m" } = req.body as JWTPayloadType;
 
   if (uid && name) {
     const payload = { uid, name };

@@ -3,8 +3,7 @@ import CloseButton from "../Button/CloseButton";
 import ExecuteModal from "../Modal/ExecuteModal";
 
 interface Props {
-  name: string;
-  // NOTE:input["file"]とlabelをリンクさせるためのフラグ
+  name: string; // NOTE:input["file"]とlabelをリンクさせるためのフラグ
   photos: File[];
   setPhotos: (files: File[]) => void;
 }
@@ -106,7 +105,10 @@ const PhotosUpload: FC<Props> = ({
             </div>
           ) : (
             <div>
-              <CloseButton styleName="close-upload -disable" onClick={openModal} />
+              <CloseButton
+                styleName="close-upload -disable"
+                onClick={openModal}
+              />
               <label className="wrapper" htmlFor={name} key={index}>
                 <img
                   src="https://placehold.jp/200x200.png"
