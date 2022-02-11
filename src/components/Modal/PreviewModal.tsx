@@ -5,7 +5,7 @@ import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 type Props = {
-  src: string;
+  src: Array<string>;
   setToggleModal: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
@@ -35,15 +35,11 @@ const PreviewModal: FC<Props> = ({ src, setToggleModal }) => {
         <div className="modal">
           <CloseButton styleName="close-modal" onClick={closeModal} />
           <Carousel>
-            <div>
-              <img src={src} alt="" />
-            </div>
-            <div>
-              <img src={src} alt="" />
-            </div>
-            <div>
-              <img src={src} alt="" />
-            </div>
+            {src.map((item) => (
+              <div>
+                <img src={item} alt="" />
+              </div>
+            ))}
           </Carousel>
         </div>
       </div>

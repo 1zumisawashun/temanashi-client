@@ -33,6 +33,10 @@
   border-radius: 5px;
   box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.05);
   z-index: 10;
+  @include sp {
+    width: 80%;
+    padding: 5rem 1rem;
+  }
 }
 
 .overlay {
@@ -56,24 +60,25 @@
     // center loading animation
     text-align: center;
     &.-form {
-      width: 40%;
       background-color: $white;
       padding: 5rem 3rem;
       border-radius: 5px;
       box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.05);
+      @include sp {
+        width: 80%;
+        padding: 5rem 1rem;
+      }
     }
   }
   > .wrapper > .message {
     margin: 0 auto;
-    font-size: 30px;
+    font-size: 25px;
     font-weight: bold;
     color: $vintage-blue;
   }
   > .wrapper > .buttons {
-    justify-content: space-between;
-    width: 90%;
     display: flex;
-    margin: auto;
+    gap: 30px;
   }
 }
 

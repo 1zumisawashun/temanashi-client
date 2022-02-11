@@ -69,6 +69,7 @@ const PhotosUpload: FC<Props> = ({
   };
 
   const handleCancel = (photoIndex: number) => {
+    document.body.style.overflow = "";
     resetErrors();
     const modifyPhotos = photos.filter((photo, index) => photoIndex !== index);
     setPhotos(modifyPhotos);

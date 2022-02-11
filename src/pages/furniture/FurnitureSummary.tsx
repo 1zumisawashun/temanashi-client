@@ -1,7 +1,7 @@
 import { useFirestore } from "../../hooks/useFirestore";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { useHistory } from "react-router-dom";
-import { FC, FormEvent, useState } from "react";
+import { FC, useState } from "react";
 import LikeButton from "../../components/Button/LikeButton";
 import PreviewModal from "../../components/Modal/PreviewModal";
 import { ProductItem } from "../../utilities/stripeClient";
@@ -9,13 +9,15 @@ import { useParams } from "react-router-dom";
 import Loading from "../../components/Loading";
 import { taxIncludedPrice } from "../../utilities/convertValue";
 import { useCookies } from "react-cookie";
+import ExecuteModal from "../../components/Modal/ExecuteModal";
 
 type Props = {
   furniture: ProductItem;
 };
 
 const ProjectSummary: FC<Props> = ({ furniture }) => {
-  const [toggleModal, setToggleModal] = useState<boolean>(false);
+  const [togglePreviewModal, setTogglePreviewModal] = useState<boolean>(false);
+  const [toggleExecuteModal, setToggleExecuteModal] = useState<boolean>(false);
   const [isPending, setIsPending] = useState<boolean>(false);
   const [cookies, setCookie] = useCookies(["productId"]);
 
@@ -44,30 +46,40 @@ const ProjectSummary: FC<Props> = ({ furniture }) => {
     }
   };
 
-  const handleClick = (e: FormEvent) => {
+  const handleDelete = () => {
+    document.body.style.overflow = "";
+    setToggleExecuteModal(false);
     if (furniture.product) deleteDocument<ProductItem>("products", id);
     history.push("/");
   };
 
-  const openModal = () => {
-    setToggleModal(true);
+  const openPreviewModal = () => {
+    setTogglePreviewModal(true);
     document.body.style.overflow = "hidden";
   };
-  // オプショナルチェーンを付けないとバグる。早期リターンを付与する
+  const openExecuteModal = () => {
+    setToggleExecuteModal(true);
+    document.body.style.overflow = "hidden";
+  };
+
   return (
     <>
       {isPending && <Loading />}
       <div className="project-summary-container">
         <div className="thumbnail">
           {furniture.product.images.length > 0 ? (
-            <img src={furniture.product.images[0]} alt="" onClick={openModal} />
+            <img
+              src={furniture.product.images[0]}
+              alt=""
+              onClick={openPreviewModal}
+            />
           ) : (
             <img src="https://placehold.jp/200x160.png" alt="" />
           )}
-          {toggleModal && (
+          {togglePreviewModal && (
             <PreviewModal
-              src={"https://placehold.jp/330x200.png"}
-              setToggleModal={setToggleModal}
+              src={furniture.product.images}
+              setToggleModal={setTogglePreviewModal}
             />
           )}
         </div>
@@ -80,9 +92,16 @@ const ProjectSummary: FC<Props> = ({ furniture }) => {
             </div>
             <p className="details">{furniture.product.description}</p>
             <div className="btnarea">
-              <button className="btn" onClick={handleClick}>
+              <button className="btn" onClick={openExecuteModal}>
                 削除
               </button>
+              {toggleExecuteModal && (
+                <ExecuteModal
+                  message="本当に削除しますか？"
+                  setToggleModal={setToggleExecuteModal}
+                  onClick={() => handleDelete()}
+                />
+              )}
               <button
                 className="btn"
                 onClick={() => addCart(furniture.product.id)}
