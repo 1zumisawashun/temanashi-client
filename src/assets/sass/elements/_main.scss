@@ -44,6 +44,7 @@ ul {
   cursor: pointer;
   font-size: 1em;
   border: 1px solid $vintage-blue;
+  transition: 0.5s;
   &.-mt10 {
     margin-top: 10px;
   }

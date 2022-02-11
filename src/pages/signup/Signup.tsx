@@ -42,8 +42,8 @@ const Signup: FC = () => {
 
   return (
     <div className="auth-container">
-      <div className="wrapper">
-        <div className="form -h500 -w450">
+      <div className="wrapper -w30">
+        <div className="form">
           <h1>Sign up</h1>
           <form onSubmit={handleSubmit}>
             <input

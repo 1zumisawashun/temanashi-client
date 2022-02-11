@@ -15,7 +15,7 @@ const Login: FC = () => {
 
   return (
     <div className="auth-container">
-      <div className="wrapper">
+      <div className="wrapper -w25">
         <div className="form">
           <h1>login</h1>
           <form onSubmit={handleSubmit}>
