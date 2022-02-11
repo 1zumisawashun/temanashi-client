@@ -27,7 +27,9 @@ export const useCartDocument = () => {
       const result = await Promise.all(promises);
       setDocuments(result);
     }
-    handleAsync();
+    if (cookies.productId) {
+      handleAsync();
+    }
   }, [cookies.productId]);
 
   return { documents };

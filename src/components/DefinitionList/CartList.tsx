@@ -63,17 +63,16 @@ const CartList: FC<Props> = ({
               <div className="content">
                 {Object.keys(item.prices).map((priceIndex) => (
                   <>
-                    <div key={item.product.id} className="details">
+                    <div className="details">
                       <p className="name">
                         {item.product.name}
-                        <span key={priceIndex} className="price">
+                        <span className="price">
                           {taxIncludedPrice(
                             item.prices[priceIndex].unit_amount
                           )}
                         </span>
                       </p>
-
-                      <div key={priceIndex} className="btnarea">
+                      <div className="btnarea">
                         <Counter add={selectProduct} priceIndex={priceIndex} />
                       </div>
                     </div>
