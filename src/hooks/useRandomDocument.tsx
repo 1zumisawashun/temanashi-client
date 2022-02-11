@@ -6,37 +6,35 @@ import { useCookies } from "react-cookie";
 export const useRandomDocument = () => {
   const [documents, setDocuments] = useState<Array<ProductDoc>>([]);
   const [cookies] = useCookies(["random"]);
-  const random = Number(cookies.random);
+  const randomIndex = Number(cookies.random);
 
   useEffect(() => {
-    const indexs: Array<string> = [];
-    const randomDocument: Array<ProductDoc> = [];
+    let indexs: Array<string> = [];
+    let randomDocument: Array<ProductDoc> = [];
 
-    async function asyncLoop() {
-      // FIXME:ランダムで出すならそれ用のコレクションの作成とrandamパラメータを付与しなくてはいけない
-      // FIXME:cloud functionsで登録するとランダムがstringになり型不一致になるので直す
+    async function handleAsync() {
       while (randomDocument.length < 5) {
-        const startIndex = String(Math.floor(Math.random() * random + 1)); // documentsの中からランダムでstartIndexに1個格納する
-        if (!indexs.includes(startIndex)) {
-          indexs.push(startIndex); // 同じdocumentを表示しないために一度使用したindexを配列に追加する
-          const projectsRef = await projectFirestore.collection("products");
-          const snapshot = await projectsRef
+        const queryIndex = String(Math.floor(Math.random() * randomIndex + 1)); // DBの中に格納されている商品数以下の数字をランダムで出力する
+        if (!indexs.includes(queryIndex)) {
+          indexs = [...indexs, queryIndex];
+          const productsRef = await projectFirestore.collection("products");
+          const snapshot = await productsRef
             .orderBy("metadata.random")
-            .startAt(startIndex) // キー名randomがstartIndexと同じ物を取得する
-            .endAt(startIndex) // querying 1 random items
-            .get();
-          const data = await snapshot.docs.map((doc) => {
+            .startAt(queryIndex)
+            .endAt(queryIndex)
+            .get(); // startAtとendAtを同一に指定することでユニークな結果を出力できる
+          const data = snapshot.docs.map((doc) => {
             return { ...(doc.data() as ProductDoc), id: doc.id };
           });
-          await randomDocument.push(...data); //1個のみ配列をパースしてオブジェクトをpushする
+          randomDocument = [...randomDocument, ...data];
           if (randomDocument.length === 5) {
             setDocuments(randomDocument);
           }
         }
       }
     }
-    asyncLoop();
-  }, [random]);
+    handleAsync();
+  }, [randomIndex]);
 
   return { documents };
 };

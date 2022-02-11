@@ -12,22 +12,22 @@ export const useCartDocument = () => {
   const [cookies] = useCookies(["productId"]);
 
   useEffect(() => {
-    const randomDocument: Array<ProductItemWithoutComment> = [];
-
-    function asyncLoop() {
-      cookies.productId.forEach(async (productId: string) => {
-        const result = await productUseCase.fetchProductItemWitoutComment(
-          productId
-        );
-        await randomDocument.push(result);
-        if (randomDocument.length === cookies.productId.length) {
-          setDocuments(randomDocument);
+    async function handleAsync() {
+      // NOTE:promisesの型推論がされない
+      const promises: Array<
+        Promise<ProductItemWithoutComment>
+      > = cookies.productId.map(
+        async (productId: string): Promise<ProductItemWithoutComment> => {
+          const productItem = await productUseCase.fetchProductItemWitoutComment(
+            productId
+          );
+          return productItem;
         }
-      });
+      );
+      const result = await Promise.all(promises);
+      setDocuments(result);
     }
-    if (cookies.productId) {
-      return asyncLoop();
-    }
+    handleAsync();
   }, [cookies.productId]);
 
   return { documents };
