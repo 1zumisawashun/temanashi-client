@@ -11,6 +11,7 @@ import InputFileMulti from "../../components/Input/InputFileMulti";
 import axios from "axios";
 import { useCookies } from "react-cookie";
 import { useLogout } from "../../hooks/useLogout";
+import loadImage from "blueimp-load-image";
 
 const categories = [
   { value: "bed", label: "Bed" },
@@ -66,12 +67,44 @@ const CreateProject: FC = () => {
       return;
     }
 
+    /**
+     * base64のdataURLを返す関数
+     */
+
+    // const promises = photos.map(
+    //   async (file): Promise<string | ArrayBuffer | null> => {
+    //     return new Promise((resolve, reject) => {
+    //       const reader = new FileReader();
+    //       reader.onload = () => resolve(reader.result);
+    //       reader.onerror = (error) => reject(error);
+    //       reader.readAsDataURL(file);
+    //     });
+    //   }
+    // );
+
+    /**
+     * データを圧縮する画像を返す
+     */
+
     const promises = photos.map(
-      async (file): Promise<string> => {
-        const uploadPath = `photos/${user.uid}/${file.name}`;
-        const img = await projectStorage.ref(uploadPath).put(file);
-        const imgUrl = await img.ref.getDownloadURL();
-        return imgUrl;
+      async (file): Promise<any> => {
+        const data = await loadImage(file, {
+          maxWidth: 500,
+          canvas: true,
+        });
+        return new Promise((resolve, reject) => {
+          (data.image as HTMLCanvasElement).toBlob(
+            async (blob) => {
+              if (!blob) return reject("error");
+              const uploadPath = `photos/${user.uid}/${file.name}`;
+              const img = await projectStorage.ref(uploadPath).put(blob);
+              const imgUrl = await img.ref.getDownloadURL();
+              resolve(imgUrl);
+            },
+            file.type,
+            0.7
+          );
+        });
       }
     );
 
@@ -101,8 +134,7 @@ const CreateProject: FC = () => {
       );
       console.log(result);
     } catch (error) {
-      console.log(error);
-      alert("エラーが発生しました");
+      alert("Error on CreateFurniture");
       logout();
       history.push("/login");
     } finally {
