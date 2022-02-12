@@ -160,7 +160,7 @@ const CreateProject: FC = () => {
           <InputNumber label="length" state={length} setState={setLength} />
           <InputNumber label="height" state={height} setState={setHeight} />
           <label>
-            <span>Project category:</span>
+            <span>Category</span>
             <Select
               onChange={(option) => setCategory(option)}
               options={categories}

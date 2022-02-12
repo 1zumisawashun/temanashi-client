@@ -38,8 +38,8 @@ export const useToken = () => {
     }
   };
 
-  const removeJWT = async () => {
-    await removeCookie("jwt", { path: "/" });
+  const removeJWT =  () => {
+    removeCookie("jwt", { path: "/" });
   };
 
   return { verifyJWT, createJWT, removeJWT };

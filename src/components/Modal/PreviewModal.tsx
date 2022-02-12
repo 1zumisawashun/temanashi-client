@@ -3,6 +3,7 @@ import { useAuthContext } from "../../hooks/useAuthContext";
 import CloseButton from "../Button/CloseButton";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { scrollTop } from "../../utilities/convertValue";
 
 type Props = {
   src: Array<string>;
@@ -16,14 +17,6 @@ const PreviewModal: FC<Props> = ({ src, setToggleModal }) => {
   const closeModal = () => {
     setToggleModal(false);
     document.body.style.overflow = "";
-  };
-
-  const scrollTop = (): number => {
-    return Math.max(
-      window.pageYOffset,
-      document.documentElement.scrollTop,
-      document.body.scrollTop
-    );
   };
 
   const styles = { top: scrollTop() };

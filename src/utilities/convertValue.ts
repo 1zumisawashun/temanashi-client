@@ -17,3 +17,19 @@ export const taxIncludedPrice = (price: number, taxRate?: number): string => {
 };
 
 export const delay = (t: number) => new Promise((r) => setTimeout(r, t));
+
+export const scrollTop = (): number => {
+  let scrollingElementTop: number = 0;
+
+  if (document.scrollingElement) {
+    scrollingElementTop = document.scrollingElement.scrollTop;
+  }
+
+  return Math.max(
+    window.scrollY,
+    window.pageYOffset,
+    document.body.scrollTop,
+    document.documentElement.scrollTop,
+    scrollingElementTop
+  );
+};

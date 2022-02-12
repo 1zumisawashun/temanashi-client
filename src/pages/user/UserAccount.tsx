@@ -6,7 +6,6 @@ import { useAuthContext } from "../../hooks/useAuthContext";
 import { useCookies } from "react-cookie";
 import { useLogout } from "../../hooks/useLogout";
 import { useHistory } from "react-router-dom";
-import FlatButton from "../../components/Button/FlatButton";
 
 type Response = {
   message: string;
@@ -16,7 +15,7 @@ type Response = {
 const UserAccount: FC = () => {
   const { user } = useAuthContext();
   if (!user) throw new Error("we cant find your account");
-  const [cookies, setCookie] = useCookies(["jwt"]);
+  const [cookies, setCookie, removeCookie] = useCookies(["jwt", "productId"]);
   const { logout, isPending } = useLogout();
   const history = useHistory();
 
@@ -67,6 +66,11 @@ const UserAccount: FC = () => {
     );
     console.log(result, "result");
   };
+
+  const removeProductIdCookie = () => {
+    removeCookie("productId", { path: "/" });
+    console.log(cookies);
+  };
   return (
     <>
       <UserNavbar />
@@ -87,9 +91,18 @@ const UserAccount: FC = () => {
           <button onClick={verifyJWT} className="btn">
             verifyJWT
           </button>
-          {!isPending && <FlatButton content="Logout" onClick={handleSubmit} />}
+          <button onClick={removeProductIdCookie} className="btn">
+            removeProductIdCookie
+          </button>
+          {!isPending && (
+            <button onClick={handleSubmit} className="btn">
+              Logout
+            </button>
+          )}
           {isPending && (
-            <FlatButton content="Logging out..." isDisabled={true} />
+            <button onClick={handleSubmit} className="btn -disabled" disabled>
+              Logging out...
+            </button>
           )}
         </div>
       </div>

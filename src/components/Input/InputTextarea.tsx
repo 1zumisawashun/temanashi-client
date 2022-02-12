@@ -10,7 +10,7 @@ const InputTextarea: FC<Props> = ({ label, state, setState }) => {
   return (
     <>
       <label>
-        <span>Furniture {label}:</span>
+        <span>{label}</span>
         <textarea
           required
           onChange={(e) => setState(e.target.value)}

@@ -10,7 +10,7 @@ const InputNumber: FC<Props> = ({ label, state, setState }) => {
   return (
     <>
       <label>
-        <span>Furniture {label}:</span>
+        <span>{label}</span>
         <input
           required
           type="number"

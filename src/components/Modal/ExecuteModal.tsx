@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import FlatButton from "../Button/FlatButton";
+import { scrollTop } from "../../utilities/convertValue";
 
 type Props = {
   message: string;
@@ -15,14 +16,6 @@ const ExecuteModal: FC<Props> = ({ message, onClick, setToggleModal }) => {
   const closeModal = () => {
     setToggleModal(false);
     document.body.style.overflow = "";
-  };
-
-  const scrollTop = (): number => {
-    return Math.max(
-      window.pageYOffset,
-      document.documentElement.scrollTop,
-      document.body.scrollTop
-    );
   };
 
   const styles = { top: scrollTop() };

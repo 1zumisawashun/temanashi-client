@@ -5,6 +5,7 @@ import { CommentToAdd } from "../../@types/dashboard";
 import FlatButton from "../Button/FlatButton";
 import CloseButton from "../Button/CloseButton";
 import { ProductItem } from "../../utilities/stripeClient";
+import { scrollTop } from "../../utilities/convertValue";
 
 type Props = {
   referense: firebase.firestore.CollectionReference<CommentToAdd>;
@@ -43,14 +44,6 @@ const FormModal: FC<Props> = ({ referense, item, setToggleModal }) => {
   const closeModal = () => {
     setToggleModal(false);
     document.body.style.overflow = "";
-  };
-
-  const scrollTop = (): number => {
-    return Math.max(
-      window.pageYOffset,
-      document.documentElement.scrollTop,
-      document.body.scrollTop
-    );
   };
 
   const styles = { top: scrollTop() };
