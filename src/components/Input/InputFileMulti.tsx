@@ -132,6 +132,7 @@ const PhotosUpload: FC<Props> = ({
       </label>
 
       <input
+        data-cy="file_upload"
         type="file"
         name={name}
         id={name}

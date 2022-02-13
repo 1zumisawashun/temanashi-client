@@ -69,19 +69,7 @@
   "devDependencies": {
     "@types/blueimp-load-image": "^5.14.4",
     "cypress": "^9.4.1",
+    "cypress-file-upload": "^5.0.8",
     "firebase-tools": "^10.2.0"
-  },
-  "description": "採用している技術スタック",
-  "main": "index.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/1zumisawashun/temanashi-client.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/1zumisawashun/temanashi-client/issues"
-  },
-  "homepage": "https://github.com/1zumisawashun/temanashi-client#readme"
+  }
 }

@@ -16,7 +16,7 @@ const Login: FC = () => {
   return (
     <div className="auth-container">
       <div className="wrapper -w25">
-        <div className="form">
+        <div className="form" data-cy="login">
           <h1>login</h1>
           <form onSubmit={handleSubmit}>
             <input
@@ -25,6 +25,7 @@ const Login: FC = () => {
               onChange={(e) => setEmail(e.target.value)}
               value={email}
               placeholder="xyz@gmail.com"
+              data-cy="email"
             />
             <input
               required
@@ -32,9 +33,14 @@ const Login: FC = () => {
               onChange={(e) => setPassword(e.target.value)}
               value={password}
               placeholder="Must have atleast 6 characters"
+              data-cy="password"
             />
 
-            {!isPending && <button type="submit">Login</button>}
+            {!isPending && (
+              <button type="submit" data-cy="login">
+                Login
+              </button>
+            )}
             {isPending && (
               <button type="submit" disabled>
                 Loading
