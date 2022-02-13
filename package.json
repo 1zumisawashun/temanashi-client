@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@stripe/stripe-js": "^1.15.0",
+    "@testing-library/cypress": "^8.0.2",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
@@ -19,7 +20,7 @@
     "date-fns": "^2.27.0",
     "firebase": "8.5",
     "hamburger-react": "^2.4.1",
-    "node-sass": "^7.0.0",
+    "node-sass": "^4.14.1",
     "react": "^17.0.2",
     "react-cookie": "^4.1.1",
     "react-dom": "^17.0.2",
@@ -40,7 +41,12 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "npm run build && firebase deploy"
+    "deploy": "npm run build && firebase deploy",
+    "emulators": "cd functions && npm run emulators",
+    "cy:open": "cypress open",
+    "cy:run": "cypress run",
+    "cy:run:chrome": "cypress run --browser chrome",
+    "cy:run:firefox": "cypress run --browser firefox"
   },
   "eslintConfig": {
     "extends": [
@@ -61,6 +67,21 @@
     ]
   },
   "devDependencies": {
-    "@types/blueimp-load-image": "^5.14.4"
-  }
+    "@types/blueimp-load-image": "^5.14.4",
+    "cypress": "^9.4.1",
+    "firebase-tools": "^10.2.0"
+  },
+  "description": "採用している技術スタック",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/1zumisawashun/temanashi-client.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/1zumisawashun/temanashi-client/issues"
+  },
+  "homepage": "https://github.com/1zumisawashun/temanashi-client#readme"
 }
