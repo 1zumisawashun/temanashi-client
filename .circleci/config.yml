@@ -3,7 +3,7 @@ executors:
   default:
     working_directory: ~/workspace
     docker:
-      - image: node:12
+      - image: node:14
 
 commands:
   restore_npm:
@@ -30,14 +30,8 @@ jobs:
           name: Install dependencies
           command: npm install
       - run:
-          name: Lint
-          command: npm run lint
-      - run:
           name: Build
           command: npm run build
-      - run:
-          name: Test
-          command: npm run test:unit
       - save_npm
   deploy:
     executor: default
