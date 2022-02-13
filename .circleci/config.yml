@@ -9,19 +9,15 @@ jobs:
      - run:
          name: node_modulesのインストール
          command: |
-           yarn
-     - run:
-         name: テスト
-         command: |
-           yarn lint
+           npm install
      - run:
          name: ビルド
          command: |
-           yarn run build
+           npm run build
      - run:
          name: firebase-toolsのインストール
          command: |
-           yarn add --dev firebase-tools
+           npm install --dev firebase-tools
      - run:
          name: firebaseへデプロイ
          command: |
