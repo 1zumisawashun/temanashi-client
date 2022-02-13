@@ -1,24 +1,34 @@
-version: 2.1
+version: 2
 jobs:
-  build:
-    docker:
-      - image: alpine:3.7
-    steps:
-      - checkout
-      - run:
-          name: The First Step
-          command: |
-            echo 'Hello World!'
-            echo 'This is the delivery pipeline'
-      - run:
-          name: Code Has Arrived
-          command: |
-            ls -al
-            echo '^^^That should look familiar^^^'
-      - run:
-          name: run build
-          command: |
-            npm install
-            ls -al
-            npm run build
-            ls -al
+ deploy_app:
+   working_directory: ~/sample
+   docker:
+     - image: circleci/node:10-browsers
+   steps:
+     - checkout
+     - run:
+         name: node_modulesのインストール
+         command: |
+           npm install
+           ls -al
+     - run:
+         name: ビルド
+         command: |
+           npm run build
+           ls -al
+     - run:
+         name: firebase-toolsのインストール
+         command: |
+           npm install --dev firebase-tools
+     - run:
+         name: firebaseへデプロイ
+         command: |
+           ./node_modules/.bin/firebase deploy --token=$FIREBASE_TOKEN
+workflows:
+ version: 2
+ build-deploy:
+   jobs:
+     - deploy_app:
+         filters:
+           branches:
+             only: master
