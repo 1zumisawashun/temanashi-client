@@ -1,21 +1,66 @@
-# This config is equivalent to both the '.circleci/extended/orb-free.yml' and the base '.circleci/config.yml'
 version: 2.1
+executors:
+  default:
+    working_directory: ~/workspace
+    docker:
+      - image: node:12
 
-# Orbs are reusable packages of CircleCI configuration that you may share across projects, enabling you to create encapsulated, parameterized commands, jobs, and executors that can be used across multiple projects.
-# See: https://circleci.com/docs/2.0/orb-intro/
-orbs:
-  node: circleci/node@4.7
+commands:
+  restore_npm:
+    steps:
+      - restore_cache:
+          name: Restore npm dependencies
+          key: npm-{{ checksum "package.json" }}
 
-# Invoke jobs via workflows
-# See: https://circleci.com/docs/2.0/configuration-reference/#workflows
+  save_npm:
+    steps:
+      - save_cache:
+          name: Cache npm dependencies
+          key: npm-{{ checksum "package.json" }}
+          paths:
+            - ~/workspace/node_modules
+
+jobs:
+  build:
+    executor: default
+    steps:
+      - checkout
+      - restore_npm
+      - run:
+          name: Install dependencies
+          command: npm install
+      - run:
+          name: Lint
+          command: npm run lint
+      - run:
+          name: Build
+          command: npm run build
+      - run:
+          name: Test
+          command: npm run test:unit
+      - save_npm
+  deploy:
+    executor: default
+    steps:
+      - checkout
+      - restore_npm
+      - run:
+          name: Build
+          command: npm run build
+      - run:
+          name: Check dist
+          command: ls -la dist
+      - run:
+          name: Deploy to Firebase Hosting
+          command: ./node_modules/.bin/firebase deploy --token=$FIREBASE_TOKEN
+
 workflows:
-  sample: # This is the name of the workflow, feel free to change it to better match your workflow.
-    # Inside the workflow, you define the jobs you want to run.
+  push-build:
     jobs:
-      - node/test:
-          # This is the node version to use for the `cimg/node` tag
-          # Relevant tags can be found on the CircleCI Developer Hub
-          # https://circleci.com/developer/images/image/cimg/node
-          version: '16.10'
-          # If you are using yarn, change the line below from "npm" to "yarn"
-          pkg-manager: npm
+      - build
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
