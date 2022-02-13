@@ -1,25 +1,34 @@
 version: 2
 jobs:
-  deploy_dev: # ジョブ名
+  build_deploy_master:
     docker:
-      - image: node:14 # ジョブ実行環境のDockerイメージを記述
+      - image: circleci/node:14
     steps:
-      - checkout # ソースコードのチェックアウト
-      - run: # 順に実行したいコマンドとコマンドに名前をつけます
-          name: npm install
-          command: npm i
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}-{{ checksum "functions/package.json" }}
+            - v1-dependencies-
       - run:
-          name: build
+          name: npm install
+          command: npm i && cd functions && npm i
+      - save_cache:
+          paths:
+            - node_modules
+            - functions/node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}-{{ checksum "functions/package.json" }}
+      - run:
+          name: build Client and Functions
           command: npm run build
       - run:
-          name: deploy to Firebase Hosting
-          command: ./node_modules/.bin/firebase deploy --token=$FIREBASE_TOKEN # プロジェクト上のfirebase-toolsでデプロイします
+          name: deploy to Firebase Hosting and Functions
+          command: ./node_modules/.bin/firebase deploy --token=$FIREBASE_TOKEN
 
 workflows:
   version: 2
-  deploy_dev: # ワークフローの名前
+  build_deploy_master:
     jobs:
-      - deploy_dev: # 上で定義したジョブを指定します
+      - build_deploy_master:
           filters:
             branches:
-              only: master # developブランチのみを実行対象とします
+              only: master
