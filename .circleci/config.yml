@@ -1,60 +1,36 @@
-version: 2.1
-executors:
-  default:
-    working_directory: ~/workspace
-    docker:
-      - image: node:14
-
-commands:
-  restore_npm:
-    steps:
-      - restore_cache:
-          name: Restore npm dependencies
-          key: npm-{{ checksum "package.json" }}
-
-  save_npm:
-    steps:
-      - save_cache:
-          name: Cache npm dependencies
-          key: npm-{{ checksum "package.json" }}
-          paths:
-            - ~/workspace/node_modules
-
+version: 2
 jobs:
-  build:
-    executor: default
-    steps:
-      - checkout
-      - restore_npm
-      - run:
-          name: Install dependencies
-          command: npm install
-      - run:
-          name: Build
-          command: npm run build
-      - save_npm
-  deploy:
-    executor: default
-    steps:
-      - checkout
-      - restore_npm
-      - run:
-          name: Build
-          command: npm run build
-      - run:
-          name: Check dist
-          command: ls -la dist
-      - run:
-          name: Deploy to Firebase Hosting
-          command: ./node_modules/.bin/firebase deploy --token=$FIREBASE_TOKEN
-
+ deploy_app:
+   working_directory: ~/sample
+   docker:
+     - image: circleci/node:10-browsers
+   steps:
+     - checkout
+     - run:
+         name: node_modulesのインストール
+         command: |
+           yarn
+     - run:
+         name: テスト
+         command: |
+           yarn lint
+     - run:
+         name: ビルド
+         command: |
+           yarn run build
+     - run:
+         name: firebase-toolsのインストール
+         command: |
+           yarn add --dev firebase-tools
+     - run:
+         name: firebaseへデプロイ
+         command: |
+           ./node_modules/.bin/firebase deploy --token=$FIREBASE_TOKEN
 workflows:
-  push-build:
-    jobs:
-      - build
-      - deploy:
-          requires:
-            - build
-          filters:
-            branches:
-              only: master
+ version: 2
+ build-deploy:
+   jobs:
+     - deploy_app:
+         filters:
+           branches:
+             only: master
