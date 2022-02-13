@@ -1,6 +1,6 @@
 import { FC, FormEvent } from "react";
 import UserNavbar from "../../components/UserNavbar";
-import { projectFunctions } from "../../firebase/config";
+import { projectFunctions, isEmulating } from "../../firebase/config";
 import axios from "axios";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { useCookies } from "react-cookie";
@@ -33,7 +33,7 @@ const UserAccount: FC = () => {
   };
   const onRequestTest = async () => {
     const result = await axios.get(
-      `${process.env.REACT_APP_BASE_URL}/helloOnRequest`
+      `${process.env.REACT_APP_BASE_URL_EMULATOR}/helloOnRequest`
     );
     console.log(result, "result");
   };
@@ -71,6 +71,15 @@ const UserAccount: FC = () => {
     removeCookie("productId", { path: "/" });
     console.log(cookies);
   };
+
+  const emulatingTest = async () => {
+    const result = await axios.get(
+      `${process.env.REACT_APP_BASE_URL_EMULATOR}/api/hello`
+      // `${process.env.REACT_APP_BASE_URL_EMULATOR}/helloOnRequest`
+    );
+    console.log(process.env.REACT_APP_BASE_URL_EMULATOR);
+    console.log(result, "check on emulator");
+  };
   return (
     <>
       <UserNavbar />
@@ -94,6 +103,17 @@ const UserAccount: FC = () => {
           <button onClick={removeProductIdCookie} className="btn">
             removeProductIdCookie
           </button>
+          {isEmulating && (
+            <button onClick={emulatingTest} className="btn">
+              emulatingTest
+            </button>
+          )}
+          {!isEmulating && (
+            <button onClick={emulatingTest} className="btn -disabled" disabled>
+              not work emulating test...
+            </button>
+          )}
+
           {!isPending && (
             <button onClick={handleSubmit} className="btn">
               Logout
