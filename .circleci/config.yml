@@ -33,11 +33,14 @@ jobs:
 
       - run:
           name: "Build Client Code(react-scripts によるビルド実行)"
-          command: npm run build
+          command: |
+            export CI=false
+            npm run build
+            export CI=true
 
       - attach_workspace:
           at: .
 
       - run:
           name: "Deploy to Hosting"
-          command:  ./node_modules/.bin/firebase deploy --token=$FIREBASE_TOKEN
+          command: ./node_modules/.bin/firebase deploy --token=$FIREBASE_TOKEN
