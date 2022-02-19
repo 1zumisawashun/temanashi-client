@@ -7,15 +7,23 @@ jobs:
     steps:
       - checkout
       - run:
+          name: envn
+          command: |
+            echo ${ENV} > ~/.env
+            ls -al
+            cat ~/.env
+            cat .env
+      - run:
           name: node_modulesのインストール
           command: |
             npm i && cd functions && npm i
             ls -al
-      - run: echo ${ENV} > ~/.env
       - run:
           name: ビルド
           command: |
-            npm run build && cd functions && npm run build
+            npm run build
+            ls -al
+            cd functions && npm run build
             ls -al
       - run:
           name: firebase-toolsのインストール
