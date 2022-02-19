@@ -14,7 +14,7 @@ jobs:
      - run:
          name: ビルド
          command: |
-           npm run build
+           npm run build && cd functions && npm run build
            ls -al
      - run:
          name: firebase-toolsのインストール
