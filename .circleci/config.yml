@@ -9,10 +9,9 @@ jobs:
       - run:
           name: envn
           command: |
-            echo ${ENV} > ~/.env
+            echo $ENV > ~/.env
             ls -al
             cat ~/.env
-            cat .env
       - run:
           name: node_modulesのインストール
           command: |
