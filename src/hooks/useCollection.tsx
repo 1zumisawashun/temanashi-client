@@ -18,33 +18,28 @@ export const useCollection = <T,>(
 
   useEffect(() => {
     let ref = collectionPoint<T>(collection);
-    if (ref !== undefined) {
-      if (query) {
-        ref = ref.where(...query) as firebase.firestore.CollectionReference<T>;
-      }
-      if (orderBy) {
-        if (ref === null) return;
-        ref = ref.orderBy(
-          ...orderBy
-        ) as firebase.firestore.CollectionReference<T>;
-      }
-      const unsubscribe = ref.onSnapshot(
-        (snapshot) => {
-          let results: Array<T> = [];
-          snapshot.docs.forEach((doc) => {
-            results.push({ ...doc.data(), id: doc.id });
-          });
-          setDocuments(results);
-          setError(null);
-        },
-        (error) => {
-          console.log(error);
-          setError("could not fetch the data");
-        }
-      );
-      // unsubscribe on unmount and clean a function
-      return () => unsubscribe();
+    if (query) {
+      ref = ref.where(...query) as firebase.firestore.CollectionReference<T>;
     }
+    if (orderBy) {
+      ref = ref.orderBy(
+        ...orderBy
+      ) as firebase.firestore.CollectionReference<T>;
+    }
+    const unsubscribe = ref.onSnapshot(
+      (snapshot) => {
+        const results: Array<T> = snapshot.docs.map((doc) => {
+          return { ...doc.data(), id: doc.id };
+        });
+        setDocuments(results);
+        setError(null);
+      },
+      (error) => {
+        setError("could not fetch the data");
+      }
+    );
+    // unsubscribe on unmount and clean a function
+    return () => unsubscribe();
   }, [collection, query, orderBy]);
 
   return { documents, error };

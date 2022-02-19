@@ -1,5 +1,9 @@
 import { FC, useState } from "react";
-import { line_item, productUseCase } from "../../utilities/stripeClient";
+import {
+  line_item,
+  productUseCase,
+  ProductItemWithoutComment,
+} from "../../utilities/stripeClient";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { useCartDocument } from "../../hooks/useCartDocument";
 import Loading from "../../components/Loading";
@@ -24,27 +28,28 @@ const Cart: FC = () => {
   const { documents } = useCartDocument();
 
   const onClickBuy = async () => {
-    let formatlineItems: { [key: string]: line_item } = {};
-    let documentsLineItems: Array<line_item> = [];
+    // NOTE:2n・n2乗のパフォーマンス改善でループを分けている
+    const priceIndexArray = documents.map(
+      (document: ProductItemWithoutComment): string => {
+        return Object.keys(document.prices)[0];
+      }
+    );
 
-    documents.forEach((document) => {
-      Object.keys(document.prices).forEach((priceIndex: string) => {
-        documentsLineItems = [
-          ...documentsLineItems,
-          { price: priceIndex, quantity: 1 },
-        ];
-      });
-    });
+    const documentsLineItems = priceIndexArray.map(
+      (priceIndex): line_item => {
+        return { price: priceIndex, quantity: 1 };
+      }
+    );
 
-    if (line_items.length !== 0) {
-      formatlineItems = line_items.reduce(
-        (acc: { [key: string]: line_item }, v: line_item) => {
-          acc[v.price] = v;
-          return acc;
-        },
-        {}
-      );
-    }
+    if (line_items.length === 0) return;
+
+    const formatlineItems = line_items.reduce(
+      (acc: { [key: string]: line_item }, v: line_item) => {
+        acc[v.price] = v;
+        return acc;
+      },
+      {}
+    );
 
     const resultsLineItems = documentsLineItems.map(
       (item: line_item) => formatlineItems[item.price] ?? item

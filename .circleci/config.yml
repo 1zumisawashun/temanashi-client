@@ -9,7 +9,7 @@ jobs:
      - run:
          name: node_modulesのインストール
          command: |
-           npm install
+           npm i && cd functions && npm i
            ls -al
      - run:
          name: ビルド
