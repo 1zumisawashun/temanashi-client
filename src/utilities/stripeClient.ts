@@ -79,7 +79,6 @@ class ProductUseCase {
     const commentMap = await commentSnapshot.docs.map((snapshot) => {
       return snapshot.data();
     });
-    console.log(commentMap, "commentMap");
     const productItem: ProductItem = {
       product: {
         id: productItemSnapshot.id,
@@ -155,7 +154,7 @@ class ProductUseCase {
           success_url,
           cancel_url,
         });
-
+      console.log(docRef, "commentMap");
       docRef.onSnapshot(async (snap) => {
         const { error, sessionId } = (await snap.data()) as CheckoutSessionDoc;
         if (error) return reject(error);

@@ -41,20 +41,21 @@ const Cart: FC = () => {
       }
     );
 
-    if (line_items.length === 0) return;
+    let formatlineItems: { [key: string]: line_item } = {};
 
-    const formatlineItems = line_items.reduce(
-      (acc: { [key: string]: line_item }, v: line_item) => {
-        acc[v.price] = v;
-        return acc;
-      },
-      {}
-    );
+    if (line_items.length === 0) {
+      formatlineItems = line_items.reduce(
+        (acc: { [key: string]: line_item }, v: line_item) => {
+          acc[v.price] = v;
+          return acc;
+        },
+        {}
+      );
+    }
 
     const resultsLineItems = documentsLineItems.map(
       (item: line_item) => formatlineItems[item.price] ?? item
     );
-
     const token = await verifyJWT();
 
     if (!token) {
@@ -63,7 +64,6 @@ const Cart: FC = () => {
       history.push("/login");
       return;
     }
-
     try {
       setIsPendingBuy(true);
       const uid = user.uid;

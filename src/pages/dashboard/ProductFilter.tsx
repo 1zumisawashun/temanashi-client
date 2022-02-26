@@ -10,10 +10,6 @@ const filterList: Array<string> = [
   "table",
   "shelf",
   "sofa",
-  "development",
-  "sales",
-  "design",
-  "marketing",
 ];
 
 type Props = {

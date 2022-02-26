@@ -33,7 +33,7 @@ const helloOnCall = functions.https.onCall((data, context) => {
 
 // Get Axios Test
 app.get("/hello", (req: any, res: any) => {
-  res.status(200).json({ message: "これでどうや？" });
+  res.status(200).json({ message: "hello world" });
 });
 
 // jwtの発行

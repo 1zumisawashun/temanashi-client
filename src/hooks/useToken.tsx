@@ -23,7 +23,7 @@ export const useToken = () => {
     setCookie("jwt", result.data.jwt, { path: "/" });
   };
 
-  const verifyJWT = async (): Promise<string> => {
+  const verifyJWT = async (): Promise<string | null> => {
     try {
       const headers = {
         Authorization: `Bearer ${cookies.jwt}`,
@@ -34,11 +34,11 @@ export const useToken = () => {
       );
       return result.data.message; // Promise.resolveを返す
     } catch (error) {
-      throw new Error("トークンが有効期限切れです。再ログインしてください。"); // Promise.rejectを返す
+      return null; // Promise.rejectを返す
     }
   };
 
-  const removeJWT =  () => {
+  const removeJWT = () => {
     removeCookie("jwt", { path: "/" });
   };
 

@@ -23,10 +23,6 @@ const categories = [
   { value: "table", label: "Table" },
   { value: "shelf", label: "Shelf" },
   { value: "sofa", label: "Sofa" },
-  { value: "development", label: "Development" },
-  { value: "design", label: "Design" },
-  { value: "sales", label: "Sales" },
-  { value: "marketing", label: "Marketing" },
 ];
 
 type CategoryOp = {
